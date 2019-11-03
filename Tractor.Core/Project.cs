@@ -22,5 +22,13 @@ namespace Tractor.Core
         
 
         public Dictionary<IEntity, IEntityRole> Performers { get;  }
+        
+        public Project(Guid id)
+        {
+            ID = id;
+            Subprojects = new List<IProject>();
+            Tasks = new List<ITasks>();
+            Performers = new Dictionary<IEntity, IEntityRole>();
+        }
     }
 }
