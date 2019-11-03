@@ -5,7 +5,8 @@ using Tractor.Core.Model;
 
 namespace Tractor.Core
 {
-    public class TaskPlaceLocation  : ITaskLocation
+    public class TaskPlaceLocation : ITaskLocation
     {
+        public Guid ID => throw new NotImplementedException();
     }
 }

@@ -7,5 +7,6 @@ namespace Tractor.Core
 {
     public class TaskWebLocation : ITaskLocation
     {
+        public Guid ID => throw new NotImplementedException();
     }
 }

@@ -6,6 +6,6 @@ namespace Tractor.Core.Model
 {
     public class EntityRole : IEntityRole
     {
-
+        public Guid ID => throw new NotImplementedException();
     }
 }

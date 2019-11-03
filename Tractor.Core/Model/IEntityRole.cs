@@ -6,5 +6,6 @@ namespace Tractor.Core.Model
 {
     public interface IEntityRole : IStuff
     {
+
     }
 }
