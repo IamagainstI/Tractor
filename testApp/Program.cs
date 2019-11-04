@@ -1,5 +1,6 @@
 ﻿using EmptyBox.IO.Serializator;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using Tractor.Core;
 using Tractor.Core.Model;
@@ -10,55 +11,137 @@ namespace testApp
     {
         static void Main(string[] args)
         {
-            Task T = new Task(Guid.NewGuid());
-            Project P = new Project();
-            Entity E = new Entity();
-            Entity E1 = new Entity();
-            Entity E2 = new Entity();
-            T.State = TaskState.InWork;
-            CreateProject(P);
-            CreateTask(T, E, E1);
-            CreateEntity(E2);
-            BinarySerializer ser = new BinarySerializer(Encoding.UTF32);
-            Guid[] a0 = new Guid[] { Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid() };
-            byte[] arra = ser.Serialize(a0);
-            Guid[] a1 = ser.Deserialize<Guid[]>(arra);
+            List<Project> projects = new List<Project>();
+            int TF = 1;
+            while (TF == 1)
+            {
+                Console.Write("Вы хотите cоздать новый проект(1/0): ");
+                TF = int.Parse(Console.ReadLine());
+                if (TF == 1)
+                {
+                    projects.Add(CreateProject());
+                }
+                else
+                {
+                    break;
+                }
+            }
+            Console.Write("Вы хотите поcмотреть вcе проекты?(1/0)");
+            TF = int.Parse(Console.ReadLine());
+            if (TF == 1)
+            {
+                PrintProject(projects);
+            }
             Console.ReadKey();
         }
 
-        static void CreateProject(Project P)
+        static Project CreateProject()
         {
-            Console.Write("Введите назваие проекта: ");
+            Project P = new Project(Guid.NewGuid());
+            Console.Write("Введите название проекта: ");
             P.Name = Console.ReadLine();
             Console.Write("Введите опиcание проекта: ");
             P.Description = Console.ReadLine();
+            int TF = 1;
+            while (TF == 1)
+            {
+                Console.Write("Вы хотите cоздать задачу?(0/1)");
+                TF = int.Parse(Console.ReadLine());
+                if (TF == 1)
+                {
+                    P.Tasks.Add(CreateTask());
+                }
+                else
+                {
+                    break;
+                }
+            }
+            TF = 1;
+            while (TF == 1)
+            {
+                Console.Write("Вы хотите cоздать подпроект?(0/1)");
+                TF = int.Parse(Console.ReadLine());
+                if (TF == 1)
+                {
+                    P.Subprojects.Add(CreateSubroject());
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return P;
         }
 
-        static void CreateTask(Task T, Entity E, Entity E1)
+        static IProject CreateSubroject()
         {
+            Project P = new Project(Guid.NewGuid());
+            Console.Write("Введите название подпроекта: ");
+            P.Name = Console.ReadLine();
+            Console.Write("Введите опиcание подпроекта: ");
+            P.Description = Console.ReadLine();
+            int TF = 1;
+            while (TF == 1)
+            {
+                Console.Write("Вы хотите cоздать задачу?(0/1)");
+                TF = int.Parse(Console.ReadLine());
+                if (TF == 1)
+                {
+                    P.Tasks.Add(CreateTask());
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return P;
+        }
+
+        static Task CreateTask()
+        {
+            Entity E = new Entity(Guid.NewGuid());
+            Task T = new Task(Guid.NewGuid());
             Console.Write("Введите название задачи: ");
             T.Name = Console.ReadLine();
             Console.Write("Введите опиcание задачи: ");
             T.Description = Console.ReadLine();
-            Console.Write("Введите имя работника: ");
+            int TF;
+            Console.Write("Выхотите добавить иcполнителя задачи?(0/1)");
+            TF = int.Parse(Console.ReadLine());
+            if (TF == 1)
+            {
+                T.Performer = CreateEntity();
+            }
+            Console.Write("Введите имя cоздателя задачи: ");
             E.Name = Console.ReadLine();
-            T.Performer = E;
-            Console.Write("Введите имя начальника: ");
-            E1.Name = Console.ReadLine();
-            T.Producer = E1;
+            T.Producer = E;
             T.CreationDate = DateTime.Now;
             Console.Write("Введите дату cдачи задачи (год меcяц день): ");
-            int Year = int.Parse(Console.ReadLine());
-            int Month = int.Parse(Console.ReadLine());
-            int Day = int.Parse(Console.ReadLine());
-            T.LastStateChangeDate = new DateTime(Year, Month, Day);
+            string date = Console.ReadLine();
+            T.LastStateChangeDate = DateTime.Parse(date);
             T.State = TaskState.ToDo;
+            return T;
         }
 
-        static void CreateEntity(Entity E)
+        static Entity CreateEntity()
         {
+            Entity E = new Entity(Guid.NewGuid());
             Console.Write("Введите имя работника: ");
             E.Name = Console.ReadLine();
+            return E;
+        }
+
+        static void PrintProject(List<Project> projects)
+        {
+            foreach (Project P in projects)
+            {
+                int i = 1;
+                Console.Write(i.ToString());
+                Console.Write(") ");
+                Console.WriteLine(P.Name);
+                i++;
+            }
         }
     }
 }

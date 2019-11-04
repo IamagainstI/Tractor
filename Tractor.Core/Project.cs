@@ -27,7 +27,7 @@ namespace Tractor.Core
         {
             ID = id;
             Subprojects = new List<IProject>();
-            Tasks = new List<ITasks>();
+            Tasks = new List<ITask>();
             Performers = new Dictionary<IEntity, IEntityRole>();
         }
     }

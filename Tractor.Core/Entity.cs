@@ -10,5 +10,10 @@ namespace Tractor.Core
         public Guid ID { get; }
         public string Name { get; set; }
 
+        public Entity(Guid id)
+        {
+            ID = id;
+        }
+
     }
 }
