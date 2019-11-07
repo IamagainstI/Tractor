@@ -17,8 +17,8 @@ namespace Tractor.Core
 
         public string Description { get; set; }
 
-        public List<IProject> Subprojects { get; }
-        public List<ITask> Tasks { get; }
+        public IList<IProject> Subprojects { get; }
+        public IList<ITask> Tasks { get; }
         
 
         public Dictionary<IEntity, IEntityRole> Performers { get;  }
@@ -27,7 +27,7 @@ namespace Tractor.Core
         {
             ID = id;
             Subprojects = new List<IProject>();
-            Tasks = new List<ITasks>();
+            Tasks = new List<ITask>();
             Performers = new Dictionary<IEntity, IEntityRole>();
         }
     }
