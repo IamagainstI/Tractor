@@ -1,0 +1,61 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Tractor.UWP.UI.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mcux="using:Microsoft.UI.Xaml.Controls"
+    x:Class="Tractor.UWP.UI.Pages.TeamsManagmentPage"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <SplitView
+            DisplayMode="Inline"
+            IsPaneOpen="True"
+            >
+            <SplitView.Content>
+                <TextBlock Text="test"/>
+            </SplitView.Content>
+            <SplitView.Pane>
+                <mcux:TreeView SelectionMode="Multiple">
+                    <mcux:TreeView.RootNodes>
+                        <mcux:TreeViewNode Content="Team #1" IsExpanded="True">
+                            <mcux:TreeViewNode.Children>
+                                <mcux:TreeViewNode Content="djart"/>
+                                <mcux:TreeViewNode Content="2"/>
+                                <mcux:TreeViewNode Content="3"/>
+                            </mcux:TreeViewNode.Children>
+                        </mcux:TreeViewNode>
+                    </mcux:TreeView.RootNodes>
+                </mcux:TreeView>
+            </SplitView.Pane>
+        </SplitView>
+        <CommandBar
+            Grid.Row="1" VerticalAlignment="Bottom">
+            <CommandBar.Content>
+                <Grid/>
+            </CommandBar.Content>
+            <AppBarButton Icon="Save" Label="Сохранить изменения"/>
+            <AppBarSeparator/>
+            <AppBarButton Icon="Add" Label="Добавить команду"/>
+            <AppBarButton Icon="AddFriend" Label="Добавить участника"/>
+            <AppBarSeparator/>
+            <AppBarButton Icon="Undo" Label="Отменить"/>
+            <AppBarButton Icon="Redo" Label="Вернуть"/>
+            <AppBarSeparator/>
+            <AppBarButton Label="Счётчик выделения">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="0" FontFamily="Segoe UI" FontSize="24"/>
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton Icon="Delete" Label="Удалить выделенные"/>
+            <AppBarButton Icon="ClearSelection" Label="Отчистить выделенные"/>
+            <AppBarButton Icon="SelectAll" Label="Выбрать всё"/>
+        </CommandBar>
+    </Grid>
+</Page>
