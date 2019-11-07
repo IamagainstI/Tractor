@@ -8,4 +8,10 @@
     <PackageReference Include="EmptyBox.IO" Version="0.0.0.33-alpha" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Decorators\" />
+    <Folder Include="Routers\" />
+    <Folder Include="Presentrs\" />
+  </ItemGroup>
+
 </Project>
