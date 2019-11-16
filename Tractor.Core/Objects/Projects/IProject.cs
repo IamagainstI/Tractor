@@ -4,6 +4,8 @@ using System.Text;
 
 namespace Tractor.Core.Model
 {
+    public delegate void ProjectChanged();
+
     public interface IProject : IStuff
     {
         string Name { get; }
