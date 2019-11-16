@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="BottomToTop" Layout="ForceDirected" ZoomLevel="-1" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="Address" Bounds="651.34417652346,1288.00698958392,62.51,25.96" Label="Address" />
+    <Node Id="AllInstances" Category="Category6" Bounds="90.7591110453621,1227.94420617493,106.703333333333,25.96" Label="IList AllInstances" />
+    <Node Id="Attachments" Category="Category6" Bounds="956.40932870263,1195.97900909279,111.073333333334,25.96" Label="IList Attachments" />
+    <Node Id="Attachments1" Category="Category6" Bounds="892.351829051694,719.6,108.93,25.96" Label="IList Repositories" />
+    <Node Id="C" Category="Category6" Bounds="712.830183322282,491.72,130.21,25.96" Label="IDictionary Members" />
+    <Node Id="CheckAvailability(DateTime,TimeSpan" Category="Category4" Bounds="134.606549988948,544.366989583916,233.523333333334,25.96" Label="? CheckAvailability(DateTime, TimeSpan)" />
+    <Node Id="Coordinates" Bounds="597.345425861552,1172.04698958392,92.6366666666668,25.96" Label="? Coordinates" />
+    <Node Id="CreationDate" Bounds="256.42902870263,1056.08698958392,143.6,25.96" Label="DateTime CreationDate" />
+    <Node Id="Credentials" Bounds="1187.48096007444,732.563084989018,79.0933333333332,25.96" Label="Credentials" />
+    <Node Id="Credentials1" Bounds="1103.2939027536,560.643084989017,79.0933333333332,25.96" Label="Credentials" />
+    <Node Id="Dependencies" Category="Category6" Bounds="383.55902870263,1000.12698958392,118.96,25.96" Label="IList Dependencies" />
+    <Node Id="Description" Bounds="256.42902870263,944.166989583916,80.2533333333333,25.96" />
+    <Node Id="Description1" Bounds="755.795162385028,663.64,80.2533333333336,25.96" Label="Description" />
+    <Node Id="Description2" Category="Category2" Bounds="964.091826459253,1323.23106984009,80.2533333333333,25.96" Label="Description" UseManualLocation="True" />
+    <Node Id="Duration" Bounds="20.0000000000001,1000.06420617493,121.693333333334,25.96" Label="TimeSpan Duration" />
+    <Node Id="Entities" Category="Category6" Bounds="438.129983322282,482.947390035413,82.373333333333,25.9600000000001" Label="IList Entities" />
+    <Node Id="Event" Category="Category2" Bounds="49.6639466721758,1131.98420617493,71.0533333333333,25.96" Label="EventTask" />
+    <Node Id="FTPRepository" Category="Category2" Bounds="1254.70151681416,808.523084989018,95.1300000000001,25.96" />
+    <Node Id="Folder" Category="Category2" Bounds="1117.48276203596,1023.44,53.3133333333333,25.96" />
+    <Node Id="GitHubEntity" Category="Category2" Bounds="280.853216655615,388.406989583916,107.276666666667,85.96" Group="Expanded" />
+    <Node Id="GitHubProject" Category="Category2" Bounds="1083.2939027536,464.683084989017,119.093333333333,141.92" Group="Expanded" />
+    <Node Id="GitHubTask" Category="Category2" Bounds="376.330540388212,1132.04698958392,79.6733333333332,25.96" />
+    <Node Id="GitHubTeam" Category="Category2" Bounds="574.136749988948,480.780927888617,88.6933333333332,25.9600000000001" Label="GitHub Team" />
+    <Node Id="GitRepository" Category="Category2" Bounds="1353.56203133487,580.643084989018,156.63,85.96" Group="Expanded" Label="NetworkGitRepository" />
+    <Node Id="GoogleDriveStorageRepository" Category="Category2" Bounds="1351.08647633071,864.483084989018,183.03,25.96" />
+    <Node Id="History" Bounds="1137.48276203596,1231.32,57.5966666666664,25.96" Label="History" />
+    <Node Id="IAddress" Bounds="650.995144952581,1363.96698958392,65.7033333333334,25.96" />
+    <Node Id="ICloudStorageRepository" Bounds="1329.33606007444,752.563084989018,151.386666666667,25.96" />
+    <Node Id="ICredentials" Bounds="1110.98183133488,636.603084989017,82.2866666666669,25.96" />
+    <Node Id="ID" Bounds="309.491549988948,428.406989583916,50,25.96" Label="? ID" />
+    <Node Id="IDataBase" Bounds="418.129983322282,442.947390035413,126.006666666667,141.92" Group="Expanded" />
+    <Node Id="IDescription" Bounds="936.40932870263,1044.05900909279,151.073333333334,197.88" Group="Expanded" />
+    <Node Id="IDescriptionDifference" Bounds="1675.60315339391,0,137.616666666667,25.96" />
+    <Node Id="IDictionaryCheckList" Category="Category6" Bounds="212.620335882431,716.286989583916,170.383333333333,25.96" Label="IDictionary&lt;bool&gt; CheckList" />
+    <Node Id="IDifference" Bounds="1705.53103570746,171.92,77.3633333333328,25.96" />
+    <Node Id="IEntity" Bounds="458.490265280143,614.867390035414,125.08,85.96" Group="Expanded" Label="IEntity" />
+    <Node Id="IEntityRole" Bounds="629.855062385028,591.571469542385,75.9400000000001,25.96" Label="IEntityRole" />
+    <Node Id="IGitItem" Bounds="1117.48276203596,1191.32,97.5966666666664,85.96" Group="Expanded" Label="IGitFile" />
+    <Node Id="ILabel" Bounds="855.222562035963,1130.96309828054,51.1866666666665,25.96" />
+    <Node Id="ILabelDifference" Bounds="1691.11674670371,283.84,105.356666666667,25.96" />
+    <Node Id="IListPatch" Category="Category6" Bounds="1671.64936904079,95.9600000000001,73.0133333333333,25.96" Label="IList Patch" />
+    <Node Id="ILocalRepository" Bounds="1194.39304299738,900.043636637825,126.693333333333,85.96" Group="Expanded" />
+    <Node Id="IManualUpdatedProgress" Bounds="688.17178778089,111.92,154.176666666667,25.96" />
+    <Node Id="IMeetingTask" Bounds="192.620335882431,620.326989583916,210.383333333333,141.92" Group="Expanded" />
+    <Node Id="IProgressDifference" Bounds="1608.07575569536,227.88,122.99,25.96" />
+    <Node Id="IProject" Bounds="735.795162385028,567.68,285.486666666666,253.84" Group="Expanded" />
+    <Node Id="IProjectDifference" Bounds="1761.06585569536,227.88,114.08,25.96" />
+    <Node Id="IRepository" Bounds="941.374650147496,851.52,113.163333333333,85.96" Group="Expanded" />
+    <Node Id="IStorageFile" Category="Category10" Bounds="1117.48276203596,1079.4,81.8499999999999,25.96" />
+    <Node Id="IStorageFolder" Category="Category10" Bounds="1067.17960966405,967.48,97.2133333333331,25.96" />
+    <Node Id="IStorageItem" Category="Category10" Bounds="949.406176330713,988.099009092794,87.7733333333334,25.96" />
+    <Node Id="IStorageRepository" Bounds="1084.53808348083,845.043636637825,140.163333333333,25" Group="Collapsed" />
+    <Node Id="ISynchronizationTask" Bounds="1633.41770237413,55.9600000000001,149.476666666667,85.96" Group="Expanded" />
+    <Node Id="ITask" Bounds="236.42902870263,848.206989583916,356.07,253.84" Group="Expanded" Label="ITask" />
+    <Node Id="ITask2" Bounds="1.13686837721616E-13,960.06420617493,164.163333333333,141.92" Group="Expanded" Label="IEventTask" />
+    <Node Id="ITaskBasedTaskProgress" Category="Category2" Bounds="801.520026514739,395.76,119.153333333334,25.96" Label="TaskBasedProgress" />
+    <Node Id="ITaskDifference" Bounds="1812.89446904079,169.949619163956,99.4666666666667,25.96" />
+    <Node Id="ITaskLocation" Bounds="622.499128702629,921.143432140451,90.4200000000001,25.96" Label="ITaskLocation" />
+    <Node Id="ITaskPlaceLocation" Bounds="622.499128702629,1076.08698958392,117.973333333333,25.96" />
+    <Node Id="ITaskProgress" Bounds="640.992549228477,223.84,246.766666666667,141.92" Group="Expanded" Label="IProgress" />
+    <Node Id="ITeam" Bounds="692.830183322282,451.72,170.21,85.9600000000001" Group="Expanded" Label="ITeam" />
+    <Node Id="ITimeBasedTaskProgress" Category="Category2" Bounds="714.499434541984,167.88,122.856666666667,25.96" Label="TimeBasedProgress" />
+    <Node Id="ITractorEntity" Bounds="114.606549988948,504.366989583916,273.523333333334,85.96" Group="Expanded" />
+    <Node Id="ImageFile" Category="Category2" Bounds="1117.48276203596,1135.36,70.9299999999998,25.96" />
+    <Node Id="Items" Category="Category6" Bounds="961.374650147496,891.52,73.1633333333334,25.96" Label="IList Items" />
+    <Node Id="JournalTask" Category="Category2" Bounds="258.308226669452,792.246989583916,80.1833333333334,25.96" />
+    <Node Id="Labels" Category="Category6" Bounds="956.40932870263,1084.05900909279,77.2833333333336,25.96" Label="IList Labels" />
+    <Node Id="LocalFileRepository" Category="Category2" Bounds="1229.33286203596,1071.00363663783,121.45,25.96" />
+    <Node Id="LocalGitRepository" Category="Category2" Bounds="1244.42601046865,1016.00363663783,138.706666666667,25" Group="Collapsed" />
+    <Node Id="Location" Bounds="256.42902870263,888.206989583916,65.1233333333334,25.96" />
+    <Node Id="ManualUpdatedTaskProgress" Category="Category2" Bounds="700.439960069884,0,150.983333333334,25.96" Label="ManualUpdatedProgress" />
+    <Node Id="Name" Bounds="478.490265280143,654.867390035414,85.0799999999999,25.96" Label="string Name" />
+    <Node Id="Name1" Bounds="366.682362035963,944.166989583916,85.0799999999999,25.96" Label="string Name" />
+    <Node Id="Name2" Bounds="866.048495718361,663.64,85.0799999999999,25.96" Label="string Name" />
+    <Node Id="NetworkFileRepository" Bounds="1154.71929340777,692.563084989018,144.616666666667,85.96" Group="Expanded" Label="INetworkRepository" />
+    <Node Id="Observers" Category="Category6" Bounds="256.42902870263,1000.12698958392,97.1300000000001,25.96" Label="IList Observers" />
+    <Node Id="OneDriveStorageRepository" Category="Category2" Bounds="1411.47575569536,696.603084989018,166.6,25.96" />
+    <Node Id="Participants" Category="Category6" Bounds="212.620335882431,660.326989583916,81.123333333333,25.96" Label="Participants" />
+    <Node Id="Path" Bounds="1219.41137633071,940.043636637825,76.6566666666668,25.96" Label="string Path" />
+    <Node Id="Path1" Bounds="1382.62369800154,620.643084989018,98.5066666666667,25.96" Label="string Location" />
+    <Node Id="Path2" Bounds="786.532562035963,939.727438126409,50,25.96" Label="Item" />
+    <Node Id="Performer" Bounds="430.02902870263,1056.08698958392,72.4733333333334,25.96" />
+    <Node Id="Performers" Category="Category6" Bounds="755.795162385028,775.56,137.79,25.96" Label="IDictionary Performers" />
+    <Node Id="Producer" Bounds="447.17902870263,888.206989583916,67.7733333333333,25.96" />
+    <Node Id="Progress" Bounds="351.552362035963,888.206989583916,65.6266666666666,25.96" />
+    <Node Id="Progress1" Bounds="755.795162385028,607.68,65.6266666666666,25.96" Label="Progress" />
+    <Node Id="ProgressPercentage" Bounds="660.992549228477,263.84,124.48,25.96" Label="ProgressPercentage" />
+    <Node Id="Projects" Category="Category6" Bounds="438.129983322282,538.907390035414,86.0066666666667,25.96" Label="IList Projects" />
+    <Node Id="RepeatedTask" Category="Category2" Bounds="70.7591110453621,1187.94420617493,146.703333333333,85.96" Group="Expanded" Label="RepetitiveTask" />
+    <Node Id="Repository" Bounds="786.532562035963,995.687438126409,76.2633333333333,25.9600000000002" Label="Repository" />
+    <Node Id="SMBRepository" Category="Category2" Bounds="1223.26859800154,636.603084989017,100.293333333333,25.96" />
+    <Node Id="StageBasedProgress" Category="Category2" Bounds="621.924074701232,55.96,126.553333333333,25.96" />
+    <Node Id="StartTime" Bounds="20.0000000000001,1056.02420617493,124.163333333333,25.96" Label="DateTime StartTime" />
+    <Node Id="Subprojects" Category="Category6" Bounds="755.795162385028,719.6,106.556666666666,25.96" Label="IList Subprojects" />
+    <Node Id="Subtasks" Category="Category6" Bounds="481.762362035963,944.166989583916,90.7366666666667,25.96" Label="IList Subtasks" />
+    <Node Id="TaskAbsoluteLocation" Category="Category2" Bounds="566.572092528218,1132.04698958392,154.183333333333,85.96" Group="Expanded" />
+    <Node Id="TaskPlaceLocation" Category="Category2" Bounds="607.730843190127,1248.00698958392,149.736666666667,85.96" Group="Expanded" Label="TaskAddressLocation" />
+    <Node Id="TaskRepositoryLocation" Category="Category2" Bounds="742.91922870263,899.727438126409,163.49,141.92" Group="Expanded" />
+    <Node Id="TaskWebLocation" Category="Category2" Bounds="574.498395718361,732.246989583916,131.296666666667,85.96" Group="Expanded" />
+    <Node Id="Tasks" Category="Category6" Bounds="851.421829051694,607.68,71.3933333333337,25.96" Label="IList Tasks" />
+    <Node Id="Team" Category="Category2" Bounds="721.519926514739,395.76,50,25.96" />
+    <Node Id="TimeLastChangeProgress" Bounds="660.992549228477,319.8,206.766666666667,25.96" Label="DateTime TimeLastChangeProgress" />
+    <Node Id="ToHTML()" Category="Category4" Bounds="956.40932870263,1140.01900909279,104.003333333333,25.96" Label="string ToHTML()" />
+    <Node Id="TractorAccount" Category="Category2" Bounds="151.013116655615,448.406989583916,99.8400000000001,25.96" />
+    <Node Id="URL" Bounds="615.146729051695,772.246989583916,50,25.96" Label="URL" />
+    <Node Id="URL1" Bounds="1103.2939027536,504.683084989017,74.4533333333334,25.96" Label="string URL" />
+    <Node Id="UsualTask" Category="Category2" Bounds="380.540811426355,792.246989583916,71.2433333333333,25.96" />
+  </Nodes>
+  <Links>
+    <Link Source="GitHubEntity" Target="ID" Category="Contains" />
+    <Link Source="GitHubProject" Target="Credentials1" Category="Contains" />
+    <Link Source="GitHubProject" Target="URL1" Category="Contains" />
+    <Link Source="GitRepository" Target="Path1" Category="Contains" />
+    <Link Source="IAddress" Target="Address" Bounds="927.931195745342,16.7457126906909,0.335088033864395,61.0003357863369" />
+    <Link Source="ICloudStorageRepository" Target="GoogleDriveStorageRepository" Bounds="1409.38684190973,778.523084989018,25.9929322342612,77.4279398250261" />
+    <Link Source="ICloudStorageRepository" Target="OneDriveStorageRepository" Bounds="1425.84618723359,727.325027460452,40.4757658040326,25.2380575285658" />
+    <Link Source="ICredentials" Target="Credentials" Bounds="1158.96026431403,664.639240718669,48.9001371534164,62.895032596971" />
+    <Link Source="ICredentials" Target="Credentials1" Bounds="287.632429084642,157.559557576059,240.219291620344,482.272942423941" />
+    <Link Source="IDataBase" Target="Entities" Category="Contains" />
+    <Link Source="IDataBase" Target="Projects" Category="Contains" />
+    <Link Source="IDescription" Target="Attachments" Category="Contains" />
+    <Link Source="IDescription" Target="Description" Bounds="345.361315717716,969.826301301036,591.048001502336,153.549029937574" />
+    <Link Source="IDescription" Target="Description1" Bounds="805.71677439058,697.766476860563,160.40076498826,346.292610590576" />
+    <Link Source="IDescription" Target="Description2" Bounds="1005.09729312458,1241.93908745114,2.89159697106413,72.2991719231022" />
+    <Link Source="IDescription" Target="Labels" Category="Contains" />
+    <Link Source="IDescription" Target="ToHTML()" Category="Contains" />
+    <Link Source="IDifference" Target="IDescriptionDifference" Bounds="1763.50378417969,31.1832637786865,29.5247802734375,140.736734390259" />
+    <Link Source="IDifference" Target="ILabelDifference" Bounds="1743.87709677045,197.88,0.287171562079948,76.9600626556175" />
+    <Link Source="IDifference" Target="IListPatch" Bounds="1714.70966165022,130.050337499671,19.8746225567081,41.8696883060519" />
+    <Link Source="IDifference" Target="IProgressDifference" Bounds="1694.08505290339,197.88,32.8143458987095,24.601325102017" />
+    <Link Source="IDifference" Target="IProjectDifference" Bounds="1761.35232228316,197.88,32.4391653800405,24.566493823528" />
+    <Link Source="IDifference" Target="ITaskDifference" Bounds="1782.89436904079,183.906898074851,21.001345685813,0.349454158046342" />
+    <Link Source="IEntity" Target="C" Bounds="799.993220819864,875.517572404961,185.946618307358,160.369002056123" />
+    <Link Source="IEntity" Target="Entities" Bounds="482.216763221842,517.538134573296,25.2081452272408,97.2483324839085" />
+    <Link Source="IEntity" Target="GitHubEntity" Bounds="392.113464355469,479.831634521484,66.3768005371094,143.244232177734" />
+    <Link Source="IEntity" Target="IDictionaryCheckList" Bounds="1091.01146341728,745.084103601907,57.1554991999337,44.4732688030548" />
+    <Link Source="IEntity" Target="ITeam" Bounds="51.51784017345,-211.573925869084,14.5203677186561,22.444890563509" />
+    <Link Source="IEntity" Target="ITractorEntity" Bounds="364.583320393417,593.739555256381,93.9069448867264,38.4805910512398" />
+    <Link Source="IEntity" Target="Name" Category="Contains" />
+    <Link Source="IEntity" Target="Observers" Bounds="444.243883363556,700.746467057204,64.7637698877278,291.218382040449" />
+    <Link Source="IEntity" Target="Participants" Bounds="1060.07275561416,691.431487514165,55.473238976675,98.1258848907967" />
+    <Link Source="IEntity" Target="Performer" Bounds="1045.76495508052,520.442922420103,62.5512582533688,269.114449984859" />
+    <Link Source="IEntity" Target="Performers" Bounds="787.59206010307,828.214211001461,185.642872758258,3.23383583126008" />
+    <Link Source="IEntity" Target="Producer" Bounds="1040.73558021813,352.731026165454,50.4173201051844,436.826346239507" />
+    <Link Source="IEntityRole" Target="C" Bounds="754.184684419858,988.794899712727,22.449453204796,61.5450801463379" />
+    <Link Source="IEntityRole" Target="Performers" Bounds="713.420029669453,865.412142552168,32.40233653147,97.4203733350273" />
+    <Link Source="IGitItem" Target="History" Category="Contains" />
+    <Link Source="ILabel" Target="Labels" Bounds="901.775867316158,1113.70165256372,48.726612908131,19.9948678485555" />
+    <Link Source="ILocalRepository" Target="LocalFileRepository" Bounds="1241.36791992188,986.003662109375,18.8974609375,80.432373046875" />
+    <Link Source="ILocalRepository" Target="LocalGitRepository" Bounds="1285.91686777411,986.003636637825,14.7332072019794,22.4732829005488" />
+    <Link Source="ILocalRepository" Target="Path" Category="Contains" />
+    <Link Source="IManualUpdatedProgress" Target="ManualUpdatedTaskProgress" Bounds="766.497756416026,34.9193650733445,7.34196487261113,77.0006349266556" />
+    <Link Source="IManualUpdatedProgress" Target="StageBasedProgress" Bounds="711.147242384163,87.0761159862944,35.5429940069138,24.8438840137057" />
+    <Link Source="IMeetingTask" Target="IDictionaryCheckList" Category="Contains" />
+    <Link Source="IMeetingTask" Target="JournalTask" Bounds="298.178131478772,762.246989583916,0.108353317139006,21.0001197966631" />
+    <Link Source="IMeetingTask" Target="Participants" Category="Contains" />
+    <Link Source="IProject" Target="Attachments1" Category="Contains" />
+    <Link Source="IProject" Target="Description1" Category="Contains" />
+    <Link Source="IProject" Target="GitHubProject" Bounds="1021.28182905169,576.094242673019,54.2994779528087,32.6568663695771" />
+    <Link Source="IProject" Target="Name2" Category="Contains" />
+    <Link Source="IProject" Target="Performers" Category="Contains" />
+    <Link Source="IProject" Target="Progress1" Category="Contains" />
+    <Link Source="IProject" Target="Projects" Bounds="522.989619738505,567.830597955826,209.922744763448,75.458964468612" />
+    <Link Source="IProject" Target="Subprojects" Category="Contains" />
+    <Link Source="IProject" Target="Subprojects" Index="1" Bounds="734.195190429688,732.580200195313,12.5999755859375,1.60003662109375" />
+    <Link Source="IProject" Target="Tasks" Category="Contains" />
+    <Link Source="IRepository" Target="Attachments1" Bounds="950.562088816802,754.163699621033,29.8972025315566,97.3569302783153" />
+    <Link Source="IRepository" Target="IStorageRepository" Bounds="1054.53798348083,872.10999052512,38.3328605644078,9.04258954108104" />
+    <Link Source="IRepository" Target="Items" Category="Contains" />
+    <Link Source="IRepository" Target="Repository" Bounds="847.270069505623,931.81351173089,89.8062228120856,59.2228567369845" />
+    <Link Source="IStorageFile" Target="IGitItem" Bounds="1174.26989746094,1105.35998535156,23.4114990234375,77.4822998046875" />
+    <Link Source="IStorageFile" Target="ImageFile" Bounds="1155.08819367121,1105.36,2.05311375432007,21.0425358409811" />
+    <Link Source="IStorageFolder" Target="Folder" Bounds="1122.3628295435,993.440000000001,11.1323530235979,21.9716829729866" />
+    <Link Source="IStorageItem" Target="Attachments" Bounds="994.457515273067,1014.05878745114,15.5194285232728,172.9564145254" />
+    <Link Source="IStorageItem" Target="IStorageFile" Bounds="1034.4736328125,1014.04455566406,103.948120117188,59.1173095703125" />
+    <Link Source="IStorageItem" Target="IStorageFolder" Bounds="1037.17950966405,990.135767378023,21.1249565110641,3.55591037440513" />
+    <Link Source="IStorageItem" Target="Items" Bounds="993.919583108876,926.470142922669,2.97587036706454,61.6286445284705" />
+    <Link Source="IStorageItem" Target="Path2" Bounds="845.229812687275,961.675159948783,104.625986119512,27.8438454398959" />
+    <Link Source="IStorageRepository" Target="ILocalRepository" Bounds="1169.69929499959,870.043636637825,29.2619598582298,24.2563354408616" />
+    <Link Source="IStorageRepository" Target="NetworkFileRepository" Bounds="1162.03855641671,786.262611653894,34.8868029329426,58.7810249839316" />
+    <Link Source="ISynchronizationTask" Target="IListPatch" Category="Contains" />
+    <Link Source="ITask" Target="CreationDate" Category="Contains" />
+    <Link Source="ITask" Target="Dependencies" Category="Contains" />
+    <Link Source="ITask" Target="Dependencies" Index="1" Bounds="443.039031982422,1035.08715820313,1.60000610351563,68.559814453125" />
+    <Link Source="ITask" Target="Description" Category="Contains" />
+    <Link Source="ITask" Target="GitHubTask" Bounds="415.736350047347,1102.04698958392,0.210520986132167,21.0004521820119" />
+    <Link Source="ITask" Target="IMeetingTask" Bounds="330.396157858901,770.571395934149,31.9065293858425,77.6355936497664" />
+    <Link Source="ITask" Target="ITask2" Bounds="173.038703410583,1005.06738983507,63.3903252920465,10.6604415496661" />
+    <Link Source="ITask" Target="Location" Category="Contains" />
+    <Link Source="ITask" Target="Name1" Category="Contains" />
+    <Link Source="ITask" Target="Observers" Category="Contains" />
+    <Link Source="ITask" Target="Performer" Category="Contains" />
+    <Link Source="ITask" Target="Producer" Category="Contains" />
+    <Link Source="ITask" Target="Progress" Category="Contains" />
+    <Link Source="ITask" Target="Subtasks" Category="Contains" />
+    <Link Source="ITask" Target="Subtasks" Index="1" Bounds="581.499084472656,957.147033691406,12.5999145507813,1.60003662109375" />
+    <Link Source="ITask" Target="Tasks" Bounds="583.702051431446,639.039785229484,278.908477555982,209.16732903081" />
+    <Link Source="ITask" Target="UsualTask" Bounds="415.732817382021,827.206539909243,0.20993643877523,21.0004496746728" />
+    <Link Source="ITask2" Target="Duration" Category="Contains" />
+    <Link Source="ITask2" Target="Event" Bounds="84.01786866647,1101.98420617493,0.573093648213899,21.0033484529977" />
+    <Link Source="ITask2" Target="RepeatedTask" Bounds="120.18431854248,1101.98425292969,17.6156387329102,77.0257568359375" />
+    <Link Source="ITask2" Target="StartTime" Category="Contains" />
+    <Link Source="ITaskBasedTaskProgress" Target="Progress1" Bounds="793.138531015796,421.719541486347,61.2170416576026,177.452534983207" />
+    <Link Source="ITaskLocation" Target="ITaskPlaceLocation" Bounds="668.863233695982,947.103432140451,10.6713743479122,120.018923610679" />
+    <Link Source="ITaskLocation" Target="Location" Bounds="344.188012616465,905.591703744965,273.720548174551,24.9272674418671" />
+    <Link Source="ITaskLocation" Target="TaskRepositoryLocation" Bounds="712.870017304102,944.644039633648,21.2839137948415,4.95826609902576" />
+    <Link Source="ITaskLocation" Target="TaskWebLocation" Bounds="649.140283128348,827.074570593486,16.3173165802212,94.0688615469654" />
+    <Link Source="ITaskPlaceLocation" Target="TaskAbsoluteLocation" Bounds="666.1993955991,1102.04698958392,9.57525470802955,21.762151855248" />
+    <Link Source="ITaskPlaceLocation" Target="TaskPlaceLocation" Bounds="701.009155273438,1102.04699707031,27.1080932617188,138.26220703125" />
+    <Link Source="ITaskProgress" Target="IManualUpdatedProgress" Bounds="704.91796875,141.480392456055,21.1937866210938,82.3596038818359" />
+    <Link Source="ITaskProgress" Target="ITaskBasedTaskProgress" Bounds="824.612048276805,365.76,19.6418951231909,23.1387383542356" />
+    <Link Source="ITaskProgress" Target="ITimeBasedTaskProgress" Bounds="771.570210996482,202.794097811884,2.13375327713186,21.045902188116" />
+    <Link Source="ITaskProgress" Target="Progress" Bounds="410.487831501145,365.759291486347,310.069861159684,515.359012168257" />
+    <Link Source="ITaskProgress" Target="ProgressPercentage" Category="Contains" />
+    <Link Source="ITaskProgress" Target="TimeLastChangeProgress" Category="Contains" />
+    <Link Source="ITeam" Target="C" Category="Contains" />
+    <Link Source="ITeam" Target="GitHubTeam" Bounds="671.829927244734,494.075105783169,21.0002560775473,0.123678496805496" />
+    <Link Source="ITeam" Target="Team" Bounds="754.352971010155,430.17316888832,7.87458390835468,21.5468311116798" />
+    <Link Source="ITractorEntity" Target="CheckAvailability(DateTime,TimeSpan" Category="Contains" />
+    <Link Source="ITractorEntity" Target="TractorAccount" Bounds="213.103323305513,482.129507465812,13.0473433501027,22.2374821181048" />
+    <Link Source="NetworkFileRepository" Target="Credentials" Category="Contains" />
+    <Link Source="NetworkFileRepository" Target="FTPRepository" Bounds="1264.64707177763,778.523084989018,20.3307302297756,23.2277425790638" />
+    <Link Source="NetworkFileRepository" Target="GitRepository" Bounds="1299.13177059787,669.749386576215,48.3193724574289,26.3994136383243" />
+    <Link Source="NetworkFileRepository" Target="ICloudStorageRepository" Bounds="1299.33596007444,747.729761787918,22.5296597092465,3.79709597232875" />
+    <Link Source="NetworkFileRepository" Target="SMBRepository" Bounds="1250.22144570466,670.483418291215,11.915118477534,22.0796666978026" />
+    <Link Source="RepeatedTask" Target="AllInstances" Category="Contains" />
+    <Link Source="RepeatedTask" Target="AllInstances" Index="1" Bounds="144.110717773438,1262.90441894531,1.60000610351563,12.5997314453125" />
+    <Link Source="TaskAbsoluteLocation" Target="Coordinates" Category="Contains" />
+    <Link Source="TaskPlaceLocation" Target="Address" Category="Contains" />
+    <Link Source="TaskRepositoryLocation" Target="Path2" Category="Contains" />
+    <Link Source="TaskRepositoryLocation" Target="Repository" Category="Contains" />
+    <Link Source="TaskWebLocation" Target="URL" Category="Contains" />
+  </Links>
+  <Categories>
+    <Category Id="Category10" Label="Категория 10" Background="#FF672878" IsTag="True" />
+    <Category Id="Category2" Label="Категория 2" Background="#FF339933" IsTag="True" />
+    <Category Id="Category4" Label="Категория 4" Background="#FF1BA1E2" IsTag="True" />
+    <Category Id="Category6" Label="Категория 6" Background="#FFA1260D" IsTag="True" />
+    <Category Id="Contains" Label="Содержит" Description="Указывает, содержит ли источник связи целевой объект" CanBeDataDriven="False" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Содержится в" IsContainment="True" OutgoingActionLabel="Содержит" />
+  </Categories>
+  <Properties>
+    <Property Id="Background" Label="Фон" Description="Цвет фона" DataType="System.Windows.Media.Brush" />
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
+    <Property Id="Expression" DataType="System.String" />
+    <Property Id="GraphDirection" DataType="Microsoft.VisualStudio.Diagrams.Layout.LayoutOrientation" />
+    <Property Id="Group" Label="Группа" Description="Отображать узел как группу" DataType="Microsoft.VisualStudio.GraphModel.GraphGroupStyle" />
+    <Property Id="GroupLabel" DataType="System.String" />
+    <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
+    <Property Id="IsContainment" DataType="System.Boolean" />
+    <Property Id="IsEnabled" DataType="System.Boolean" />
+    <Property Id="IsTag" DataType="System.Boolean" />
+    <Property Id="Label" Label="Метка" Description="Отображаемая метка аннотируемого объекта" DataType="System.String" />
+    <Property Id="Layout" DataType="System.String" />
+    <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
+    <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+    <Property Id="Value" DataType="System.String" />
+    <Property Id="ValueLabel" DataType="System.String" />
+    <Property Id="ZoomLevel" DataType="System.String" />
+  </Properties>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Категория 10" ValueLabel="Имеет категорию">
+      <Condition Expression="HasCategory('Category10')" />
+      <Setter Property="Background" Value="#FF672878" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Категория 1" ValueLabel="Имеет категорию">
+      <Condition Expression="HasCategory('Category1')" />
+      <Setter Property="Background" Value="#FFE51400" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Категория 4" ValueLabel="Имеет категорию">
+      <Condition Expression="HasCategory('Category4')" />
+      <Setter Property="Background" Value="#FF1BA1E2" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Категория 6" ValueLabel="Имеет категорию">
+      <Condition Expression="HasCategory('Category6')" />
+      <Setter Property="Background" Value="#FFA1260D" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Категория 2" ValueLabel="Имеет категорию">
+      <Condition Expression="HasCategory('Category2')" />
+      <Setter Property="Background" Value="#FF339933" />
+    </Style>
+  </Styles>
+</DirectedGraph>
