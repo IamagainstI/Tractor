@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Tractor.Core.Model;
+using Tractor.Core.Objects;
+using Tractor.Core.Objects.Progress;
 
-namespace Tractor.Core
+namespace Tractor.Core.Objects
 {
     public class Project : IProject
     {
@@ -22,13 +23,42 @@ namespace Tractor.Core
         
 
         public Dictionary<IEntity, IEntityRole> Performers { get;  }
-        
+
+        public IProgress Progress => throw new NotImplementedException();
+
+        IDescription IProject.Description => throw new NotImplementedException();
+
         public Project(Guid id)
         {
             ID = id;
             Subprojects = new List<IProject>();
             Tasks = new List<ITask>();
             Performers = new Dictionary<IEntity, IEntityRole>();
+        }
+
+        public void AddTask(ITask Task)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveTask(ITask Task)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddEntity(IEntity Entity, IEntityRole EntityRole)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveEntity(IEntity Entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ProjectChanged(IProject Difference)
+        {
+            throw new NotImplementedException();
         }
     }
 }
