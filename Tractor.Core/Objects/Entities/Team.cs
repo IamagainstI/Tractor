@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Tractor.Core.Model;
 
-namespace Tractor.Core
+namespace Tractor.Core.Objects
 {
     public class Team : ITeam
     {

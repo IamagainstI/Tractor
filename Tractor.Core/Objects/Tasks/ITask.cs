@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tractor.Core.Model
+namespace Tractor.Core.Objects
 {
     public interface ITask : IStuff
     {
