@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tractor.Core.Objects.Entities
 {
-    class AnonymousEntity : IEntity
+    public class AnonymousEntity : IEntity
     {
         public string Name => throw new NotImplementedException();
 

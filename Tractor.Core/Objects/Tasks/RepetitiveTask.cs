@@ -8,7 +8,7 @@ using Tractor.Core.Objects.Tasks.Locations;
 
 namespace Tractor.Core.Objects.Tasks
 {
-    class RepetitiveTask : IRepetitiveTask
+    public class RepetitiveTask : IRepetitiveTask
     {
         public IList<IRepetitiveTask> AllInstances => throw new NotImplementedException();
 

@@ -8,7 +8,7 @@ using Tractor.Core.Objects.Tasks.Locations;
 
 namespace Tractor.Core.Objects.Tasks
 {
-    class JournalTask : IMeetingTask
+    public class JournalTask : IMeetingTask
     {
         public IList<IEntity> Participants => throw new NotImplementedException();
 

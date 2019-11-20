@@ -5,7 +5,7 @@ using Tractor.Core.Objects.Credentials;
 
 namespace Tractor.Core.Objects.Repositories
 {
-    class NetworkGitRepository : INetworkRepository
+    public class NetworkGitRepository : INetworkRepository
     {
         public ICredentials Credentials => throw new NotImplementedException();
         string Location { get; set; }

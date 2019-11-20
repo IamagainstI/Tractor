@@ -8,7 +8,7 @@ using Tractor.Core.Objects.Tasks.Locations;
 
 namespace Tractor.Core.Objects.Tasks
 {
-    class EventTask : IEventTask
+    public class EventTask : IEventTask
     {
         public TimeSpan Duration => throw new NotImplementedException();
 
