@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using Tractor.Core.Objects.Entities.Permissions;
 using Tractor.Core.Objects.Progress;
 
 namespace Tractor.Core.Objects.Projects
@@ -17,10 +18,14 @@ namespace Tractor.Core.Objects.Projects
         IEnumerable<IProject> Subprojects { get; }
         IDescription Description { get; }
         IEnumerable<ITask> Tasks { get; }
-        IDictionary<IEntity, IEntityRole> Performers { get; }
-        void AddTask(ITask Task);
-        void RemoveTask(ITask Task);
-        void AddEntity(IEntity Entity, IEntityRole EntityRole);
-        void RemoveEntity(IEntity Entity);
+        IReadOnlyDictionary<IEntity, IEntityRole> Performers { get; }
+        IEnumerable<IPermission> Permissions { get; }
+
+        void AddTask(ITask task);
+        void RemoveTask(ITask task);
+        void AddEntity(IEntity entity, IEntityRole entityRole);
+        void RemoveEntity(IEntity entity);
+        void AddPermission(IPermission permission);
+        void RemovePermission(IPermission permission);
     }
 }
