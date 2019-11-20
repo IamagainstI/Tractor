@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tractor.Core.Objects.Repositories
 {
-    class LocalFileRepository : ILocalRepository
+    public class LocalFileRepository : ILocalRepository
     {
         public string Path => throw new NotImplementedException();
     }

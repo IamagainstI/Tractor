@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tractor.Core.Objects.Entities
 {
-    class GitHubTeam : ITeam
+    public class GitHubTeam : ITeam
     {
         public IDictionary<IEntity, IEntityRole> Members => throw new NotImplementedException();
 

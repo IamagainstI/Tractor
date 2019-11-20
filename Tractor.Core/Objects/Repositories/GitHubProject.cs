@@ -9,7 +9,7 @@ using Tractor.Core.Objects.Projects;
 
 namespace Tractor.Core.Objects.Repositories
 {
-    class GitHubProject : IProject
+    public class GitHubProject : IProject
     {
         public string Name => throw new NotImplementedException();
 

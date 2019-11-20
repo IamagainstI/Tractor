@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tractor.Core.Objects.Credentials
 {
-    class UserPasswordCredentials : IUserPasswordCredentials
+    public class UserPasswordCredentials : IUserPasswordCredentials
     {
         public string User => throw new NotImplementedException();
 

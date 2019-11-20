@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tractor.Core.Model;
 
 namespace Tractor.Core.Objects.Tasks
 {
-    class EventTask : IEventTask
+    public class EventTask : IEventTask
     {
         public TimeSpan Duration => throw new NotImplementedException();
 
@@ -33,5 +34,7 @@ namespace Tractor.Core.Objects.Tasks
         public ITaskLocation Location => throw new NotImplementedException();
 
         public Guid ID => throw new NotImplementedException();
+
+        ITaskLocation ITask.Location => throw new NotImplementedException();
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tractor.Core.Model;
 
 namespace Tractor.Core.Objects.Tasks
 {
-    class RepetitiveTask : IRepetitiveTask
+    public class RepetitiveTask : IRepetitiveTask
     {
         public IList<IRepetitiveTask> AllInstances => throw new NotImplementedException();
 
@@ -35,5 +36,7 @@ namespace Tractor.Core.Objects.Tasks
         public ITaskLocation Location => throw new NotImplementedException();
 
         public Guid ID => throw new NotImplementedException();
+
+        ITaskLocation ITask.Location => throw new NotImplementedException();
     }
 }

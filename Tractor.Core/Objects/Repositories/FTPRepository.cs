@@ -5,7 +5,7 @@ using Tractor.Core.Objects.Credentials;
 
 namespace Tractor.Core.Objects.Repositories
 {
-    public class OneDriveStorageRepository : ICloudStorageRepository
+    public class FTPRepository : INetworkRepository
     {
         public ICredentials Credentials => throw new NotImplementedException();
     }
