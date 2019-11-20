@@ -2,12 +2,13 @@
 using EmptyBox.Collections.ObjectModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using Tractor.Core.Objects.Progress;
 
 namespace Tractor.Core.Objects.Projects
 {
-    public interface IProject : IStuff, ITreeNodeWithParent<IProject>, IObservableTreeNode<IProject>, IObservableTreeNode<ITask>
+    public interface IProject : IStuff, ITreeNodeWithParent<IProject>, IObservableTreeNode<IProject>, IObservableTreeNode<ITask>, INotifyPropertyChanged
     {
         event ProjectChangeEventHandler ProjectChanged;
 
