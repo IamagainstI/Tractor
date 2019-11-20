@@ -1,11 +1,12 @@
 using System;
+using System.Drawing;
 using Tractor.Core.Model;
 
 namespace Tractor.Core.Objects
 {
-    public interface ILabel
+    public interface ILabel : IEquatable<ILabel>
     {
-        string Color { get; }
+        Color Color { get; }
         string Name { get; }
     }
 }

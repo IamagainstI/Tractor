@@ -4,7 +4,7 @@ using EmptyBox.IO.Storage;
 
 namespace Tractor.Core.Objects
 {
-    public interface IDescription
+    public interface IDescription : IEquatable<IDescription>
     {
 		IList<ILabel> Labels { get; }
         void DescriptionChanged(IDescription Difference);

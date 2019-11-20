@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tractor.Core.Objects.Credentials
 {
-    public interface ICredentials
+    public interface ICredentials : IEquatable<ICredentials>
     {
     }
 }

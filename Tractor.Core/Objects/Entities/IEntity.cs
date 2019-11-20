@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tractor.Core.Objects
 {
-    public interface IEntity : IStuff
+    public interface IEntity : IStuff, IEquatable<IEntity>
     {
         string Name { get; }
     }

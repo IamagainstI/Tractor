@@ -7,7 +7,7 @@ using Tractor.Core.Model;
 
 namespace Tractor.Core.Objects
 {
-    public interface ITask : IStuff, ITreeNodeWithParent<ITask>, IObservableTreeNode<ITask>
+    public interface ITask : IStuff, ITreeNodeWithParent<ITask>, IObservableTreeNode<ITask>, IEquatable<ITask>
     {
         string Name { get; }
         string Description { get; }
