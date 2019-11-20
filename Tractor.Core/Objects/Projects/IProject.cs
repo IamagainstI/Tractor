@@ -1,14 +1,16 @@
-﻿using System;
+﻿using EmptyBox.Collections.Generic;
+using EmptyBox.Collections.ObjectModel;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Tractor.Core.Objects.Progress;
 
-namespace Tractor.Core.Objects
+namespace Tractor.Core.Objects.Projects
 {
-    public delegate void ProjectChanged();
-
-    public interface IProject : IStuff
+    public interface IProject : IStuff, ITreeNodeWithParent<IProject>, IObservableTreeNode<IProject>, IObservableTreeNode<ITask>
     {
+        event ProjectChangeEventHandler ProjectChanged;
+
         string Name { get; }
         IProgress Progress { get; }
         IEnumerable<IProject> Subprojects { get; }
@@ -19,6 +21,5 @@ namespace Tractor.Core.Objects
         void RemoveTask(ITask Task);
         void AddEntity(IEntity Entity, IEntityRole EntityRole);
         void RemoveEntity(IEntity Entity);
-        void ProjectChanged(IProject Difference);
     }
 }
