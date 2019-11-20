@@ -4,10 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Tractor.Core.Model;
+using Tractor.Core.Objects.Tasks.Locations;
 
-namespace Tractor.Core.Objects
+namespace Tractor.Core.Objects.Tasks
 {
-    public interface ITask : IStuff, ITreeNodeWithParent<ITask>, IObservableTreeNode<ITask>, IEquatable<ITask>
+    public interface ITask : IStuff, IEquatable<ITask>,
+        IEditableTreeNode<ITask>, ITreeNodeWithParent<ITask>, IObservableTreeNode<ITask>
     {
         string Name { get; }
         string Description { get; }

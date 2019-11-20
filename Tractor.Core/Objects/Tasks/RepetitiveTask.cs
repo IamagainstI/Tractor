@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using EmptyBox.Collections.Generic;
+using EmptyBox.Collections.ObjectModel;
+using Tractor.Core.Objects.Tasks.Locations;
 
 namespace Tractor.Core.Objects.Tasks
 {
@@ -30,10 +34,40 @@ namespace Tractor.Core.Objects.Tasks
 
         public DateTime LastStateChangeDate => throw new NotImplementedException();
 
-        public TaskState State => throw new NotImplementedException();
-
         public ITaskLocation Location => throw new NotImplementedException();
 
         public Guid ID => throw new NotImplementedException();
+
+        public ITreeNode<ITask> Parent => throw new NotImplementedException();
+
+        public IEnumerable<ITask> Items => throw new NotImplementedException();
+
+        public event ObservableTreeNodeItemChangeHandler<ITask> ItemAdded;
+        public event ObservableTreeNodeItemChangeHandler<ITask> ItemRemoved;
+
+        public void Add(ITask item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Equals(ITask other)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerator<ITask> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(ITask item)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
