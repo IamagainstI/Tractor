@@ -8,5 +8,10 @@ namespace Tractor.Core.Objects.Repositories
     public class FTPRepository : INetworkRepository
     {
         public ICredentials Credentials => throw new NotImplementedException();
+
+        public bool Equals(IRepository other)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
