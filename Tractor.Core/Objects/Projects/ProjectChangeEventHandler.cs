@@ -5,5 +5,5 @@ using Tractor.Core.Objects.Difference;
 
 namespace Tractor.Core.Objects.Projects
 {
-    public delegate void ProjectChangeEventHandler(IProjectDifference difference)
+    public delegate void ProjectChangeEventHandler(IProjectDifference difference);
 }
