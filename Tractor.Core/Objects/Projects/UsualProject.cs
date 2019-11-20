@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using EmptyBox.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Tractor.Core.Objects.Projects
         private List<IProject> _Subprojects;
         private IDescription _Description;
         private List<ITask> _Tasks;
-        private Dictionary<IEntity, IEntityRole> _Performers;
+        private Dictionary<IEntity, IEntityRole> _Participants;
         private IProject _Parent;
         private List<IPermission> _Permissions;
         #endregion
@@ -81,7 +82,7 @@ namespace Tractor.Core.Objects.Projects
         public IEnumerable<IProject> Subprojects { get; }
         public IDescription Description { get; set; }
         public IEnumerable<ITask> Tasks { get; }
-        public IReadOnlyDictionary<IEntity, IEntityRole> Performers { get; }
+        public IReadOnlyDictionary<IEntity, IEntityRole> Participants { get; }
         public Guid ID { get; }
         public IProject Parent { get; set; }
         public IEnumerable<IPermission> Permissions { get; }
@@ -143,22 +144,68 @@ namespace Tractor.Core.Objects.Projects
         #endregion
 
         #region Public methods
-        public void AddEntity(IEntity Entity, IEntityRole EntityRole)
+        public void AddParticipant(IEntity entity, IEntityRole entityRole)
+        {
+            if (_Participants.ContainsKey(entity))
+            {
+                throw new ArgumentException();
+            }
+            else
+            {
+                _Participants.Add(entity, entityRole);
+                //TODO добавить вызов событий
+            }
+        }
+
+        public void AddTask(ITask task)
+        {
+            if ((this as IEnumerable<ITask>).Contains(task))
+            {
+                throw new ArgumentException();
+            }
+            else
+            {
+                _Tasks.Add(task);
+                //TODO добавить вызов событий
+            }
+        }
+
+        public void RemoveParticipant(IEntity entity)
+        {
+            if (!_Participants.ContainsKey(entity))
+            {
+                throw new ArgumentException();
+            }
+            else
+            {
+                _Participants.Remove(entity);
+                //TODO добавить вызов событий
+            }
+        }
+
+        public void RemoveTask(ITask task)
+        {
+            if ((this as IEnumerable<ITask>).Contains(task))
+            {
+                task.
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
+        }
+
+        public void AddPermission(IPermission permission)
         {
             throw new NotImplementedException();
         }
 
-        public void AddTask(ITask Task)
+        public void RemovePermission(IPermission permission)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveEntity(IEntity Entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveTask(ITask Task)
+        public void EditParticipantRole(IEntity entity, IEntityRole entityRole)
         {
             throw new NotImplementedException();
         }

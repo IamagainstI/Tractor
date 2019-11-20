@@ -18,13 +18,14 @@ namespace Tractor.Core.Objects.Projects
         IEnumerable<IProject> Subprojects { get; }
         IDescription Description { get; }
         IEnumerable<ITask> Tasks { get; }
-        IReadOnlyDictionary<IEntity, IEntityRole> Performers { get; }
+        IReadOnlyDictionary<IEntity, IEntityRole> Participants { get; }
         IEnumerable<IPermission> Permissions { get; }
 
         void AddTask(ITask task);
         void RemoveTask(ITask task);
-        void AddEntity(IEntity entity, IEntityRole entityRole);
-        void RemoveEntity(IEntity entity);
+        void AddParticipant(IEntity entity, IEntityRole entityRole);
+        void EditParticipantRole(IEntity entity, IEntityRole entityRole);
+        void RemoveParticipant(IEntity entity);
         void AddPermission(IPermission permission);
         void RemovePermission(IPermission permission);
     }
