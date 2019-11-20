@@ -5,7 +5,7 @@ using Tractor.Core.Objects.Projects;
 
 namespace Tractor.Core.Objects.Difference
 {
-    public interface IProjectDifference
+    public interface IProjectDifference : IDifference
     {
         IProject Project { get; }
     }
