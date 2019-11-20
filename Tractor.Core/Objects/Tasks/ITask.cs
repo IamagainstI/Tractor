@@ -1,10 +1,13 @@
-﻿using System;
+﻿using EmptyBox.Collections.Generic;
+using EmptyBox.Collections.ObjectModel;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using Tractor.Core.Model;
 
 namespace Tractor.Core.Objects
 {
-    public interface ITask : IStuff
+    public interface ITask : IStuff, ITreeNodeWithParent<ITask>, IObservableTreeNode<ITask>
     {
         string Name { get; }
         string Description { get; }
@@ -18,7 +21,6 @@ namespace Tractor.Core.Objects
 
         DateTime CreationDate { get; }
         DateTime LastStateChangeDate { get; }
-        TaskState State { get; }
         ITaskLocation Location { get; }
     }
 }
