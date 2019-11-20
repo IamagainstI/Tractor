@@ -8,14 +8,14 @@ namespace Tractor.Core.Interactors
 {
     public sealed class AccountManager
     {
-        public List<Account> Accounts { get; }
+        public List<TractorAccount> Accounts { get; }
 
-        public void UnloadAccount(Account account)
+        public void UnloadAccount(TractorAccount account)
         {
 
         }
 
-        public void LoadAccount(Account account)
+        public void LoadAccount(TractorAccount account)
         {
 
         }

@@ -8,24 +8,24 @@ namespace Tractor.Core.Interactors
 {
     public sealed class DBManager
     {
-        public Dictionary<Account, DataBase> DataBases { get; }
+        public Dictionary<TractorAccount, DataBase> DataBases { get; }
         
-        public void CreateDataBase(Account account)
+        public void CreateDataBase(TractorAccount account)
         {
 
         }
 
-        public void LoadDataBase(Account account)
+        public void LoadDataBase(TractorAccount account)
         {
 
         }
 
-        private void SyncDataBase(Account account)
+        private void SyncDataBase(TractorAccount account)
         {
 
         }
 
-        public void UnloadDataBase(Account account)
+        public void UnloadDataBase(TractorAccount account)
         {
 
         }
