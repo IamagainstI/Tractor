@@ -9,5 +9,10 @@ namespace Tractor.Core.Objects.Credentials
         public string User => throw new NotImplementedException();
 
         public string Password => throw new NotImplementedException();
+
+        public bool Equals(ICredentials other)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
