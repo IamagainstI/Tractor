@@ -7,6 +7,7 @@ using System.Text;
 using EmptyBox.Collections.Generic;
 using EmptyBox.Collections.ObjectModel;
 using Tractor.Core.Objects.Difference;
+using Tractor.Core.Objects.Entities.Permissions;
 using Tractor.Core.Objects.Progress;
 
 namespace Tractor.Core.Objects.Projects
@@ -26,8 +27,9 @@ namespace Tractor.Core.Objects.Projects
         private List<IProject> _Subprojects;
         private IDescription _Description;
         private List<ITask> _Tasks;
-        private IDictionary<IEntity, IEntityRole> _Performers;
+        private Dictionary<IEntity, IEntityRole> _Performers;
         private IProject _Parent;
+        private List<IPermission> _Permissions;
         #endregion
 
         #region IObservableTreeNode<IProject> events
@@ -57,11 +59,11 @@ namespace Tractor.Core.Objects.Projects
         #endregion
 
         #region ITreeNode<IProject> objects
-        IEnumerable<IProject> ITreeNode<IProject>.Items => throw new NotImplementedException();
+        IEnumerable<IProject> ITreeNode<IProject>.Items => Subprojects;
         #endregion
 
         #region ITreeNode<ITask> objects
-        IEnumerable<ITask> ITreeNode<ITask>.Items => throw new NotImplementedException();
+        IEnumerable<ITask> ITreeNode<ITask>.Items => Tasks;
         #endregion
 
         #region Public events
@@ -79,9 +81,10 @@ namespace Tractor.Core.Objects.Projects
         public IEnumerable<IProject> Subprojects { get; }
         public IDescription Description { get; set; }
         public IEnumerable<ITask> Tasks { get; }
-        public IDictionary<IEntity, IEntityRole> Performers { get; }
+        public IReadOnlyDictionary<IEntity, IEntityRole> Performers { get; }
         public Guid ID { get; }
         public IProject Parent { get; set; }
+        public IEnumerable<IPermission> Permissions { get; }
         #endregion
 
         #region Protected methods
