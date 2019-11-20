@@ -11,16 +11,11 @@ namespace Tractor.Core.Objects.DataBases
 {
     public class LocalDataBase : IDataBase
     {
-        public TractorAccount Account => throw new NotImplementedException();
-
-        public IEnumerable<IEntity> Entities => throw new NotImplementedException();
-
-        public IEnumerable<IProject> Projects => throw new NotImplementedException();
-
-        public IEnumerable<IPermission> Permissions => throw new NotImplementedException();
-
-        public IEnumerable<IRepository> Repositories => throw new NotImplementedException();
-
-        public IEnumerable<IDifference> History => throw new NotImplementedException();
+        public TractorAccount Account { get; set; }
+        public IEnumerable<IEntity> Entities { get; }
+        public IEnumerable<IProject> Projects { get; }
+        public IEnumerable<IPermission> Permissions { get; }
+        public IEnumerable<IRepository> Repositories { get; }
+        public IEnumerable<IDifference> History { get; }
     }
 }
