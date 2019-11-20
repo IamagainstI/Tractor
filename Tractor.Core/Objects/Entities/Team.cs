@@ -13,5 +13,9 @@ namespace Tractor.Core.Objects
         public string Name { get; set; }
         public Dictionary<IEntity, IEntityRole> Members { get; }
 
+        public bool Equals(IEntity other)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

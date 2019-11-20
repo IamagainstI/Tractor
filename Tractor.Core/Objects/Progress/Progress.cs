@@ -10,6 +10,11 @@ namespace Tractor.Core.Objects.Progress
 
         public DateTime TimeLastChangeProgress => throw new NotImplementedException();
 
+        public bool Equals(IProgress other)
+        {
+            throw new NotImplementedException();
+        }
+
         public void ProgressChanged(IProgress Difference)
         {
             throw new NotImplementedException();

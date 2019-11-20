@@ -9,5 +9,10 @@ namespace Tractor.Core.Objects.Repositories
     {
         public ICredentials Credentials => throw new NotImplementedException();
         string Location { get; set; }
+
+        public bool Equals(IRepository other)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

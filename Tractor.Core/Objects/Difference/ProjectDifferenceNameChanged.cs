@@ -27,5 +27,10 @@ namespace Tractor.Core.Objects.Difference
         {
             return CreationDate.CompareTo(other.CreationDate);
         }
+
+        public bool Equals(IDifference other)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
