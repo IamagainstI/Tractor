@@ -5,7 +5,7 @@ using Tractor.Core.Objects.Credentials;
 
 namespace Tractor.Core.Objects.Repositories
 {
-    class GoogleDriveStorageRepository : ICloudStarageRepository
+    class GoogleDriveStorageRepository : ICloudStorageRepository
     {
         public ICredentials Credentials => throw new NotImplementedException();
     }
