@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tractor.Core.Objects.Repositories
 {
-    public interface IRepository
+    public interface IRepository : IEquatable<IRepository>
     {
     }
 }
