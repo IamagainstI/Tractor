@@ -1,80 +1,151 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using EmptyBox.Collections.Generic;
 using EmptyBox.Collections.ObjectModel;
+using Tractor.Core.Objects.Difference;
 using Tractor.Core.Objects.Progress;
 
-namespace Tractor.Core.Objects
+namespace Tractor.Core.Objects.Projects
 {
     public class UsualProject : IProject
     {
-        public string Name { get; set; }
+        #region Private events
+        private ObservableTreeNodeItemChangeHandler<IProject> _SubprojectsItemAdded;
+        private ObservableTreeNodeItemChangeHandler<IProject> _SubprojectsItemRemoved;
+        private ObservableTreeNodeItemChangeHandler<ITask> _TasksItemAdded;
+        private ObservableTreeNodeItemChangeHandler<ITask> _TasksItemRemoved;
+        #endregion
 
-        public IProgress Progress => throw new NotImplementedException();
+        #region Private objects
+        private string _Name;
+        private IProgress _Progress;
+        private List<IProject> _Subprojects;
+        private IDescription _Description;
+        private List<ITask> _Tasks;
+        private IDictionary<IEntity, IEntityRole> _Performers;
+        private IProject _Parent;
+        #endregion
 
-        public IEnumerable<IProject> Subprojects => ITreeNode<ITask>.Items;
+        #region IObservableTreeNode<IProject> events
+        event ObservableTreeNodeItemChangeHandler<IProject> IObservableTreeNode<IProject>.ItemAdded
+        {
+            add => _SubprojectsItemAdded += value;
+            remove => _SubprojectsItemAdded -= value;
+        }
+        event ObservableTreeNodeItemChangeHandler<IProject> IObservableTreeNode<IProject>.ItemRemoved
+        {
+            add => _SubprojectsItemRemoved += value;
+            remove => _SubprojectsItemRemoved -= value;
+        }
+        #endregion
 
-        public IDescription Description => throw new NotImplementedException();
-
-        public IEnumerable<ITask> Tasks => throw new NotImplementedException();
-
-        public IDictionary<IEntity, IEntityRole> Performers => throw new NotImplementedException();
-
-        public Guid ID => throw new NotImplementedException();
-
-        public IProject Parent => throw new NotImplementedException();
-
-        public IEnumerable<IProject> Items => throw new NotImplementedException();
-
-        IEnumerable<ITask> ITreeNode<ITask>.Items => throw new NotImplementedException();
-
-        public event ObservableTreeNodeItemChangeHandler<IProject> ItemAdded;
-        public event ObservableTreeNodeItemChangeHandler<IProject> ItemRemoved;
-
+        #region IObservableTreeNode<ITask> events
         event ObservableTreeNodeItemChangeHandler<ITask> IObservableTreeNode<ITask>.ItemAdded
         {
-            add
-            {
-                throw new NotImplementedException();
-            }
-
-            remove
-            {
-                throw new NotImplementedException();
-            }
+            add => _TasksItemAdded += value;
+            remove => _TasksItemAdded -= value;
         }
-
         event ObservableTreeNodeItemChangeHandler<ITask> IObservableTreeNode<ITask>.ItemRemoved
         {
-            add
-            {
-                throw new NotImplementedException();
-            }
+            add => _TasksItemRemoved += value;
+            remove => _TasksItemRemoved -= value;
+        }
+        #endregion
 
-            remove
+        #region ITreeNode<IProject> objects
+        IEnumerable<IProject> ITreeNode<IProject>.Items => throw new NotImplementedException();
+        #endregion
+
+        #region ITreeNode<ITask> objects
+        IEnumerable<ITask> ITreeNode<ITask>.Items => throw new NotImplementedException();
+        #endregion
+
+        #region Public events
+        public event ProjectChangeEventHandler ProjectChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
+
+        #region Public objects
+        public string Name
+        {
+            get => _Name;
+            set => OnPropertyChange(ref _Name, value);
+        }
+        public IProgress Progress { get; set; }
+        public IEnumerable<IProject> Subprojects { get; }
+        public IDescription Description { get; set; }
+        public IEnumerable<ITask> Tasks { get; }
+        public IDictionary<IEntity, IEntityRole> Performers { get; }
+        public Guid ID { get; }
+        public IProject Parent { get; set; }
+        #endregion
+
+        #region Protected methods
+        protected void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
+            where T : IEquatable<T>
+        {
+            if (!field.Equals(newValue))
             {
-                throw new NotImplementedException();
+                field = newValue;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+                IProjectDifference difference = null;
+                switch (name)
+                {
+                    case nameof(Name):
+                        difference = new ProjectDifferenceNameChanged(this, (string)(object)newValue, DateTime.Now);
+                        break;
+                }
+                ProjectChanged?.Invoke(difference);
             }
         }
+        #endregion
 
+        #region IEnumerable<IProject> methods
+        IEnumerator<IProject> IEnumerable<IProject>.GetEnumerator()
+        {
+            foreach (IProject proj in Subprojects)
+            {
+                yield return proj;
+                foreach (IProject _proj in (IEnumerable<IProject>)proj)
+                {
+                    yield return proj;
+                }
+            }
+        }
+        #endregion
+
+        #region IEnumerable<ITask> methods
+        IEnumerator<ITask> IEnumerable<ITask>.GetEnumerator()
+        {
+            foreach (ITask task in Tasks)
+            {
+                yield return task;
+                foreach (ITask _task in task)
+                {
+                    yield return _task;
+                }
+            }
+        }
+        #endregion
+
+        #region IEnumerable
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotSupportedException();
+        }
+        #endregion
+
+        #region Public methods
         public void AddEntity(IEntity Entity, IEntityRole EntityRole)
         {
             throw new NotImplementedException();
         }
 
         public void AddTask(ITask Task)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerator<IProject> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ProjectChanged(IProject Difference)
         {
             throw new NotImplementedException();
         }
@@ -88,15 +159,6 @@ namespace Tractor.Core.Objects
         {
             throw new NotImplementedException();
         }
-
-        IEnumerator<ITask> IEnumerable<ITask>.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
     }
 }
