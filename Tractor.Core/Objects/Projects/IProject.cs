@@ -6,10 +6,13 @@ using System.ComponentModel;
 using System.Text;
 using Tractor.Core.Objects.Entities.Permissions;
 using Tractor.Core.Objects.Progress;
+using Tractor.Core.Objects.Tasks;
 
 namespace Tractor.Core.Objects.Projects
 {
-    public interface IProject : IStuff, ITreeNodeWithParent<IProject>, IObservableTreeNode<IProject>, IObservableTreeNode<ITask>, IEquatable<IProject>, INotifyPropertyChanged
+    public interface IProject : IStuff, IEquatable<IProject>, INotifyPropertyChanged,
+        IEditableTreeNode<IProject>, ITreeNodeWithParent<IProject>, IObservableTreeNode<IProject>,
+        IEditableTreeNode<ITask>, IObservableTreeNode<ITask>
     {
         event ProjectChangeEventHandler ProjectChanged;
 

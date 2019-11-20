@@ -10,6 +10,7 @@ using EmptyBox.Collections.ObjectModel;
 using Tractor.Core.Objects.Difference;
 using Tractor.Core.Objects.Entities.Permissions;
 using Tractor.Core.Objects.Progress;
+using Tractor.Core.Objects.Tasks;
 
 namespace Tractor.Core.Objects.Projects
 {
@@ -59,6 +60,10 @@ namespace Tractor.Core.Objects.Projects
         }
         #endregion
 
+        #region ITreeNodeWithParent<IProject> objects
+        ITreeNode<IProject> ITreeNodeWithParent<IProject>.Parent => Parent;
+        #endregion
+
         #region ITreeNode<IProject> objects
         IEnumerable<IProject> ITreeNode<IProject>.Items => Subprojects;
         #endregion
@@ -86,6 +91,7 @@ namespace Tractor.Core.Objects.Projects
         public Guid ID { get; }
         public IProject Parent { get; set; }
         public IEnumerable<IPermission> Permissions { get; }
+
         #endregion
 
         #region Protected methods
@@ -106,6 +112,23 @@ namespace Tractor.Core.Objects.Projects
                 ProjectChanged?.Invoke(difference);
             }
         }
+        #endregion
+
+        #region IEditableTreeNode<IProject> methods
+        void IEditableTreeNode<IProject>.Add(IProject item)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IEditableTreeNode<IProject>.Remove(IProject item)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region IEditableTreeNode<ITask> methods
+        void IEditableTreeNode<ITask>.Add(ITask item) => AddTask(item);
+        void IEditableTreeNode<ITask>.Remove(ITask item) => RemoveTask(item);
         #endregion
 
         #region IEnumerable<IProject> methods
@@ -187,7 +210,7 @@ namespace Tractor.Core.Objects.Projects
         {
             if ((this as IEnumerable<ITask>).Contains(task))
             {
-                task.
+                
             }
             else
             {
@@ -206,6 +229,11 @@ namespace Tractor.Core.Objects.Projects
         }
 
         public void EditParticipantRole(IEntity entity, IEntityRole entityRole)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Equals(IProject other)
         {
             throw new NotImplementedException();
         }
