@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tractor.Core.Objects.Tasks
 {
-    interface IEventTask : ITask
+    public interface IEventTask : ITask
     {
         TimeSpan Duration { get; }
         DateTime StartTime { get; }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tractor.Core.Objects.Tasks
 {
-    interface IRepetitiveTask : IEventTask
+    public interface IRepetitiveTask : IEventTask
     {
         IList<IRepetitiveTask> AllInstances { get; }
     }
