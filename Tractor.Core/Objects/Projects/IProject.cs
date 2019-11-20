@@ -11,7 +11,7 @@ using Tractor.Core.Objects.Tasks;
 namespace Tractor.Core.Objects.Projects
 {
     public interface IProject : IStuff, IEquatable<IProject>, INotifyPropertyChanged,
-        IEditableTreeNode<IProject>, ITreeNodeWithParent<IProject>, IObservableTreeNode<IProject>,
+        IEditableTreeNode<IProject>, ITreeNodeWithParent<IProject, IProject>, IObservableTreeNode<IProject>,
         IEditableTreeNode<ITask>, IObservableTreeNode<ITask>
     {
         event ProjectChangeEventHandler ProjectChanged;

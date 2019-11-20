@@ -9,7 +9,7 @@ using Tractor.Core.Objects.Tasks.Locations;
 namespace Tractor.Core.Objects.Tasks
 {
     public interface ITask : IStuff, IEquatable<ITask>,
-        IEditableTreeNode<ITask>, ITreeNodeWithParent<ITask>, IObservableTreeNode<ITask>
+        IEditableTreeNode<ITask>, ITreeNodeWithParent<ITask, IEditableTreeNode<ITask>>, IObservableTreeNode<ITask>
     {
         string Name { get; }
         string Description { get; }

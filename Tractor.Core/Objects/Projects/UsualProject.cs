@@ -60,10 +60,6 @@ namespace Tractor.Core.Objects.Projects
         }
         #endregion
 
-        #region ITreeNodeWithParent<IProject> objects
-        ITreeNode<IProject> ITreeNodeWithParent<IProject>.Parent => Parent;
-        #endregion
-
         #region ITreeNode<IProject> objects
         IEnumerable<IProject> ITreeNode<IProject>.Items => Subprojects;
         #endregion
@@ -210,7 +206,8 @@ namespace Tractor.Core.Objects.Projects
         {
             if ((this as IEnumerable<ITask>).Contains(task))
             {
-                
+                task.Parent.Remove(task);
+                //TODO добавить вызов событий
             }
             else
             {

@@ -36,7 +36,7 @@ namespace Tractor.Core.Objects.Tasks
 
         public Guid ID => throw new NotImplementedException();
 
-        public ITreeNode<ITask> Parent => throw new NotImplementedException();
+        public IEditableTreeNode<ITask> Parent => throw new NotImplementedException();
 
         public IEnumerable<ITask> Items => throw new NotImplementedException();
 

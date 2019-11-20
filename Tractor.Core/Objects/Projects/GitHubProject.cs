@@ -30,7 +30,7 @@ namespace Tractor.Core.Objects.Projects
 
         public Guid ID => throw new NotImplementedException();
 
-        public ITreeNode<IProject> Parent => throw new NotImplementedException();
+        public IProject Parent => throw new NotImplementedException();
 
         public IEnumerable<IProject> Items => throw new NotImplementedException();
 
