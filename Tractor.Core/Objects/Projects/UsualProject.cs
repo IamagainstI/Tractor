@@ -14,10 +14,10 @@ namespace Tractor.Core.Objects.Projects
     public class UsualProject : IProject
     {
         #region Private events
-        private ObservableTreeNodeItemChangeHandler<IProject> _SubprojectsItemAdded;
-        private ObservableTreeNodeItemChangeHandler<IProject> _SubprojectsItemRemoved;
-        private ObservableTreeNodeItemChangeHandler<ITask> _TasksItemAdded;
-        private ObservableTreeNodeItemChangeHandler<ITask> _TasksItemRemoved;
+        private event ObservableTreeNodeItemChangeHandler<IProject> _SubprojectsItemAdded;
+        private event ObservableTreeNodeItemChangeHandler<IProject> _SubprojectsItemRemoved;
+        private event ObservableTreeNodeItemChangeHandler<ITask> _TasksItemAdded;
+        private event ObservableTreeNodeItemChangeHandler<ITask> _TasksItemRemoved;
         #endregion
 
         #region Private objects
