@@ -5,13 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EmptyBox.Collections" Version="0.0.0.7-alpha" />
+    <PackageReference Include="EmptyBox.Collections" Version="0.0.0.8-alpha" />
     <PackageReference Include="EmptyBox.IO" Version="0.0.0.34-alpha" />
     <PackageReference Include="EmptyBox.Serializer" Version="0.0.0.2-alpha" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Decorators\" />
+    <Folder Include="Interactors\" />
     <Folder Include="Routers\" />
     <Folder Include="Presentrs\" />
   </ItemGroup>
