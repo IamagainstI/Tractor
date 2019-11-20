@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tractor.Core.Objects.Difference
 {
-    interface IDifference
+    public interface IDifference
     {
         byte[] GetDifferenceHash();
         DateTime CreationDate { get; }

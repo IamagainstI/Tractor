@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tractor.Core.Objects.Entities.Permissions
 {
-    interface IPermission
+    public interface IPermission
     {
     }
 }
