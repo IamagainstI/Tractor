@@ -8,7 +8,7 @@ using Tractor.Core.Objects.Tasks.Locations;
 
 namespace Tractor.Core.Objects.Tasks
 {
-    public class Task : ITask
+    public class UsualTask : ITask
     {
         public string Name => throw new NotImplementedException();
 
