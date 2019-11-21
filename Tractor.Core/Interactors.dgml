@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="ProjectManager" Bounds="230.262204322831,-219.752894003179,350.96,141.8053943296" Group="Expanded" Label="ProjectInteractor" UseManualLocation="True" />
+    <Node Id="SetProgress(ITask,IProgress)" Bounds="-66.2145262032276,-154.870815734863,169.586666666667,25.96" Label="SetProgress(ITask, IProgress)" />
+    <Node Id="Taskmanager" Bounds="-259.384526203228,-194.870949373384,459.646680628459,193.96110581665" Group="Expanded" Label="TaskInteractor" UseManualLocation="True" />
+    <Node Id="VoidAddProject(IEditableTreeNode&lt;IProject&gt;)" Bounds="250.262204322831,-123.907499878379,310.96,25.96" Label="void AddProject(IProject, IEditableTreeNode&lt;IProject&gt;)" />
+    <Node Id="VoidAddTask(ITask,ITask)" Bounds="-239.384515089743,-98.8300435567332,267.12,25.96" Label="void AddTask(ITask, IEditableTreeNode&lt;ITask&gt;)" />
+    <Node Id="VoidMoveTask(ITask,ITreeNode&lt;ITask&gt;,ITreeNode&lt;ITask&gt;)" Bounds="-239.384512241436,-42.8699435567331,419.646666666667,21.96" Label="void MoveTask(ITask, IEditableTreeNode&lt;ITask&gt;, IEditableTreeNode&lt;ITask&gt;)" />
+    <Node Id="VoidRemoveProject(IProject)" Bounds="250.262195129395,-179.838847351074,172.396666666667,25.96" Label="void RemoveProject(IProject)" />
+    <Node Id="VoidRemoveTask(ITask)" Bounds="-239.384526203228,-154.870849373384,143.17,25.96" Label="void RemoveTask(ITask)" />
+  </Nodes>
+  <Links>
+    <Link Source="ProjectManager" Target="VoidAddProject(IEditableTreeNode&lt;IProject&gt;)" Category="Contains" />
+    <Link Source="ProjectManager" Target="VoidRemoveProject(IProject)" Category="Contains" />
+    <Link Source="Taskmanager" Target="SetProgress(ITask,IProgress)" Category="Contains" />
+    <Link Source="Taskmanager" Target="VoidAddTask(ITask,ITask)" Category="Contains" />
+    <Link Source="Taskmanager" Target="VoidMoveTask(ITask,ITreeNode&lt;ITask&gt;,ITreeNode&lt;ITask&gt;)" Category="Contains" />
+    <Link Source="Taskmanager" Target="VoidRemoveTask(ITask)" Category="Contains" />
+  </Links>
+  <Categories>
+    <Category Id="Contains" Label="Содержит" Description="Указывает, содержит ли источник связи целевой объект" CanBeDataDriven="False" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Содержится в" IsContainment="True" OutgoingActionLabel="Содержит" />
+  </Categories>
+  <Properties>
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
+    <Property Id="Group" Label="Группа" Description="Отображать узел как группу" DataType="Microsoft.VisualStudio.GraphModel.GraphGroupStyle" />
+    <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
+    <Property Id="IsContainment" DataType="System.Boolean" />
+    <Property Id="Label" Label="Метка" Description="Отображаемая метка аннотируемого объекта" DataType="System.String" />
+    <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+  </Properties>
+</DirectedGraph>
