@@ -14,7 +14,7 @@ namespace Tractor.Core.Objects.Tasks
         IEditableTreeNode<ITask>, ITreeNodeWithParent<ITask, IEditableTreeNode<ITask>>, IObservableTreeNode<ITask>
     {
         string Name { get; }
-        string Description { get; }
+        IDescription Description { get; }
 
         IEnumerable<ITask> Subtasks { get; }
         IEnumerable<ITask> Dependencies { get; }
