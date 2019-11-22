@@ -9,5 +9,11 @@ namespace Tractor.Core.Objects
 		IList<ILabel> Labels { get; }
         void DescriptionChanged(IDescription Difference);
         IList<IStorageItem> Attachments { get; }
+
+        void AddLabel(ILabel label);
+        void RemoveLabel(ILabel label);
+        void AddAttachment(IStorageItem storageItem);
+        void RemoveAttachment(IStorageItem storageItem);
+
     }
 }
