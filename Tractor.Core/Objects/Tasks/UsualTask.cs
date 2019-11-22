@@ -15,12 +15,6 @@ namespace Tractor.Core.Objects.Tasks
 {
     public class UsualTask : ITask
     {
-
-        #region Private events
-        private event ObservableTreeNodeItemChangeHandler<ITask> _SubTaskItemAdded;
-        private event ObservableTreeNodeItemChangeHandler<ITask> _SubTaskItemRemoved;
-        #endregion
-
         #region Private objects
         private string _Name;
         private IProgress _Progress;
@@ -30,27 +24,11 @@ namespace Tractor.Core.Objects.Tasks
         private IEntity _Performer;
         #endregion
 
-        #region IObservableTreeNode<ITask> events
-        event ObservableTreeNodeItemChangeHandler<ITask> IObservableTreeNode<ITask>.ItemAdded
-        {
-            add => _SubTaskItemAdded += value;
-            remove => _SubTaskItemAdded -= value;
-        }
-        event ObservableTreeNodeItemChangeHandler<ITask> IObservableTreeNode<ITask>.ItemRemoved
-        {
-            add => _SubTaskItemRemoved += value;
-            remove => _SubTaskItemRemoved -= value;
-        }
-        #endregion
-
-        #region
-        public event ObservableTreeNodeItemChangeHandler<ITask> ItemAdded;
-        public event ObservableTreeNodeItemChangeHandler<ITask> ItemRemoved;
-        #endregion
-
         #region Public events
         public event TaskChangeEventHandler TaskChanged;
         public event PropertyChangedEventHandler PropertyChanged;
+        public event ObservableTreeNodeItemChangeHandler<ITask> ItemAdded;
+        public event ObservableTreeNodeItemChangeHandler<ITask> ItemRemoved;
         #endregion
 
         #region Protected metods
@@ -83,6 +61,7 @@ namespace Tractor.Core.Objects.Tasks
         public IDescription Description 
         { 
             get => _Description; 
+        
             set => OnPropertyChange(ref _Description, value); 
         }
 
@@ -152,7 +131,11 @@ namespace Tractor.Core.Objects.Tasks
                 {
                     if (task.Equals(item)) checkContaints = true;
                 }
-                if (!checkContaints) _SubTasks.Add(item);
+                if (!checkContaints)
+                {
+                    _SubTasks.Add(item);
+                    ItemAdded?.Invoke(this, item);
+                }
             }
         }
 
@@ -170,6 +153,7 @@ namespace Tractor.Core.Objects.Tasks
             if (item != null)
             {
                 _SubTasks.Remove(item);
+                ItemRemoved?.Invoke(this, item);
             }
         }
         #endregion
