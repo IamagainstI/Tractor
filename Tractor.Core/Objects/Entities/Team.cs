@@ -12,10 +12,9 @@ namespace Tractor.Core.Objects
 {
     public class Team : ITeam
     {
-        #region Public objects
-        public Guid ID { get; }
-        public string Name { get; set; }
-        public IDictionary<IEntity, IEntityRole> Members { get; }
+
+        #region Private objects
+        private string _Name;
         #endregion
 
         #region Public events
@@ -25,7 +24,7 @@ namespace Tractor.Core.Objects
         #endregion
 
         #region Protected metods
-        protected void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
+        protected void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null) //для уведомление интерфейса об том, что были изменены свойства объекта
          where T : IEquatable<T>
         {
             if (!field.Equals(newValue))
@@ -44,6 +43,15 @@ namespace Tractor.Core.Objects
         }
         #endregion
 
+        #region Public objects
+        public Guid ID { get; }
+        public string Name
+        {
+            get => _Name;
+            set => OnPropertyChange(ref _Name, value);
+        }
+        public IDictionary<IEntity, IEntityRole> Members { get; }
+        #endregion
 
         #region Public metods
         public bool Equals(IEntity other)
