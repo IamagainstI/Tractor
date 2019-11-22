@@ -26,9 +26,7 @@ namespace Tractor.Core.Objects.Tasks
         private IProgress _Progress;
         private List<ITask> _SubTasks;
         private IDescription _Description;
-        private Dictionary<IEntity, IEntityRole> _Participants;
         private ITask _Parent;
-        private List<IPermission> _Permissions;
         private IEntity _Performer;
         #endregion
 
@@ -55,6 +53,26 @@ namespace Tractor.Core.Objects.Tasks
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
+        #region Protected metods
+        protected void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
+         where T : IEquatable<T>
+        {
+            if (!field.Equals(newValue))
+            {
+                field = newValue;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+                ITaskDifference difference = null;
+                switch (name)
+                {
+                    case nameof(Name):
+                        difference = new TaskDifferenceNameChanged((string)(object)newValue, this, DateTime.Now);
+                        break;
+                }
+                TaskChanged?.Invoke(difference);
+            }
+        }
+        #endregion
+
         #region Public objects
         public string Name
         {
@@ -72,10 +90,7 @@ namespace Tractor.Core.Objects.Tasks
 
         public IEnumerable<ITask> Dependencies => throw new NotImplementedException();
 
-        public IList<IEntity> Observers
-        {
-            get;
-        }
+        public IList<IEntity> Observers { get;  }
 
         public IEntity Performer
         {
@@ -97,56 +112,66 @@ namespace Tractor.Core.Objects.Tasks
 
         public IEnumerable<ITask> Items { get; }
 
-        public IProgress Progress
+        public IProgress Progress { get; }
+
+        #endregion
+
+        #region IEnumerable<ITask> metod
+        IEnumerator<ITask> IEnumerable<ITask>.GetEnumerator()
         {
-            get
+            foreach (ITask task in _SubTasks)
             {
-                TaskBasedProgress taskBasedProgress = new TaskBasedProgress(_SubTasks);
+                yield return task;
+                foreach (ITask _task in (IEnumerable<ITask>)task)
+                {
+                    yield return _task;
+                }
             }
         }
         #endregion
 
-        protected void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
-            where T : IEquatable<T>
+        #region IEnumerable
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            if (!field.Equals(newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-                ITaskDifference difference = null;
-                switch(name)
-                {
-                    case nameof(Name):
-                        difference = new TaskDifferenceNameChanged((string)(object)newValue, this, DateTime.Now);
-                        break;
-                }
-                TaskChanged?.Invoke(difference);
-            }
+            throw new NotSupportedException();
+        }
+        #endregion
+
+        #region Public metods
+        public UsualTask()
+        {
+
         }
 
         public void Add(ITask item)
         {
-            throw new NotImplementedException();
+            bool checkContaints = false;
+            if (item != null)
+            {
+                foreach(ITask task in _SubTasks)
+                {
+                    if (task.Equals(item)) checkContaints = true;
+                }
+                if (!checkContaints) _SubTasks.Add(item);
+            }
         }
 
         public bool Equals(ITask other)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerator<ITask> GetEnumerator()
-        {
-            throw new NotImplementedException();
+            if(other != null)
+            {
+                return other.ID == ID;
+            }
+            return false;
         }
 
         public void Remove(ITask item)
         {
-            throw new NotImplementedException();
+            if (item != null)
+            {
+                _SubTasks.Remove(item);
+            }
         }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
     }
 }
