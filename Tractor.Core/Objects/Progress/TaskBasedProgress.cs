@@ -8,18 +8,24 @@ namespace Tractor.Core.Objects.Progress
 {
     public class TaskBasedProgress : IProgress
     {
-        public Progress Percentage
+        private double _Percentage;
+
+        public double Percentage
         {
             get
             {
+                int count = 0;
                 foreach (ITask task in Tasks)
                 {
-                    task.Progress.Percentage
+                    _Percentage += task.Progress.Percentage;
+                    count++;
                 }
+                return _Percentage = _Percentage / count; 
             }
         }
 
         public DateTime TimeLastChangeProgress => throw new NotImplementedException();
+
         public ITreeNode<ITask> Tasks { get; }
 
         public TaskBasedProgress(ITreeNode<ITask> tasks)
