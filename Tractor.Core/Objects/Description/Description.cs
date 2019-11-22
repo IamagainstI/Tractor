@@ -7,11 +7,22 @@ namespace Tractor.Core
 {
     public class Description : IDescription
     {
-        public IList<Label> Labels => throw new NotImplementedException();
+        #region Public Objects
+        public IList<ILabel> Labels { get; }
 
-        public IList<IStorageItem> Attachments => throw new NotImplementedException();
+        public IList<IStorageItem> Attachments { get; }
 
-        IList<ILabel> IDescription.Labels => throw new NotImplementedException();
+        public void AddAttachment(IStorageItem storageItem)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion Public Objects
+
+        #region Public Metods
+        public void AddLabel(ILabel label)
+        {
+            throw new NotImplementedException();
+        }
 
         public void DescriptionChanged(IDescription Difference)
         {
@@ -22,6 +33,17 @@ namespace Tractor.Core
         {
             throw new NotImplementedException();
         }
+
+        public void RemoveAttachment(IStorageItem storageItem)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveLabel(ILabel label)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }
 
