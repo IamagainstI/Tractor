@@ -6,7 +6,7 @@ namespace Tractor.Core.Objects.Progress
 {
     public interface IProgress : IEquatable<IProgress>
     {
-        Progress Percentage { get; }
+        double Percentage { get; }
         void ProgressChanged(IProgress Difference);
         DateTime TimeLastChangeProgress { get; }
     }
