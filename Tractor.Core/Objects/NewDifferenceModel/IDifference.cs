@@ -9,6 +9,8 @@ namespace Tractor.Core.Objects.NewDifferenceModel
         byte[] GetPropertyHashCode();
         string PropertyName { get; }
         DateTime CreationDate { get; }
-        T ChangedObject { get; }
+        Guid ID { get; } //для объекта
+        string ObjectType { get; }
+        string PropertyType { get; }
     }
 }
