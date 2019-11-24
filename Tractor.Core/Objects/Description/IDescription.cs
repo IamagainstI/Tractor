@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using EmptyBox.IO.Storage;
 
 namespace Tractor.Core.Objects
 {
-    public interface IDescription : IEquatable<IDescription>
+    public interface IDescription : IEquatable<IDescription>, INotifyPropertyChanged
     {
 		IList<ILabel> Labels { get; }
         void DescriptionChanged(IDescription Difference);
