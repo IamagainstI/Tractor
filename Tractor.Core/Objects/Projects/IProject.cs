@@ -2,6 +2,8 @@
 using EmptyBox.Collections.ObjectModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Text;
 using Tractor.Core.Objects.Entities.Permissions;
@@ -10,12 +12,10 @@ using Tractor.Core.Objects.Tasks;
 
 namespace Tractor.Core.Objects.Projects
 {
-    public interface IProject : IStuff, IEquatable<IProject>, INotifyPropertyChanged,
+    public interface IProject : IStuff, IEquatable<IProject>, INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged,
         IEditableTreeNode<IProject>, ITreeNodeWithParent<IProject, IProject>, IObservableTreeNode<IProject>,
         IEditableTreeNode<ITask>, IObservableTreeNode<ITask>
     {
-        event ProjectChangeEventHandler ProjectChanged;
-
         string Name { get; }
         IProgress Progress { get; }
         IEnumerable<IProject> Subprojects { get; }

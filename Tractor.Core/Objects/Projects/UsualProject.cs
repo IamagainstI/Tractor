@@ -69,7 +69,7 @@ namespace Tractor.Core.Objects.Projects
         #endregion
 
         #region Public events
-        public event ProjectChangeEventHandler ProjectChanged;
+        public event PropertyChangingEventHandler PropertyChanging;
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
@@ -96,16 +96,9 @@ namespace Tractor.Core.Objects.Projects
         {
             if (!field.Equals(newValue))
             {
+                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
                 field = newValue;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-                IProjectDifference difference = null;
-                switch (name)
-                {
-                    case nameof(Name):
-                        difference = new ProjectDifferenceNameChanged(this, (string)(object)newValue, DateTime.Now);
-                        break;
-                }
-                ProjectChanged?.Invoke(difference);
             }
         }
         #endregion
