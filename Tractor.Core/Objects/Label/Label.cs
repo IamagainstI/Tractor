@@ -11,7 +11,7 @@ namespace Tractor.Core.Objects
 
         public bool Equals(ILabel other)
         {
-            throw new NotImplementedException();
+            return ((Name == other.Name) && (Color == other.Color));
         }
     }
 }
