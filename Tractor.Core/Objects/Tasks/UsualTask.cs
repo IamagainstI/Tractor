@@ -19,7 +19,6 @@ namespace Tractor.Core.Objects.Tasks
     {
         #region Private objects
         private string _Name;
-        private IProgress _Progress;
         private List<ITask> _SubTasks;
         private List<IEntity> _Observers;
         private IDescription _Description;
@@ -27,6 +26,7 @@ namespace Tractor.Core.Objects.Tasks
         private IEntity _Performer;
         private ITaskLocation _Location;
         private List<ITask> _Dependencies;
+        private BaseProgress _Progress;
         #endregion
 
         #region Public events
@@ -103,7 +103,19 @@ namespace Tractor.Core.Objects.Tasks
         public Guid ID { get; }
         public IEditableTreeNode<ITask> Parent { get ; }
         public IEnumerable<ITask> Items { get; } //?
-        public IProgress Progress { get; } // как-то выщитываем
+        public IProgress Progress 
+        {
+            get => _Progress;
+            set
+            {
+                if (!_Progress.Equals(value))
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("Progress"));
+                    _Progress = (BaseProgress)value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Progress"));
+                }
+            }
+        } 
         #endregion
 
         #region IEnumerable<ITask> metod
@@ -140,7 +152,6 @@ namespace Tractor.Core.Objects.Tasks
             _Observers = (List<IEntity>)observers;
             LastStateChangeDate = dateTime;
         }
-
         public void AddSubtask(IEnumerable<ITask> Subtask)
         {
             OnPropertyCollectionChangedAdd(ref _SubTasks, Subtask);
@@ -149,12 +160,10 @@ namespace Tractor.Core.Objects.Tasks
         {
             OnPropertyCollectionChangedAdd(ref _Observers, Obeserver);
         }
-
         public void AddDependenci(IEnumerable<ITask> Dependenci)
         {
             OnPropertyCollectionChangedAdd(ref _Dependencies, Dependenci);
         }
-
         public void RemoveSubtask(IEnumerable<ITask> SubTask)
         {
             OnPropertyCollectionChangedRemove(ref _SubTasks, SubTask);
