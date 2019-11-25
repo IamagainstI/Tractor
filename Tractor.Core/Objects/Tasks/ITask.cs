@@ -2,6 +2,7 @@
 using EmptyBox.Collections.ObjectModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Text;
 using Tractor.Core.Model;
@@ -10,22 +11,25 @@ using Tractor.Core.Objects.Tasks.Locations;
 
 namespace Tractor.Core.Objects.Tasks
 {
-    public interface ITask : IStuff, IEquatable<ITask>, INotifyPropertyChanged, INotifyPropertyChanging,
+    public interface ITask : IStuff, IEquatable<ITask>, INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged,
         IEditableTreeNode<ITask>, ITreeNodeWithParent<ITask, IEditableTreeNode<ITask>>, IObservableTreeNode<ITask>
     {
         string Name { get; }
         IDescription Description { get; }
-
-        IEnumerable<ITask> Subtasks { get; }
+        IEnumerable<ITask> SubTasks { get; }
         IEnumerable<ITask> Dependencies { get; }
-
         IList<IEntity> Observers { get; }
         IEntity Performer { get; }
         IEntity Producer { get; }
         IProgress Progress { get; }
-
         DateTime CreationDate { get; }
         DateTime LastStateChangeDate { get; }
         ITaskLocation Location { get; }
+        void AddSubtask(IEnumerable<ITask> Subtask);
+        void AddObserver(IEnumerable<IEntity> Obeserver);
+        void AddDependenci(IEnumerable<ITask> Dependenci);
+        void RemoveSubtask(IEnumerable<ITask> SubTask);
+        void RemoveObserver(IEnumerable<IEntity> Observer);
+        void RemoveDependenci(IEnumerable<ITask> Dependenci);
     }
 }
