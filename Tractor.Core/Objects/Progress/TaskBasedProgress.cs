@@ -37,10 +37,5 @@ namespace Tractor.Core.Objects.Progress
         {
             throw new NotImplementedException();
         }
-
-        public void ProgressChanged(IProgress Difference)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

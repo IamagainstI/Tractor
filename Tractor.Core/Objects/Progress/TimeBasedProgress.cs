@@ -6,16 +6,13 @@ namespace Tractor.Core.Objects.Progress
 {
     public class TimeBasedProgress : ITimeBasedProgress
     {
-        public Progress Percentage => throw new NotImplementedException();
+        public BaseProgress Percentage => throw new NotImplementedException();
 
         public DateTime TimeLastChangeProgress => throw new NotImplementedException();
 
-        public bool Equals(IProgress other)
-        {
-            throw new NotImplementedException();
-        }
+        double IProgress.Percentage => throw new NotImplementedException();
 
-        public void ProgressChanged(IProgress Difference)
+        public bool Equals(IProgress other)
         {
             throw new NotImplementedException();
         }
