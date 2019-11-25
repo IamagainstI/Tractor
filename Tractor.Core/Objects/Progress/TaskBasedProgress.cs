@@ -1,30 +1,47 @@
 ﻿using EmptyBox.Collections.Generic;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
+using Tractor.Core.Objects.Difference;
 using Tractor.Core.Objects.Tasks;
 
 namespace Tractor.Core.Objects.Progress
 {
+    
     public class TaskBasedProgress : IProgress
     {
-        private double _Percentage;
-
-        public double Percentage
+        private double _ProgressPercentage;
+        #region Public events
+        public event PropertyChangingEventHandler PropertyChanging;
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion        
+        public double ProgressPercentage
         {
             get
             {
                 int count = 0;
                 foreach (ITask task in Tasks)
                 {
-                    _Percentage += task.Progress.Percentage;
+                    _ProgressPercentage += task.Progress.ProgressPercentage;
                     count++;
                 }
-                return _Percentage = _Percentage / count; 
+                return _ProgressPercentage /= count;
             }
         }
 
-        public DateTime TimeLastChangeProgress => throw new NotImplementedException();
+        protected void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
+            where T : IEquatable<T>
+        {
+            if (!field.Equals(newValue))
+            {
+                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
+                field = newValue;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        public DateTime TimeLastChangeProgress { get; set; }
 
         public ITreeNode<ITask> Tasks { get; }
 
@@ -35,12 +52,7 @@ namespace Tractor.Core.Objects.Progress
 
         public bool Equals(IProgress other)
         {
-            throw new NotImplementedException();
-        }
-
-        public void ProgressChanged(IProgress Difference)
-        {
-            throw new NotImplementedException();
+            return other.ProgressPercentage == ProgressPercentage;
         }
     }
 }
