@@ -6,13 +6,13 @@ namespace Tractor.Core.Objects.Entities
 {
     public class AnonymousEntity : IEntity
     {
-        public string Name => throw new NotImplementedException();
+        public string Name { get; }
 
-        public Guid ID => throw new NotImplementedException();
+        public Guid ID { get; }
 
         public bool Equals(IEntity other)
         {
-            throw new NotImplementedException();
+            return ID == other.ID;
         }
     }
 }
