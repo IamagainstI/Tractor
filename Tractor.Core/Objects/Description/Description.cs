@@ -1,74 +1,83 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using EmptyBox.IO.Storage;
 using Tractor.Core.Objects;
-using Tractor.Core.Objects.Description;
 
 namespace Tractor.Core
 {
     public class Description : IDescription
     {
 
+        #region Private objects
+        List<ILabel> _Labels;
+        List<IStorageItem> _Attachments;
+        #endregion
+
         #region Public events
-        public event DescriptionChangeEventHandler DescriptionChange;
         public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangingEventHandler PropertyChanging;
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
         #endregion
 
         #region Public Objects
-        public IList<ILabel> Labels { get; }
-
-        public IList<IStorageItem> Attachments { get; }
+        public IList<ILabel> Labels { get => _Labels; }
+        public IList<IStorageItem> Attachments { get => _Attachments; }
         #endregion Public Objects
 
-        #region Public Metods
-        public void AddAttachment(IStorageItem storageItem)
+        #region Private metods
+        private void OnPropertyChangeCollectionAdd<T>(ref List<T> field, IEnumerable<T> newValue, [CallerMemberName]string name = null)
+            where T : IEquatable<T>
         {
-            throw new NotImplementedException();
-        }
-
-        public void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
-             where T : IEquatable<T>
-        {
-            //ToDo написать это
-        }
-
-        public void AddLabel(ILabel label)
-        {
-            if ((label != null) && (!Labels.Contains(label)))
+            if (newValue != null)
             {
-                Labels.Add(label);
-                //ToDo добавить вызов обработчика событий (каких?)
+                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(name)));
+                field.AddRange(newValue);
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, newValue, null));
             }
         }
-
-        public void DescriptionChanged(IDescription Difference) //? 
+        private void OnPropertyChangeCollectionRemove<T>(ref List<T> field, IEnumerable<T> Value, [CallerMemberName]string name = null)
+           where T : IEquatable<T>
         {
-            throw new NotImplementedException();
+            if (Value != null)
+            {
+                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(name)));
+                foreach (T item in field)
+                {
+                    field.Remove(item);
+                }
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, null, Value));
+            }
         }
+        #endregion
+
+        #region Public Metods
 
         public bool Equals(IDescription other)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveAttachment(IStorageItem storageItem)
+        public void AddLabel(IEnumerable<ILabel> label)
         {
-            if (Attachments.Contains(storageItem))
-            {
-                Attachments.Remove(storageItem);
-                //ToDo добавить вызовы обработчика собыитий
-            }
+            OnPropertyChangeCollectionAdd(ref _Labels, label);
         }
 
-        public void RemoveLabel(ILabel label)
+        public void RemoveLabel(IEnumerable<ILabel> label)
         {
-            if (Labels.Contains(label))
-            {
-                Labels.Remove(label);
-                //ToDo добавтиь вызов обработчика событий
-            }
+            OnPropertyChangeCollectionRemove(ref _Labels, label);
+        }
+
+        public void AddAttachment(IEnumerable<IStorageItem> storageItem)
+        {
+            //OnPropertyChangeCollectionAdd(ref _Attachments, storageItem);
+        }
+
+        public void RemoveAttachment(IEnumerable<IStorageItem> storageItem)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }
