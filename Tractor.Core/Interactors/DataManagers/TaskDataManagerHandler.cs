@@ -104,6 +104,16 @@ namespace Tractor.Core.Interactors.DataManagers
             
         }
 
+        public void MoveTask(Guid taskID, Guid oldTaskID, Guid newTaskID)
+        {
+
+        }
+
+        public void SetProgress(Guid taskID, IProgress<double> progress)
+        {
+
+        }
+        
     }
 
 }
