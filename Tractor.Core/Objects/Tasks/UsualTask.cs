@@ -24,6 +24,7 @@ namespace Tractor.Core.Objects.Tasks
         private IDescription _Description;
         private ITask _Parent;
         private IEntity _Performer;
+        private IEntity _Producer;
         private ITaskLocation _Location;
         private List<ITask> _Dependencies;
         private BaseProgress _Progress;
@@ -31,8 +32,8 @@ namespace Tractor.Core.Objects.Tasks
 
         #region Public events
         public event PropertyChangedEventHandler PropertyChanged;
-        public event ObservableTreeNodeItemChangeHandler<ITask> ItemAdded;
-        public event ObservableTreeNodeItemChangeHandler<ITask> ItemRemoved;
+        //public event ObservableTreeNodeItemChangeHandler<ITask> ItemAdded;
+        //public event ObservableTreeNodeItemChangeHandler<ITask> ItemRemoved;
         public event PropertyChangingEventHandler PropertyChanging;
         public event NotifyCollectionChangedEventHandler CollectionChanged;
         #endregion
@@ -64,7 +65,7 @@ namespace Tractor.Core.Objects.Tasks
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
          where T : IEquatable<T>
         {
-            if (!field.Equals(newValue))
+            if (true)
             {
                 PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
                 field = newValue;
@@ -92,66 +93,65 @@ namespace Tractor.Core.Objects.Tasks
             get => _Performer;
             set => OnPropertyChange(ref _Performer, value);
         }
-        public IEntity Producer { get; }
-        public DateTime CreationDate { get; }
-        public DateTime LastStateChangeDate { get; }
+        public IEntity Producer
+        {
+            get => _Producer;
+            set => OnPropertyChange(ref _Producer, value);
+        }
+        public DateTime CreationDate { get; set; }
+        public DateTime LastStateChangeDate { get; set; }
         public ITaskLocation Location
         {
             get => _Location;
             set => OnPropertyChange(ref _Location, value);
         }
         public Guid ID { get; }
-        public IEditableTreeNode<ITask> Parent { get ; }
+        //public IEditableTreeNode<ITask> Parent { get ; }
         public IEnumerable<ITask> Items { get; } //?
         public IProgress Progress 
         {
             get => _Progress;
             set
             {
-                if (!_Progress.Equals(value))
+                if (true)
                 {
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("Progress"));
                     _Progress = (BaseProgress)value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Progress"));
                 }
             }
-        } 
+        }
+        #endregion
+
+        #region Constructors
+        public UsualTask(Guid id)
+        {
+            ID = id;
+        }
         #endregion
 
         #region IEnumerable<ITask> metod
-        IEnumerator<ITask> IEnumerable<ITask>.GetEnumerator()
-        {
-            foreach (ITask task in _SubTasks)
-            {
-                yield return task;
-                foreach (ITask _task in (IEnumerable<ITask>)task)
-                {
-                    yield return _task;
-                }
-            }
-        }
+        //IEnumerator<ITask> IEnumerable<ITask>.GetEnumerator()
+        //{
+        //    foreach (ITask task in _SubTasks)
+        //    {
+        //        yield return task;
+        //        foreach (ITask _task in (IEnumerable<ITask>)task)
+        //        {
+        //            yield return _task;
+        //        }
+        //    }
+        //}
         #endregion
 
         #region IEnumerable
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotSupportedException();
-        }
+        //IEnumerator IEnumerable.GetEnumerator()
+        //{
+        //    throw new NotSupportedException();
+        //}
         #endregion
 
         #region Public metods
-        public UsualTask(IEntity producer, DateTime dateTime, IDescription description, ITask parent, 
-            ITaskLocation location, IEntity performer, IList<IEntity> observers)
-        {
-            Producer = Producer;
-            CreationDate = dateTime;
-            Description = description;
-            Parent = parent;
-            Location = location;
-            Performer = performer;
-            _Observers = (List<IEntity>)observers;
-            LastStateChangeDate = dateTime;
-        }
         public void AddSubtask(IEnumerable<ITask> Subtask)
         {
             OnPropertyCollectionChangedAdd(ref _SubTasks, Subtask);
@@ -192,6 +192,20 @@ namespace Tractor.Core.Objects.Tasks
         public void Remove(ITask item)
         {
             throw new NotImplementedException(); //?
+        }
+
+        public object Clone()
+        {
+            UsualTask result = new UsualTask(ID);
+            result.CreationDate = CreationDate;
+            result.Description = Description;
+            result.LastStateChangeDate = LastStateChangeDate;
+            result.Location = Location;
+            result.Name = Name;
+            result.Performer = Performer;
+            result.Producer = Producer;
+            result.Progress = Progress;
+            return result;
         }
         #endregion
     }

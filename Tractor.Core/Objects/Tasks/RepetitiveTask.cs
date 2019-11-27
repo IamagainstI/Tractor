@@ -31,8 +31,8 @@ namespace Tractor.Core.Objects.Tasks
 
         #region Public events
         public event PropertyChangedEventHandler PropertyChanged;
-        public event ObservableTreeNodeItemChangeHandler<ITask> ItemAdded;
-        public event ObservableTreeNodeItemChangeHandler<ITask> ItemRemoved;
+        //public event ObservableTreeNodeItemChangeHandler<ITask> ItemAdded;
+        //public event ObservableTreeNodeItemChangeHandler<ITask> ItemRemoved;
         public event PropertyChangingEventHandler PropertyChanging;
         public event NotifyCollectionChangedEventHandler CollectionChanged;
         #endregion
@@ -101,7 +101,7 @@ namespace Tractor.Core.Objects.Tasks
             set => OnPropertyChange(ref _Location, value);
         }
         public Guid ID { get; }
-        public IEditableTreeNode<ITask> Parent { get; }
+        //public IEditableTreeNode<ITask> Parent { get; }
         public IEnumerable<ITask> Items { get; } //?
         public IProgress Progress { get; } // как-то выщитываем
 
@@ -113,24 +113,24 @@ namespace Tractor.Core.Objects.Tasks
         #endregion
 
         #region IEnumerable<ITask> metod
-        IEnumerator<ITask> IEnumerable<ITask>.GetEnumerator()
-        {
-            foreach (ITask task in _SubTasks)
-            {
-                yield return task;
-                foreach (ITask _task in (IEnumerable<ITask>)task)
-                {
-                    yield return _task;
-                }
-            }
-        }
+        //IEnumerator<ITask> IEnumerable<ITask>.GetEnumerator()
+        //{
+        //    foreach (ITask task in _SubTasks)
+        //    {
+        //        yield return task;
+        //        foreach (ITask _task in (IEnumerable<ITask>)task)
+        //        {
+        //            yield return _task;
+        //        }
+        //    }
+        //}
         #endregion
 
         #region IEnumerable
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotSupportedException();
-        }
+        //IEnumerator IEnumerable.GetEnumerator()
+        //{
+        //    throw new NotSupportedException();
+        //}
         #endregion
 
         #region Public metods
@@ -177,6 +177,11 @@ namespace Tractor.Core.Objects.Tasks
         public void Remove(ITask item)
         {
             throw new NotImplementedException(); //?
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

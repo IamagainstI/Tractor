@@ -13,8 +13,8 @@ using Tractor.Core.Objects.Tasks;
 namespace Tractor.Core.Objects.Projects
 {
     public interface IProject : IStuff, IEquatable<IProject>, INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged,
-        IEditableTreeNode<IProject>, ITreeNodeWithParent<IProject, IProject>, IObservableTreeNode<IProject>,
-        IEditableTreeNode<ITask>, IObservableTreeNode<ITask>
+        IEditableTreeNode<IProject>, ITreeNodeWithParent<IProject, IProject>, IObservableTreeNode<IProject>
+        //IEditableTreeNode<ITask>, IObservableTreeNode<ITask>
     {
         string Name { get; }
         IProgress Progress { get; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -19,8 +20,8 @@ namespace Tractor.Core.Objects.Projects
         #region Private events
         private event ObservableTreeNodeItemChangeHandler<IProject> _SubprojectsItemAdded;
         private event ObservableTreeNodeItemChangeHandler<IProject> _SubprojectsItemRemoved;
-        private event ObservableTreeNodeItemChangeHandler<ITask> _TasksItemAdded;
-        private event ObservableTreeNodeItemChangeHandler<ITask> _TasksItemRemoved;
+        //private event ObservableTreeNodeItemChangeHandler<ITask> _TasksItemAdded;
+        //private event ObservableTreeNodeItemChangeHandler<ITask> _TasksItemRemoved;
         #endregion
 
         #region Private objects
@@ -48,16 +49,16 @@ namespace Tractor.Core.Objects.Projects
         #endregion
 
         #region IObservableTreeNode<ITask> events
-        event ObservableTreeNodeItemChangeHandler<ITask> IObservableTreeNode<ITask>.ItemAdded
-        {
-            add => _TasksItemAdded += value;
-            remove => _TasksItemAdded -= value;
-        }
-        event ObservableTreeNodeItemChangeHandler<ITask> IObservableTreeNode<ITask>.ItemRemoved
-        {
-            add => _TasksItemRemoved += value;
-            remove => _TasksItemRemoved -= value;
-        }
+        //event ObservableTreeNodeItemChangeHandler<ITask> IObservableTreeNode<ITask>.ItemAdded
+        //{
+        //    add => _TasksItemAdded += value;
+        //    remove => _TasksItemAdded -= value;
+        //}
+        //event ObservableTreeNodeItemChangeHandler<ITask> IObservableTreeNode<ITask>.ItemRemoved
+        //{
+        //    add => _TasksItemRemoved += value;
+        //    remove => _TasksItemRemoved -= value;
+        //}
         #endregion
 
         #region ITreeNode<IProject> objects
@@ -65,12 +66,13 @@ namespace Tractor.Core.Objects.Projects
         #endregion
 
         #region ITreeNode<ITask> objects
-        IEnumerable<ITask> ITreeNode<ITask>.Items => Tasks;
+        //IEnumerable<ITask> ITreeNode<ITask>.Items => Tasks;
         #endregion
 
         #region Public events
         public event PropertyChangingEventHandler PropertyChanging;
         public event PropertyChangedEventHandler PropertyChanged;
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
         #endregion
 
         #region Public objects
@@ -116,8 +118,8 @@ namespace Tractor.Core.Objects.Projects
         #endregion
 
         #region IEditableTreeNode<ITask> methods
-        void IEditableTreeNode<ITask>.Add(ITask item) => AddTask(item);
-        void IEditableTreeNode<ITask>.Remove(ITask item) => RemoveTask(item);
+        //void IEditableTreeNode<ITask>.Add(ITask item) => AddTask(item);
+        //void IEditableTreeNode<ITask>.Remove(ITask item) => RemoveTask(item);
         #endregion
 
         #region IEnumerable<IProject> methods
@@ -135,17 +137,17 @@ namespace Tractor.Core.Objects.Projects
         #endregion
 
         #region IEnumerable<ITask> methods
-        IEnumerator<ITask> IEnumerable<ITask>.GetEnumerator()
-        {
-            foreach (ITask task in Tasks)
-            {
-                yield return task;
-                foreach (ITask _task in task)
-                {
-                    yield return _task;
-                }
-            }
-        }
+        //IEnumerator<ITask> IEnumerable<ITask>.GetEnumerator()
+        //{
+        //    foreach (ITask task in Tasks)
+        //    {
+        //        yield return task;
+        //        foreach (ITask _task in task)
+        //        {
+        //            yield return _task;
+        //        }
+        //    }
+        //}
         #endregion
 
         #region IEnumerable
@@ -199,7 +201,7 @@ namespace Tractor.Core.Objects.Projects
         {
             if ((this as IEnumerable<ITask>).Contains(task))
             {
-                task.Parent.Remove(task);
+                //task.Parent.Remove(task);
                 //TODO добавить вызов событий
             }
             else
