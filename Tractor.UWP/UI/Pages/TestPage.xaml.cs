@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Tractor.Core;
 using Tractor.Core.Model;
+using Tractor.Core.Objects.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -31,14 +32,11 @@ namespace Tractor.UWP.UI.Pages
         {
             Tasks = new ObservableCollection<ITask>();
             Tasks.Add(
-                new Task(Guid.NewGuid())
+                new UsualTask(Guid.NewGuid())
                 {
                     CreationDate = DateTime.Now,
-                    Description = "Test task description. You really need more?",
                     LastStateChangeDate = DateTime.Now,
                     Name = "Test task!",
-                    Producer = new Entity() { Name = "djart" },
-                    State = TaskState.ToDo
                 }
             );
             this.InitializeComponent();
