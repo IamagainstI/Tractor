@@ -11,8 +11,8 @@ using Tractor.Core.Objects.Tasks.Locations;
 
 namespace Tractor.Core.Objects.Tasks
 {
-    public interface ITask : IStuff, IEquatable<ITask>, INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged,
-        IEditableTreeNode<ITask>, ITreeNodeWithParent<ITask, IEditableTreeNode<ITask>>, IObservableTreeNode<ITask>
+    public interface ITask : IStuff, IEquatable<ITask>, INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged, ICloneable
+        //IEditableTreeNode<ITask>, ITreeNodeWithParent<ITask, IEditableTreeNode<ITask>>, IObservableTreeNode<ITask>
     {
         string Name { get; }
         IDescription Description { get; }

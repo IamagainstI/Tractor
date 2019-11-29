@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Decorators\" />
-    <Folder Include="Routers\" />
     <Folder Include="Presentrs\" />
   </ItemGroup>
 

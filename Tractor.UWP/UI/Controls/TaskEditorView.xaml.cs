@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Tractor.Core.Interactors.Tasks;
 using Tractor.Core.Model;
 using Tractor.Core.Objects.Tasks;
 using Windows.Foundation;
@@ -20,19 +20,28 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Tractor.UWP.UI.Controls
 {
-    public sealed partial class TasksPresenterView : UserControl
+    public sealed partial class TaskEditorView : UserControl
     {
-        public static readonly DependencyProperty PresentedTaskProperty = DependencyProperty.Register(nameof(PresentedTasks), typeof(ObservableCollection<ITask>), typeof(TasksPresenterView), new PropertyMetadata(null));
+        //public static readonly DependencyProperty PresentedTaskProperty = DependencyProperty.Register(nameof(PresentedTask), typeof(ITask), typeof(TaskView), new PropertyMetadata(null));
 
-        public ObservableCollection<ITask> PresentedTasks
+        public UsualTask PresentedTask
         {
-            get => (ObservableCollection<ITask>)GetValue(PresentedTaskProperty);
-            set => SetValue(PresentedTaskProperty, value);
+            //get => (UsualTask)GetValue(PresentedTaskProperty);
+            //set => SetValue(PresentedTaskProperty, value);
+            get => (UsualTask)Editor.Task;
+            set => Editor.Task = value;
         }
 
-        public TasksPresenterView()
+        public TaskEditor Editor { get; set; }
+
+        public TaskEditorView()
         {
             this.InitializeComponent();
+        }
+
+        private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
         }
     }
 }

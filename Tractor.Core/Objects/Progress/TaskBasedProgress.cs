@@ -22,11 +22,11 @@ namespace Tractor.Core.Objects.Progress
             get
             {
                 int count = 0;
-                foreach (ITask task in Tasks)
-                {
-                    _ProgressPercentage += task.Progress.ProgressPercentage;
-                    count++;
-                }
+                //foreach (ITask task in Tasks)
+                //{
+                //    _ProgressPercentage += task.Progress.ProgressPercentage;
+                //    count++;
+                //}
                 return _ProgressPercentage /= count;
             }
         }
@@ -43,12 +43,12 @@ namespace Tractor.Core.Objects.Progress
         }
         public DateTime TimeLastChangeProgress { get; set; }
 
-        public ITreeNode<ITask> Tasks { get; }
+        //public ITreeNode<ITask> Tasks { get; }
 
-        public TaskBasedProgress(ITreeNode<ITask> tasks)
-        {
-            Tasks = tasks;
-        }
+        //public TaskBasedProgress(ITreeNode<ITask> tasks)
+        //{
+        //    Tasks = tasks;
+        //}
 
         public bool Equals(IProgress other)
         {

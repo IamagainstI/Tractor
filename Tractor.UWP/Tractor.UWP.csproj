@@ -129,6 +129,9 @@
     <Compile Include="UI\Controls\TasksPresenterView.xaml.cs">
       <DependentUpon>TasksPresenterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controls\TaskEditorView.xaml.cs">
+      <DependentUpon>TaskEditorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Controls\TaskView.xaml.cs">
       <DependentUpon>TaskView.xaml</DependentUpon>
     </Compile>
@@ -192,6 +195,10 @@
     <Page Include="UI\Controls\TasksPresenterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\TaskEditorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Controls\TaskView.xaml">
       <SubType>Designer</SubType>

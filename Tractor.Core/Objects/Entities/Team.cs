@@ -1,95 +1,83 @@
 ﻿using EmptyBox.Collections.ObjectModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Tractor.Core.Model;
 using Tractor.Core.Objects.Difference;
 using Tractor.Core.Objects.Entities;
+using System.Linq;
 
 namespace Tractor.Core.Objects
 {
     public class Team : ITeam
     {
 
-        #region Private objects
+
+        #region
+        private Dictionary<IEntity, IEntityRole> _Members;
         private string _Name;
         #endregion
 
-        #region Public events
-        public event TeamChangeEventHandler TeamChanged;
-        public event PropertyChangedEventHandler PropertyChanged;
-        //ToDo добавить события на добавление членов команды
-        #endregion
-
-        #region Protected metods
-        protected void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null) //для уведомление интерфейса об том, что были изменены свойства объекта
-         where T : IEquatable<T>
+        #region Private Metods
+        private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
+        where T : IEquatable<T>
         {
             if (!field.Equals(newValue))
             {
+                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
                 field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name)); // уведомляем интерфейс
-                IDifference difference = null;
-                switch (name)
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        private void OnPropertyCollectionChangedAdd(ref Dictionary<IEntity, IEntityRole> field, IDictionary<IEntity, IEntityRole> newItems, [CallerMemberName]string name = null)
+        {
+            if (newItems != null)
+            {
+                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(name)));
+                field.Concat(newItems);
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, newItems, null));
+            }
+        }
+        private void OnPropertyCollectionChangedRemove(ref Dictionary<IEntity, IEntityRole> field, IDictionary<IEntity, IEntityRole> items, [CallerMemberName]string name = null)
+        {
+            if (items != null)
+            {
+                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(name)));
+                foreach (var item in field)
                 {
-                    case nameof(Name):
-                        difference = new TeamDifferenceNameChanged((string)(object)newValue, this, DateTime.Now);
-                        break;
+                    field.Remove(item.Key);
                 }
-                TeamChanged?.Invoke(difference); //уведомляем базу данных
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, null, items));
             }
         }
         #endregion
 
-        #region Public objects
-        public Guid ID { get; }
-        public string Name
-        {
-            get => _Name;
-            set => OnPropertyChange(ref _Name, value);
-        }
-        public IDictionary<IEntity, IEntityRole> Members { get; }
-        #endregion
+        public IDictionary<IEntity, IEntityRole> Members { get => _Members; }
 
-        #region Public metods
+        public string Name { get => _Name; }
+
+        public Guid ID { get; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangingEventHandler PropertyChanging;
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        public void AddMember(IDictionary<IEntity, IEntityRole> membres)
+        {
+            OnPropertyCollectionChangedAdd(ref _Members, membres);
+        }
+
         public bool Equals(IEntity other)
         {
-            if (other != null)
-            {
-                return ID == other.ID;
-            }
-            return false;
+            return other.ID == ID;
         }
 
-        public void AddMember(IEntity item, IEntityRole itemRole)
+        public void RemoveMember(IDictionary<IEntity, IEntityRole> membres)
         {
-
-            if (Members.ContainsKey(item))
-            {
-                throw new ArgumentException();
-            }
-            else
-            {
-                Members.Add(item, itemRole);
-                //TODO добавить вызов событий
-            }
+            OnPropertyCollectionChangedRemove(ref _Members, membres);
         }
-
-        public void RemoveMember(IEntity item)
-        {
-
-            if (!Members.ContainsKey(item))
-            {
-                throw new ArgumentException();
-            }
-            else
-            {
-                Members.Remove(item);
-                //TODO добавить вызов событий
-            }
-        }
-        #endregion
     }
 }
