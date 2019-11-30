@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Tractor.Core.Objects.Tasks;
-using Tractor.Core.Routers.Pipeline;
-using Tractor.UWP.UI.Controls;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,28 +22,9 @@ namespace Tractor.UWP.UI.Pages
     /// </summary>
     public sealed partial class OverallPage : Page
     {
-        public UsualTask Task { get; set; } = new UsualTask(Guid.NewGuid());
-        public PipelineConstructor Constructor { get; set; } = new PipelineConstructor();
-
         public OverallPage()
         {
             this.InitializeComponent();
-            Constructor.Navigator.NavigationRequested += Navigator_NavigationRequested;
-        }
-
-        private void Navigator_NavigationRequested(object sender, string e)
-        {
-            if (e == "TaskEditor")
-            {
-                TaskEditorView v = new TaskEditorView();
-                v.Editor = Constructor.TaskEditor;
-                Content = v;
-            }
-        }
-
-        private void NavigationView_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            Constructor.ExternalTaskInput.Send(Task);
         }
     }
 }
