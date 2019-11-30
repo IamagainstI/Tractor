@@ -44,6 +44,5 @@
             Grid.Row="2"
             Text="{x:Bind PresentedTask.Description, Mode=OneWay}"
             FontSize="20"/>
-        <Button Content="Button" Margin="54,27,0,0" Grid.Row="2" VerticalAlignment="Top" Height="138" Width="252"/>
     </Grid>
 </UserControl>
