@@ -1,0 +1,88 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Tractor.UWP.UI.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mcux="using:Microsoft.UI.Xaml.Controls"
+    x:Class="Tractor.UWP.UI.Pages.MainPage"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.Resources>
+            <AcrylicBrush x:Key="NavigationViewTopPaneBackground"
+                  BackgroundSource="HostBackdrop"
+                  TintColor="{ThemeResource SystemChromeMediumColor}"
+                  TintOpacity="0.6"
+                  FallbackColor="{ThemeResource SystemChromeMediumColor}"/>
+            <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
+                  BackgroundSource="HostBackdrop"
+                  TintColor="{ThemeResource SystemChromeMediumColor}"
+                  TintOpacity="0.6"
+                  FallbackColor="{ThemeResource SystemChromeMediumColor}"/>
+            <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground"
+                  BackgroundSource="HostBackdrop"
+                  TintColor="{ThemeResource SystemChromeMediumColor}"
+                  TintOpacity="0.6"
+                  FallbackColor="{ThemeResource SystemChromeMediumColor}"/>
+        </Grid.Resources>
+
+        <mcux:NavigationView PaneTitle="Меню" IsSettingsVisible="True" IsPaneVisible="True" IsPaneOpen="False" PaneDisplayMode="Left" IsBackButtonVisible="Collapsed">
+            <mcux:NavigationView.MenuItems>
+                <Grid Height="64">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="64"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="1"
+                        Text="Tractor"
+                        Margin="10"
+                        FontSize="34"
+                        TextAlignment="Center"
+                        HorizontalTextAlignment="Left">
+                    </TextBlock>
+                    <FontIcon
+                        Glyph="🚜"
+                        FontFamily="Segoe"
+                        Margin="10"
+                        FontSize="34"/>
+                </Grid>
+                <mcux:NavigationViewItem Content="Общий вид">
+                    <mcux:NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Home"/>
+                    </mcux:NavigationViewItem.Icon>
+                </mcux:NavigationViewItem>
+                <mcux:NavigationViewItem Content="Управление задачами">
+                    <mcux:NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Edit"/>
+                    </mcux:NavigationViewItem.Icon>
+                </mcux:NavigationViewItem>
+                <mcux:NavigationViewItem Content="Управление проектами">
+                    <mcux:NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="AllApps"/>
+                    </mcux:NavigationViewItem.Icon>
+                </mcux:NavigationViewItem>
+                <mcux:NavigationViewItem Content="Статистика">
+                    <mcux:NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Find"/>
+                    </mcux:NavigationViewItem.Icon>
+                </mcux:NavigationViewItem>
+                <mcux:NavigationViewItem Content="Настройка пользователей">
+                    <mcux:NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="People"/>
+                    </mcux:NavigationViewItem.Icon>
+                </mcux:NavigationViewItem>
+            </mcux:NavigationView.MenuItems>
+            <mcux:NavigationView.Content>
+                <mcux:NavigationView PaneDisplayMode="Top" IsPaneOpen="False" IsPaneToggleButtonVisible="False" IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
+                    <mcux:NavigationView.MenuItems>
+                        <mcux:NavigationViewItem Content="Локальная база"/>
+                        <mcux:NavigationViewItem Content="ООО ''ЖОПА МИРА''"/>
+                    </mcux:NavigationView.MenuItems>
+                </mcux:NavigationView>
+            </mcux:NavigationView.Content>
+        </mcux:NavigationView>
+    </Grid>
+</Page>
