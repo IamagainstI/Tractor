@@ -11,12 +11,17 @@ namespace Tractor.Core.Interactors.Tasks
     public class TaskEditor : Pipeline<ITask>, IPipelineInput<ITask>, IPipelineOutput<NavigationInfo>
     {
         private ITask StoredTask;
+        private event EventHandler<NavigationInfo> NavigationInfo_Output;
 
-        public EventHandler<ITask> Input => GetData;
+        event EventHandler<NavigationInfo> IPipelineOutput<NavigationInfo>.Output
+        {
+            add => NavigationInfo_Output += value;
+            remove => NavigationInfo_Output -= value;
+        }
+
+        EventHandler<ITask> IPipelineInput<ITask>.Input => GetData;
 
         public ITask Task { get; set; }
-
-        public event EventHandler<NavigationInfo> Output;
 
         public void EndEditing()
         {
@@ -28,14 +33,14 @@ namespace Tractor.Core.Interactors.Tasks
                     prop.SetValue(StoredTask, prop.GetValue(Task));
                 }
             }
-            Output?.Invoke(this, new NavigationInfo() { Name = "Back" });
+            NavigationInfo_Output?.Invoke(this, new NavigationInfo() { Name = "Back" });
         }
 
         private void GetData(object sender, ITask data)
         {
             StoredTask = data;
             Task = (ITask)StoredTask.Clone();
-            Output?.Invoke(this, new NavigationInfo() { Name = "TaskEditor" });
+            NavigationInfo_Output?.Invoke(this, new NavigationInfo() { Name = "TaskEditor" });
         }
     }
 }
