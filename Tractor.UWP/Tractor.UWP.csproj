@@ -135,8 +135,17 @@
     <Compile Include="UI\Controls\TaskView.xaml.cs">
       <DependentUpon>TaskView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Pages\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Pages\OverallPage.xaml.cs">
       <DependentUpon>OverallPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Pages\ProjectManagementPage.xaml.cs">
+      <DependentUpon>ProjectManagementPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Pages\ProjectsPage.xaml.cs">
+      <DependentUpon>ProjectsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Pages\TeamsManagmentPage.xaml.cs">
       <DependentUpon>TeamsManagmentPage.xaml</DependentUpon>
@@ -204,7 +213,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Pages\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Pages\OverallPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Pages\ProjectManagementPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Pages\ProjectsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
