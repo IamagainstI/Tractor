@@ -8,7 +8,7 @@ using Tractor.Core.Routers.UI;
 
 namespace Tractor.Core.Interactors.Projects
 {
-    public class ProjectEditor : Pipeline<IProject>, IPipelineInput<IProject>, IPipelineOutput<NavigationInfo>
+    public class TaskEditor : Pipeline<IProject>, IPipelineInput<IProject>, IPipelineOutput<NavigationInfo>
     {
         private IProject StoredProject;
         private event EventHandler<NavigationInfo> NavigationInfo_Output;
@@ -18,14 +18,15 @@ namespace Tractor.Core.Interactors.Projects
             add => NavigationInfo_Output += value;
             remove => NavigationInfo_Output -= value;
         }
-        EventHandler<IProject> IPipelineInput<IProject>.Input => GetData;
-
+        
         public IProject Project { get; set; }
+
+        EventHandler<IProject> IPipelineInput<IProject>.Input => GetData;
 
         public void EndEditing()
         {
-            TypeInfo typeProject = StoredProject.GetType().GetTypeInfo();
-            foreach(PropertyInfo prop in typeProject.DeclaredProperties)
+            TypeInfo taskType = StoredProject.GetType().GetTypeInfo();
+            foreach (PropertyInfo prop in taskType.DeclaredProperties)
             {
                 if (prop.CanWrite)
                 {
@@ -38,9 +39,8 @@ namespace Tractor.Core.Interactors.Projects
         private void GetData(object sender, IProject data)
         {
             StoredProject = data;
-            Project = (IProject)data.Clone();
+            Project = (IProject)StoredProject.Clone();
             NavigationInfo_Output?.Invoke(this, new NavigationInfo() { Name = "ProjectEditor" });
         }
-       
     }
 }
