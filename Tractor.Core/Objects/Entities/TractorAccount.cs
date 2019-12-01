@@ -4,10 +4,11 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Tractor.Core.Model;
+using Tractor.Core.Objects.Entities;
 
 namespace Tractor.Core.Objects
 {
-    public class TractorAccount : IEntity
+    public class TractorAccount : ITractorEntity
     {
         private string _Name;
 
@@ -40,6 +41,11 @@ namespace Tractor.Core.Objects
         public bool Equals(IEntity other)
         {
             return ID == other.ID;
+        }
+
+        public bool CheckAvailability(DateTime dateTime, TimeSpan timeSpan)
+        {
+            throw new NotImplementedException();
         }
     }
 }
