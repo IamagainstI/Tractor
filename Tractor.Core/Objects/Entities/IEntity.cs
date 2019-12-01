@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace Tractor.Core.Objects
 {
-    public interface IEntity : IStuff, IEquatable<IEntity>
+    public interface IEntity : IEquatable<IEntity>, INotifyPropertyChanged, INotifyPropertyChanging
     {
-        string Name { get; }
+        Guid ID { get; }
+        string Name { get; set; }
     }
 }

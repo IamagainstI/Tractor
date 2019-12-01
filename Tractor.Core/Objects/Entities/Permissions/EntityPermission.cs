@@ -37,6 +37,11 @@ namespace Tractor.Core.Objects.Entities.Permissions
 
         public Guid ID { get; }
 
+        public EntityPermission(Guid id)
+        {
+            ID = id;
+        }
+
         public bool Equals(IPermission other)
         {
             return ID == other.ID;

@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using EmptyBox.Collections.Generic;
 using EmptyBox.Collections.ObjectModel;
+using Tractor.Core.Objects.Descriptions;
 using Tractor.Core.Objects.Difference;
 using Tractor.Core.Objects.Entities.Permissions;
 using Tractor.Core.Objects.Progress;
@@ -158,9 +159,9 @@ namespace Tractor.Core.Objects.Projects
         #endregion
 
         #region Constructors
-        UsualProject(Guid id = new Guid())
+        public UsualProject(Guid id)
         {
-            ID = ID;
+            ID = id;
         }
         #endregion
 
