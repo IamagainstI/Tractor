@@ -86,11 +86,6 @@ namespace Tractor.Core.Objects.Tasks
             get => _Description;
             set => OnPropertyChange(ref _Description, value);
         }
-        public ObservableCollection<IEntity> Entities;
-        public void test()
-        {
-            Entities.
-        }
         public IEnumerable<ITask> Subtasks => _Subtasks;
         public IEnumerable<ITask> Dependencies => _Dependencies;
         public IEnumerable<IEntity> Observers => _Observers;
