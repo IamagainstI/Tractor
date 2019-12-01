@@ -9,19 +9,38 @@ using Tractor.Core.Model;
 using Tractor.Core.Objects.Difference;
 using Tractor.Core.Objects.Entities;
 using System.Linq;
+using Tractor.Core.Collections;
 
 namespace Tractor.Core.Objects
 {
     public class Team : ITeam
     {
-
-
         #region Private objects
-        private Dictionary<IEntity, IEntityRole> _Members;
         private string _Name;
         #endregion
 
-        #region Private Metods
+        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangingEventHandler PropertyChanging;
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        public ObservableDictionary<IEntity, IEntityRole> Members { get; private set; } = new ObservableDictionary<IEntity, IEntityRole>();
+
+        public string Name 
+        { 
+            get => _Name;
+            set => OnPropertyChange(ref _Name, value);
+        }
+
+        public Guid ID { get; }
+
+        #region Constructors
+        public Team(Guid id)
+        {
+            ID = id;
+        }
+        #endregion
+
+        #region Private methods
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
         where T : IEquatable<T>
         {
@@ -55,53 +74,18 @@ namespace Tractor.Core.Objects
         }
         #endregion
 
-        #region Constructors
-
-        public Team(Guid id = new Guid())
-        {
-            ID = id;
-        }
-
-        #endregion
-        public IDictionary<IEntity, IEntityRole> Members { get => _Members; }
-
-        public string Name 
-        { 
-            get => _Name;
-            set => OnPropertyChange(ref _Name, value);
-        }
-
-        public Guid ID { get; }
-
-        public Team(Guid id)
-        {
-            ID = id;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public event PropertyChangingEventHandler PropertyChanging;
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
-
-        public void AddMember(IDictionary<IEntity, IEntityRole> membres)
-        {
-            OnPropertyCollectionChangedAdd(ref _Members, membres);
-        }
-
         public bool Equals(IEntity other)
         {
             return other.ID == ID;
         }
 
-        public void RemoveMember(IDictionary<IEntity, IEntityRole> membres)
-        {
-            OnPropertyCollectionChangedRemove(ref _Members, membres);
-        }
-
         public object Clone()
         {
-            Team result = new Team(ID);
-            result._Members = _Members;
-            result._Name = Name;
+            Team result = new Team(ID)
+            {
+                Members = Members,
+                Name = Name
+            };
             return result;
         }
     }
