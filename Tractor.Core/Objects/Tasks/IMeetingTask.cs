@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tractor.Core.Collections;
 
 namespace Tractor.Core.Objects.Tasks
 {
     public interface IMeetingTask : ITask
     {
-        IEnumerable<IEntity> Participants { get; }
-        IReadOnlyDictionary<IEntity, bool> CheckList { get; }
+        ObservableCollection<IEntity> Participants { get; }
+        ObservableDictionary<IEntity, bool> CheckList { get; }
     }
 }
