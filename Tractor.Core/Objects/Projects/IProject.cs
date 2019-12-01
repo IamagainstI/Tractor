@@ -6,16 +6,18 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Text;
+using Tractor.Core.Objects.Descriptions;
 using Tractor.Core.Objects.Entities.Permissions;
 using Tractor.Core.Objects.Progress;
 using Tractor.Core.Objects.Tasks;
 
 namespace Tractor.Core.Objects.Projects
 {
-    public interface IProject : IStuff, IEquatable<IProject>, INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged,
+    public interface IProject : IEquatable<IProject>, INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged,
         IEditableTreeNode<IProject>, ITreeNodeWithParent<IProject, IProject>, IObservableTreeNode<IProject>, ICloneable
         //IEditableTreeNode<ITask>, IObservableTreeNode<ITask>
     {
+        Guid ID { get; }
         string Name { get; set; }
         IProgress Progress { get; set; }
         IEnumerable<IProject> Subprojects { get; }
