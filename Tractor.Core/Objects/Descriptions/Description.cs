@@ -12,8 +12,8 @@ namespace Tractor.Core.Objects.Descriptions
     {
 
         #region Private objects
-        List<ILabel> _Labels;
-        List<IStorageItem> _Attachments;
+        private List<ILabel> _Labels;
+        private List<IStorageItem> _Attachments;
         #endregion
 
         #region Public events
@@ -25,6 +25,8 @@ namespace Tractor.Core.Objects.Descriptions
         #region Public Objects
         public IList<ILabel> Labels { get => _Labels; }
         public IList<IStorageItem> Attachments { get => _Attachments; }
+
+        public Guid ID { get; }
         #endregion Public Objects
 
         #region Private metods
@@ -53,6 +55,13 @@ namespace Tractor.Core.Objects.Descriptions
         }
         #endregion
 
+        #region Constructors
+        public Description(Guid id = new Guid())
+        {
+            ID = id;
+        }
+        #endregion
+
         #region Public Metods
 
         public bool Equals(IDescription other)
@@ -78,6 +87,14 @@ namespace Tractor.Core.Objects.Descriptions
         public void RemoveAttachment(IEnumerable<IStorageItem> storageItem)
         {
             throw new NotImplementedException();
+        }
+
+        public object Clone()
+        {
+            Description result = new Description(ID);
+            result._Attachments = _Attachments;
+            result._Labels = _Labels;
+            return result;
         }
         #endregion
     }

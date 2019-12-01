@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Tractor.Core.Objects
 {
-    public interface ITeam : IEntity, INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged
+    public interface ITeam : IEntity, INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged, ICloneable
     {
         IDictionary<IEntity, IEntityRole> Members { get; }
         void AddMember(IDictionary<IEntity, IEntityRole> membres);

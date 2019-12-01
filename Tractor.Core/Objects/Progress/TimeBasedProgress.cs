@@ -1,23 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Tractor.Core.Objects.Progress
 {
     public class TimeBasedProgress : ITimeBasedProgress
     {
-        public BaseProgress Percentage => throw new NotImplementedException();
-
-        public DateTime TimeLastChangeProgress => throw new NotImplementedException();
-
-        public double ProgressPercentage => throw new NotImplementedException();
-
+        private DateTime _TimeLastchangeProgress;
+        private double _ProgressPercentage;
+        private DateTimeOffset _Interval;
+        private DateTime _StartTime;
+        private DateTime _EndTime;
+        private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
+         where T : IEquatable<T>
+        {
+            if (true)
+            {
+                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
+                field = newValue;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            }
+        }
         public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangingEventHandler PropertyChanging;
+        
+
+        public DateTime TimeLastChangeProgress 
+        {
+            get => _TimeLastchangeProgress;
+            set => OnPropertyChange(ref _TimeLastchangeProgress, value);
+        }
+
+        public double ProgressPercentage
+        {
+            get => _ProgressPercentage;
+            set => OnPropertyChange(ref _ProgressPercentage, value);
+        }
+        public DateTimeOffset Interval 
+        { 
+            get => _Interval; 
+            set => OnPropertyChange(ref _Interval, value); 
+        }
+        public DateTime StartTime 
+        { 
+            get => _StartTime; 
+            set => OnPropertyChange(ref _StartTime, value); 
+        }
+        public DateTime EndTime 
+        { 
+            get => _EndTime; 
+            set => OnPropertyChange(ref _EndTime, value); 
+        }
+
+        public Guid ID { get; }
 
         public bool Equals(IProgress other)
         {
-            throw new NotImplementedException();
+            return other.ID == ID;
         }
     }
 }

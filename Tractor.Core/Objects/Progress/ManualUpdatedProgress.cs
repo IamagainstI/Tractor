@@ -6,11 +6,12 @@ using System.Text;
 
 namespace Tractor.Core.Objects.Progress
 {
-    public class Progress : IProgress
-    {
+    class ManualUpdatedProgress : IManualUpdatedProgress
+    {        
         private double _ProgressPercentage;
         private DateTime _TimeLastchangeProgress;
-        public double ProgressPercentage 
+        private bool _TaskCompleted;
+        public double ProgressPercentage
         {
             get => _ProgressPercentage;
             set => OnPropertyChange(ref _ProgressPercentage, value);
@@ -22,6 +23,11 @@ namespace Tractor.Core.Objects.Progress
             set => OnPropertyChange(ref _TimeLastchangeProgress, value);
         }
 
+        public bool TaskCompleted 
+        { 
+            get => _TaskCompleted; 
+            set => OnPropertyChange(ref _TaskCompleted, value); 
+        }
         public Guid ID { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;

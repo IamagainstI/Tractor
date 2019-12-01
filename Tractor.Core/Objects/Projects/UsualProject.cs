@@ -157,6 +157,13 @@ namespace Tractor.Core.Objects.Projects
         }
         #endregion
 
+        #region Constructors
+        UsualProject(Guid id = new Guid())
+        {
+            ID = ID;
+        }
+        #endregion
+
         #region Public methods
         public void AddParticipant(IEntity entity, IEntityRole entityRole)
         {
@@ -229,6 +236,21 @@ namespace Tractor.Core.Objects.Projects
         {
             throw new NotImplementedException();
         }
+
+        public object Clone()
+        {
+            UsualProject result = new UsualProject(ID);
+            result._Name = _Name;
+            result._Parent = _Parent;
+            result._Participants = _Participants;
+            result._Permissions = _Permissions;
+            result._Progress = _Progress;
+            result._Tasks = _Tasks;
+            result._Subprojects = _Subprojects;
+            result._Description = _Description;
+            return result;
+        }
+
         #endregion
     }
 }
