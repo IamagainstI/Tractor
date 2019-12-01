@@ -6,5 +6,6 @@ namespace Tractor.Core.Objects.Entities.Permissions
 {
     interface IEntityRolePermission : IPermission
     {
+        IEntityRole EntityRole { get; set; }
     }
 }
