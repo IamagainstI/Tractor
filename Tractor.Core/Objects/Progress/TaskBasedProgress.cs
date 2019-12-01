@@ -12,22 +12,16 @@ namespace Tractor.Core.Objects.Progress
     
     public class TaskBasedProgress : IProgress
     {
-        private double _ProgressPercentage;
         #region Public events
         public event PropertyChangingEventHandler PropertyChanging;
         public event PropertyChangedEventHandler PropertyChanged;
-        #endregion        
+        #endregion
+
         public double ProgressPercentage
         {
             get
             {
-                int count = 0;
-                //foreach (ITask task in Tasks)
-                //{
-                //    _ProgressPercentage += task.Progress.ProgressPercentage;
-                //    count++;
-                //}
-                return _ProgressPercentage /= count;
+                throw new NotImplementedException();
             }
         }
 
@@ -43,16 +37,11 @@ namespace Tractor.Core.Objects.Progress
         }
         public DateTime TimeLastChangeProgress { get; set; }
 
-        //public ITreeNode<ITask> Tasks { get; }
-
-        //public TaskBasedProgress(ITreeNode<ITask> tasks)
-        //{
-        //    Tasks = tasks;
-        //}
+        public Guid ID { get; }
 
         public bool Equals(IProgress other)
         {
-            return other.ProgressPercentage == ProgressPercentage;
+            throw new NotImplementedException();
         }
     }
 }
