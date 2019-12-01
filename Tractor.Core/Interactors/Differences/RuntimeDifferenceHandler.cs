@@ -12,7 +12,7 @@ using Tractor.Core.Objects.Tasks;
 
 namespace Tractor.Core.Interactors.Differences
 {
-    public class DifferenceHandler : Pipeline<IDifference>, IPipelineOutput<IDifference>, IPipelineInput<IProject>
+    public class RuntimeDifferenceHandler : Pipeline<IDifference>, IPipelineOutput<IDifference>, IPipelineInput<IProject>
     {
         Dictionary<object, Difference> Differences = new Dictionary<object, Difference>();
 
