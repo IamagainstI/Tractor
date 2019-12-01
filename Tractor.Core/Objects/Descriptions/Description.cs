@@ -4,9 +4,9 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using EmptyBox.IO.Storage;
-using Tractor.Core.Objects;
+using Tractor.Core.Objects.Descriptions.Labels;
 
-namespace Tractor.Core
+namespace Tractor.Core.Objects.Descriptions
 {
     public class Description : IDescription
     {
