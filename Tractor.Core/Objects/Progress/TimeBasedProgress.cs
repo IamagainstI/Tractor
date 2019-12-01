@@ -10,7 +10,7 @@ namespace Tractor.Core.Objects.Progress
     {
         private DateTime _TimeLastchangeProgress;
         private double _ProgressPercentage;
-        private DateTimeOffset _Interval;
+        private TimeSpan _Interval;
         private DateTime _StartTime;
         private DateTime _EndTime;
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
@@ -38,7 +38,7 @@ namespace Tractor.Core.Objects.Progress
             get => _ProgressPercentage;
             set => OnPropertyChange(ref _ProgressPercentage, value);
         }
-        public DateTimeOffset Interval 
+        public TimeSpan Interval 
         { 
             get => _Interval; 
             set => OnPropertyChange(ref _Interval, value); 
