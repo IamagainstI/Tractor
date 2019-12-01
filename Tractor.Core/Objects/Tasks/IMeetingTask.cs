@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Tractor.Core.Objects.Tasks
 {
-    interface IMeetingTask : ITask
+    public interface IMeetingTask : ITask
     {
-        IList<IEntity> Participants { get; }
-        IDictionary<IEntity, bool> CheckList { get; }
+        IEnumerable<IEntity> Participants { get; }
+        IReadOnlyDictionary<IEntity, bool> CheckList { get; }
     }
 }
