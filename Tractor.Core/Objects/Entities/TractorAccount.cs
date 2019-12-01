@@ -11,6 +11,11 @@ namespace Tractor.Core.Objects
 
         public Guid ID => throw new NotImplementedException();
 
+        public IEntity Clone()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Equals(IEntity other)
         {
             throw new NotImplementedException();

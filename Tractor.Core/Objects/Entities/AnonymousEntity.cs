@@ -10,6 +10,11 @@ namespace Tractor.Core.Objects.Entities
 
         public Guid ID { get; }
 
+        public IEntity Clone()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Equals(IEntity other)
         {
             return ID == other.ID;
