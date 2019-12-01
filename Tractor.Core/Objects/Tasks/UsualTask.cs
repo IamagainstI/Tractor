@@ -81,6 +81,10 @@ namespace Tractor.Core.Objects.Tasks
             ID = id;
             Subtasks.CollectionChanged += OnCollectionChanged;
             Subtasks.PropertyChanging += OnCollectionPropertyChanging;
+            Dependencies.CollectionChanged += OnCollectionChanged;
+            Dependencies.PropertyChanging += OnCollectionPropertyChanging;
+            Observers.CollectionChanged += OnCollectionChanged;
+            Observers.PropertyChanging += OnCollectionPropertyChanging;
         }
         #endregion
         #region Private methods
