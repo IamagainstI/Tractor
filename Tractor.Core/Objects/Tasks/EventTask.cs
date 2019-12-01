@@ -138,7 +138,6 @@ namespace Tractor.Core.Objects.Tasks
         }
         #endregion
 
-
         #region Public methods
         public object Clone()
         {
