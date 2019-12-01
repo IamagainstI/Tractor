@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using Tractor.Core.Model;
 
-namespace Tractor.Core.Objects
+namespace Tractor.Core.Objects.Descriptions.Labels
 {
     public interface ILabel : IEquatable<ILabel>, INotifyPropertyChanged, INotifyPropertyChanging
     {

@@ -16,7 +16,7 @@ namespace Tractor.Core.Objects
     {
 
 
-        #region
+        #region Private objects
         private Dictionary<IEntity, IEntityRole> _Members;
         private string _Name;
         #endregion
@@ -55,6 +55,14 @@ namespace Tractor.Core.Objects
         }
         #endregion
 
+        #region Constructors
+
+        public Team(Guid id = new Guid())
+        {
+            ID = id;
+        }
+
+        #endregion
         public IDictionary<IEntity, IEntityRole> Members { get => _Members; }
 
         public string Name 
@@ -87,6 +95,14 @@ namespace Tractor.Core.Objects
         public void RemoveMember(IDictionary<IEntity, IEntityRole> membres)
         {
             OnPropertyCollectionChangedRemove(ref _Members, membres);
+        }
+
+        public object Clone()
+        {
+            Team result = new Team(ID);
+            result._Members = _Members;
+            result._Name = Name;
+            return result;
         }
     }
 }

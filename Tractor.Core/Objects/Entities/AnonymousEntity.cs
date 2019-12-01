@@ -36,6 +36,11 @@ namespace Tractor.Core.Objects.Entities
             ID = id;
         }
 
+        public IEntity Clone()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Equals(IEntity other)
         {
             return ID == other.ID;

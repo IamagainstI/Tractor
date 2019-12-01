@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using EmptyBox.IO.Storage;
+using Tractor.Core.Objects.Descriptions.Labels;
 
-namespace Tractor.Core.Objects
+namespace Tractor.Core.Objects.Descriptions
 {
-    public interface IDescription : IEquatable<IDescription>, INotifyPropertyChanged, INotifyPropertyChanging
+    public interface IDescription : IEquatable<IDescription>, INotifyPropertyChanged, INotifyPropertyChanging, ICloneable
     {
 		IList<ILabel> Labels { get; }
+        Guid ID { get; }
         IList<IStorageItem> Attachments { get; }
         void AddLabel(IEnumerable<ILabel> label);
         void RemoveLabel(IEnumerable<ILabel> label);

@@ -6,6 +6,6 @@ namespace Tractor.Core.Objects.Tasks
 {
     public interface IRepetitiveTask : IEventTask
     {
-        IList<IRepetitiveTask> AllInstances { get; }
+
     }
 }

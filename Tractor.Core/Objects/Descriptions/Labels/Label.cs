@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Runtime.CompilerServices;
 using Tractor.Core.Objects;
 
-namespace Tractor.Core.Objects
+namespace Tractor.Core.Objects.Descriptions.Labels
 {
     public class Label : ILabel
     {

@@ -13,7 +13,7 @@ using Tractor.Core.Objects.Tasks;
 namespace Tractor.Core.Objects.Projects
 {
     public interface IProject : IStuff, IEquatable<IProject>, INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged,
-        IEditableTreeNode<IProject>, ITreeNodeWithParent<IProject, IProject>, IObservableTreeNode<IProject>
+        IEditableTreeNode<IProject>, ITreeNodeWithParent<IProject, IProject>, IObservableTreeNode<IProject>, ICloneable
         //IEditableTreeNode<ITask>, IObservableTreeNode<ITask>
     {
         string Name { get; set; }

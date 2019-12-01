@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Text;
 using Tractor.Core.Model;
+using Tractor.Core.Objects.Descriptions;
 using Tractor.Core.Objects.Progress;
 using Tractor.Core.Objects.Tasks.Locations;
 
