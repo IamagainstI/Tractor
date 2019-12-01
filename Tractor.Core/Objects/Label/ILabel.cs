@@ -1,12 +1,13 @@
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using Tractor.Core.Model;
 
 namespace Tractor.Core.Objects
 {
-    public interface ILabel : IEquatable<ILabel>
+    public interface ILabel : IEquatable<ILabel>, INotifyPropertyChanged, INotifyPropertyChanging
     {
-        Color Color { get; }
-        string Name { get; }
+        Color Color { get; set; }
+        string Name { get; set; }
     }
 }
