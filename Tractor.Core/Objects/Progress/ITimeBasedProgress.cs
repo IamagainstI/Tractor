@@ -6,7 +6,7 @@ namespace Tractor.Core.Objects.Progress
 {
     public interface ITimeBasedProgress : IProgress
     {
-        DateTimeOffset Interval { get; set; }
+        TimeSpan Interval { get; set; }
         DateTime StartTime { get; set; }
         DateTime EndTime { get; set; }
     }

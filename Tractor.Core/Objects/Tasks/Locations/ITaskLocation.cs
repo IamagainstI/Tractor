@@ -5,7 +5,8 @@ using Tractor.Core.Objects;
 
 namespace Tractor.Core.Objects.Tasks.Locations
 {
-    public interface ITaskLocation : IStuff, IEquatable<ITaskLocation>
+    public interface ITaskLocation : IEquatable<ITaskLocation>
     {
+        Guid ID { get; }
     }
 }

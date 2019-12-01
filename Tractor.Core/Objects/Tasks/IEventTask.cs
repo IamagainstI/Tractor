@@ -6,7 +6,7 @@ namespace Tractor.Core.Objects.Tasks
 {
     public interface IEventTask : ITask
     {
-        TimeSpan Duration { get; }
-        DateTime StartTime { get; }
+        TimeSpan Duration { get; set; }
+        DateTime StartTime { get; set; }
     }
 }

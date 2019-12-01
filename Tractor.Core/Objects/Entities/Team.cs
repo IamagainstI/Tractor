@@ -65,9 +65,18 @@ namespace Tractor.Core.Objects
         #endregion
         public IDictionary<IEntity, IEntityRole> Members { get => _Members; }
 
-        public string Name { get => _Name; }
+        public string Name 
+        { 
+            get => _Name;
+            set => OnPropertyChange(ref _Name, value);
+        }
 
         public Guid ID { get; }
+
+        public Team(Guid id)
+        {
+            ID = id;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public event PropertyChangingEventHandler PropertyChanging;
