@@ -4,20 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Tractor.Core.Objects;
-using Tractor.Core.Objects.Descriptions;
+using Tractor.Core.Objects.Descriptions.Labels;
 using Tractor.Core.Routers.UI;
 using Tractor.Core.Specialized;
 
-namespace Tractor.Core.Interactors.Descriptions
+namespace Tractor.Core.Interactors.Labels
 {
-    public class DescriptionEditor : Pipeline<IDescription>, IPipelineInput<IDescription>, IPipelineOutput<NavigationInfo>
+    public class LabelEditor : Pipeline<ILabel>, IPipelineInput<ILabel>, IPipelineOutput<NavigationInfo>
     {
+        public EventHandler<ILabel> Input => throw new NotImplementedException();
+        public event EventHandler<NavigationInfo> Output;
 
+        private ILabel StoredLabel;
         private event EventHandler<NavigationInfo> NavigationInfo_Output;
-        private IDescription StoredDescription;
-
-        EventHandler<IDescription> IPipelineInput<IDescription>.Input => GetData;
 
         event EventHandler<NavigationInfo> IPipelineOutput<NavigationInfo>.Output
         {
@@ -25,39 +24,41 @@ namespace Tractor.Core.Interactors.Descriptions
             remove => NavigationInfo_Output -= value;
         }
 
-        public IDescription Description { get; set; }
-        public Type Type { get => Type; set => TypeChange(value); }
+        EventHandler<ILabel> IPipelineInput<ILabel>.Input => GetData;
 
-        public void EdnEditing()
+        public ILabel Label { get; set; }
+        public Type LabelType { get => LabelType; set => TypeChanged(value); }
+
+        public void EndEditing()
         {
-            TypeInfo type = StoredDescription.GetType().GetTypeInfo();
-            foreach(PropertyInfo prop in type.DeclaredProperties)
+            TypeInfo labelType = StoredLabel.GetType().GetTypeInfo();
+            foreach (PropertyInfo prop in labelType.DeclaredProperties)
             {
-                if(prop.CanWrite)
+                if (prop.CanWrite)
                 {
-                    prop.SetValue(StoredDescription, prop.GetValue(Description));
+                    prop.SetValue(StoredLabel, prop.GetValue(Label));
                 }
             }
             NavigationInfo_Output?.Invoke(this, new NavigationInfo() { Name = "Back" });
         }
 
-        private void TypeChange(Type type)
+        private void TypeChanged(Type type)
         {
-            if (StoredDescription.GetType() != type)
+            if (StoredLabel.GetType() != type)
             {
-                if (typeof(IDescription).IsAssignableFrom(type))
+                if (typeof(ILabel).IsAssignableFrom(type))
                 {
                     ConstructorInfo constructorInfo = type.GetConstructor(new[] { typeof(Guid) });
-                    object project = constructorInfo?.Invoke(new object[] { StoredDescription.ID });
+                    object label = constructorInfo?.Invoke(new object[] { StoredLabel.ID });
                     TypeInfo newTypeInfo = type.GetTypeInfo();
-                    TypeInfo oldTypeInfo = StoredDescription.GetType().GetTypeInfo();
+                    TypeInfo oldTypeInfo = StoredLabel.GetType().GetTypeInfo();
                     IEnumerable<PropertyInfo> intersect = newTypeInfo.DeclaredProperties.Intersect(oldTypeInfo.DeclaredProperties, PropertyComparator.Comparator);
                     foreach (PropertyInfo prop in intersect)
                     {
                         if (prop.CanWrite)
                         {
                             PropertyInfo readProp = oldTypeInfo.GetDeclaredProperty(prop.Name);
-                            prop.SetValue(project, readProp.GetValue(Description));
+                            prop.SetValue(label, readProp.GetValue(Label));
                         }
                     }
                 }
@@ -68,11 +69,12 @@ namespace Tractor.Core.Interactors.Descriptions
             }
         }
 
-        private void GetData(object sender, IDescription data)
+        private void GetData(object sender, ILabel data)
         {
-            StoredDescription = data;
-            Description = (IDescription)data.Clone();
-            NavigationInfo_Output?.Invoke(this, new NavigationInfo() { Name = "DescriptionEditor" });
+            StoredLabel = data;
+            Label = (ILabel)StoredLabel.Clone();
+            NavigationInfo_Output?.Invoke(this, new NavigationInfo() { Name = "LabelEditor" });
         }
     }
+
 }

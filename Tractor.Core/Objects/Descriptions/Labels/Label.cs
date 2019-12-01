@@ -24,6 +24,11 @@ namespace Tractor.Core.Objects.Descriptions.Labels
             }
         }
 
+        public Label(Guid id = new Guid())
+        {
+            ID = id;
+        }
+
         public Color Color 
         {
             get => _Color;
@@ -35,9 +40,19 @@ namespace Tractor.Core.Objects.Descriptions.Labels
             set => OnPropertyChange(ref _Name, value); 
         }
 
+        public Guid ID { get; }
+
         public bool Equals(ILabel other)
         {
             return ((Name == other.Name) && (Color == other.Color));
+        }
+
+        public object Clone()
+        {
+            Label label = new Label(ID);
+            label._Name = Name;
+            label._Color = Color;
+            return label;
         }
     }
 }

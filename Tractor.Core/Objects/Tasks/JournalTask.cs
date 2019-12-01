@@ -10,68 +10,27 @@ using EmptyBox.Collections.ObjectModel;
 using Tractor.Core.Objects.Progress;
 using Tractor.Core.Objects.Tasks.Locations;
 using System.Linq;
+using Tractor.Core.Objects.Descriptions;
+using Tractor.Core.Collections;
 
 namespace Tractor.Core.Objects.Tasks
 {
     public class JournalTask : IMeetingTask
-    {      
+    {
         #region Private objects
         private string _Name;
         private IProgress _Progress;
-        private List<ITask> _SubTasks;
-        private List<IEntity> _Observers;
         private IDescription _Description;
         private ITask _Parent;
         private IEntity _Performer;
+        private IEntity _Producer;
         private ITaskLocation _Location;
-        private List<ITask> _Dependencies;
-        private List<IEntity> _Participants;
-        private Dictionary<IEntity, bool> _CheckList;
-        private UsualTask _Task;
         #endregion
 
         #region Public events
         public event PropertyChangedEventHandler PropertyChanged;
-        //public event ObservableTreeNodeItemChangeHandler<ITask> ItemAdded;
-        //public event ObservableTreeNodeItemChangeHandler<ITask> ItemRemoved;
         public event PropertyChangingEventHandler PropertyChanging;
         public event NotifyCollectionChangedEventHandler CollectionChanged;
-        #endregion
-
-        #region Private metods for property change
-        private void OnPropertyCollectionChangedAdd<T>(ref List<T> field, IEnumerable<T> newItems, [CallerMemberName]string name = null)
-                where T : IEquatable<T>
-        {
-            if (newItems != null)
-            {
-                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(name)));
-                field.AddRange(newItems);
-                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, newItems, null));
-            }
-        }
-        private void OnPropertyCollectionChangedRemove<T>(ref List<T> field, IEnumerable<T> items, [CallerMemberName]string name = null)
-                where T : IEquatable<T>
-        {
-            if (items != null)
-            {
-                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(name)));
-                foreach (T item in field)
-                {
-                    field.Remove(item);
-                }
-                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, null, items));
-            }
-        }
-        private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
-         where T : IEquatable<T>
-        {
-            if (!field.Equals(newValue))
-            {
-                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-            }
-        }
         #endregion
 
         #region Public objects
@@ -85,16 +44,21 @@ namespace Tractor.Core.Objects.Tasks
             get => _Description;
             set => OnPropertyChange(ref _Description, value);
         }
-        public IDictionary<IEntity, bool> CheckList { get => _CheckList; }
-        public IEnumerable<ITask> SubTasks { get => _SubTasks; }
-        public IEnumerable<ITask> Dependencies { get => _Dependencies; }
-        public IList<IEntity> Observers { get => _Observers; }
+        public ObservableCollection<ITask> Subtasks { get; } = new ObservableCollection<ITask>();
+        public ObservableCollection<ITask> Dependencies { get; } = new ObservableCollection<ITask>();
+        public ObservableCollection<IEntity> Observers { get; } = new ObservableCollection<IEntity>();
+        public ObservableCollection<IEntity> Participants { get; } = new ObservableCollection<IEntity>();
+        public ObservableDictionary<IEntity, bool> CheckList { get; } = new ObservableDictionary<IEntity, bool>();
         public IEntity Performer
         {
             get => _Performer;
             set => OnPropertyChange(ref _Performer, value);
         }
-        public IEntity Producer { get; }
+        public IEntity Producer 
+        {
+            get => _Producer;
+            set => OnPropertyChange(ref _Producer, value);
+        }
         public DateTime CreationDate { get; }
         public DateTime LastStateChangeDate { get; }
         public ITaskLocation Location
@@ -103,118 +67,89 @@ namespace Tractor.Core.Objects.Tasks
             set => OnPropertyChange(ref _Location, value);
         }
         public Guid ID { get; }
-        //public IEditableTreeNode<ITask> Parent { get; }
         public IEnumerable<ITask> Items { get; } //?
-        public IProgress Progress { get; } // как-то выщитываем
-        public IList<IEntity> Participants
+        public IProgress Progress 
         {
-            get
+            get => _Progress;
+            set => OnPropertyChange(ref _Progress, value);
+        }
+        #endregion
+        #region Constructors
+        public JournalTask(Guid id)
+        {
+            ID = id;
+            Subtasks.CollectionChanged += OnCollectionChanged;
+            Subtasks.PropertyChanging += OnCollectionPropertyChanging;
+            Dependencies.CollectionChanged += OnCollectionChanged;
+            Dependencies.PropertyChanging += OnCollectionPropertyChanging;
+            Observers.CollectionChanged += OnCollectionChanged;
+            Observers.PropertyChanging += OnCollectionPropertyChanging;
+            Participants.CollectionChanged += OnCollectionChanged;
+            Participants.PropertyChanging += OnCollectionPropertyChanging;
+            CheckList.CollectionChanged += OnCollectionChanged;
+            CheckList.PropertyChanging += OnCollectionPropertyChanging;
+        }
+        #endregion
+
+        #region Private methods
+        private string GetCollectionName(object collection)
+        {
+            if (collection == Subtasks)
             {
-                Participants.Add(_Task.Performer);
-                Participants.Add(_Task.Producer);
-                foreach (IEntity entity in Observers)
-                {
-                    Participants.Add(entity);
-                }
-                return Participants;
+                return nameof(Subtasks);
+            }
+            else if (collection == Dependencies)
+            {
+                return nameof(Dependencies);
+            }
+            else if (collection == Observers)
+            {
+                return nameof(Observers);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            CollectionChanged?.Invoke(sender, e);
+        }
+
+        private void OnCollectionPropertyChanging(object sender, PropertyChangingEventArgs e)
+        {
+            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(GetCollectionName(sender)));
+        }
+
+        private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
+         where T : IEquatable<T>
+        {
+            if (!field.Equals(newValue))
+            {
+                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
+                field = newValue;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
             }
         }
         #endregion
 
-        #region IEnumerable<ITask> metod
-        //IEnumerator<ITask> IEnumerable<ITask>.GetEnumerator()
-        //{
-        //    foreach (ITask task in _SubTasks)
-        //    {
-        //        yield return task;
-        //        foreach (ITask _task in (IEnumerable<ITask>)task)
-        //        {
-        //            yield return _task;
-        //        }
-        //    }
-        //}
-        #endregion
-
-        #region IEnumerable
-        //IEnumerator IEnumerable.GetEnumerator()
-        //{
-        //    throw new NotSupportedException();
-        //}
-        #endregion
-
-        #region Public metods        
-        public void AddSubtask(IEnumerable<ITask> Subtask)
-        {
-            OnPropertyCollectionChangedAdd(ref _SubTasks, Subtask);
-        }
-        public void AddObserver(IEnumerable<IEntity> Obeserver)
-        {
-            OnPropertyCollectionChangedAdd(ref _Observers, Obeserver);
-        }
-
-        public void AddDependenci(IEnumerable<ITask> Dependenci)
-        {
-            OnPropertyCollectionChangedAdd(ref _Dependencies, Dependenci);
-        }
-
-        public void RemoveSubtask(IEnumerable<ITask> SubTask)
-        {
-            OnPropertyCollectionChangedRemove(ref _SubTasks, SubTask);
-        }
-
-        public void RemoveObserver(IEnumerable<IEntity> Observer)
-        {
-            OnPropertyCollectionChangedRemove(ref _Observers, Observer);
-        }
-        public void RemoveDependenci(IEnumerable<ITask> Dependenci)
-        {
-            OnPropertyCollectionChangedRemove(ref _Dependencies, Dependenci);
-        }
-        public void AddParticipants(IEnumerable<IEntity> Entities)
-        {
-            OnPropertyCollectionChangedAdd(ref _Participants, Entities);
-        }
-
-        public void RemoveParticipants(IEnumerable<IEntity> Entity)
-        {
-            OnPropertyCollectionChangedRemove(ref _Participants, Entity);
-        }
-        public void AddCheckList(IDictionary<IEntity, bool > keys)
-        {
-            if (keys != null)
-            {
-                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("AddCheckList"));
-                _CheckList.Concat(keys);
-                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, keys, null));
-            }
-        }
-
-        public void RemoveCheckList(IDictionary<IEntity, bool> keys)
-        {
-            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("RemoveCheckList"));
-            foreach (var item in keys)
-            {
-                _CheckList.Remove(item.Key);
-            }
-            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, null, keys));
-        }
+        #region Public methods
         public bool Equals(ITask other)
         {
-            if (other != null)
+            return ID == other.ID;
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj is ITask task)
             {
-                return other.ID == ID;
+                return Equals(task);
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
-        public void Add(ITask item)
-        {
-            throw new NotImplementedException(); //?
-        }
-        public void Remove(ITask item)
-        {
-            throw new NotImplementedException(); //?
-        }
-
         public object Clone()
         {
             throw new NotImplementedException();
