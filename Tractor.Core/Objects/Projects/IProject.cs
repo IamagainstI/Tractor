@@ -16,10 +16,10 @@ namespace Tractor.Core.Objects.Projects
         IEditableTreeNode<IProject>, ITreeNodeWithParent<IProject, IProject>, IObservableTreeNode<IProject>
         //IEditableTreeNode<ITask>, IObservableTreeNode<ITask>
     {
-        string Name { get; }
-        IProgress Progress { get; }
+        string Name { get; set; }
+        IProgress Progress { get; set; }
         IEnumerable<IProject> Subprojects { get; }
-        IDescription Description { get; }
+        IDescription Description { get; set; }
         IEnumerable<ITask> Tasks { get; }
         IReadOnlyDictionary<IEntity, IEntityRole> Participants { get; }
         IEnumerable<IPermission> Permissions { get; }

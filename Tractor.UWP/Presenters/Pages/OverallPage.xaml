@@ -1,0 +1,29 @@
+﻿<Page
+    x:Class="Tractor.UWP.Presenters.Pages.OverallPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Tractor.UWP.Presenters.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Hub>
+        <HubSection Header="Backlog" Width="300">
+            <DataTemplate>
+                <Grid>
+                    
+                </Grid>
+            </DataTemplate>
+        </HubSection>
+        <HubSection Header="Задачи" Width="500">
+            <DataTemplate>
+                <Grid/>
+            </DataTemplate>
+        </HubSection>
+        <HubSection Header="История" Width="300">
+            <DataTemplate>
+                <Grid/>
+            </DataTemplate>
+        </HubSection>
+    </Hub>
+</Page>

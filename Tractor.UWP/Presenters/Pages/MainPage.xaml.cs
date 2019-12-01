@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Tractor.Core.Objects.Tasks;
 using Tractor.Core.Routers.Pipeline;
-using Tractor.UWP.UI.Controls;
+using Tractor.UWP.Presenters.Controls;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -18,17 +18,17 @@ using Windows.UI.Xaml.Navigation;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Tractor.UWP.UI.Pages
+namespace Tractor.UWP.Presenters.Pages
 {
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class OverallPage : Page
+    public sealed partial class MainPage : Page
     {
         public UsualTask Task { get; set; } = new UsualTask(Guid.NewGuid());
         public PipelineConstructor Constructor { get; set; } = new PipelineConstructor();
 
-        public OverallPage()
+        public MainPage()
         {
             this.InitializeComponent();
             Constructor.Navigator.NavigationRequested += Navigator_NavigationRequested;

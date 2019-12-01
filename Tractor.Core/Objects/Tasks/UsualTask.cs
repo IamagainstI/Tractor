@@ -19,7 +19,7 @@ namespace Tractor.Core.Objects.Tasks
     {
         #region Private objects
         private string _Name;
-        private List<ITask> _SubTasks;
+        private List<ITask> _Subtasks;
         private List<IEntity> _Observers;
         private IDescription _Description;
         private ITask _Parent;
@@ -27,7 +27,7 @@ namespace Tractor.Core.Objects.Tasks
         private IEntity _Producer;
         private ITaskLocation _Location;
         private List<ITask> _Dependencies;
-        private BaseProgress _Progress;
+        private IProgress _Progress;
         #endregion
 
         #region Public events
@@ -85,7 +85,7 @@ namespace Tractor.Core.Objects.Tasks
             get => _Description; 
             set => OnPropertyChange(ref _Description, value); 
         }
-        public IEnumerable<ITask> SubTasks { get => _SubTasks; }
+        public IEnumerable<ITask> Subtasks { get => _Subtasks; }
         public IEnumerable<ITask> Dependencies { get => _Dependencies; }
         public IList<IEntity> Observers { get => _Observers;  }
         public IEntity Performer
@@ -121,6 +121,8 @@ namespace Tractor.Core.Objects.Tasks
                 }
             }
         }
+
+        IEnumerable<IEntity> ITask.Observers => throw new NotImplementedException();
         #endregion
 
         #region Constructors
@@ -152,31 +154,66 @@ namespace Tractor.Core.Objects.Tasks
         #endregion
 
         #region Public metods
-        public void AddSubtask(IEnumerable<ITask> Subtask)
+        public void AddSubtask(ITask subtask)
         {
-            OnPropertyCollectionChangedAdd(ref _SubTasks, Subtask);
-        }
-        public void AddObserver(IEnumerable<IEntity> Obeserver)
-        {
-            OnPropertyCollectionChangedAdd(ref _Observers, Obeserver);
-        }
-        public void AddDependenci(IEnumerable<ITask> Dependenci)
-        {
-            OnPropertyCollectionChangedAdd(ref _Dependencies, Dependenci);
-        }
-        public void RemoveSubtask(IEnumerable<ITask> SubTask)
-        {
-            OnPropertyCollectionChangedRemove(ref _SubTasks, SubTask);
+            AddRangeSubtask(Enumerable.Repeat(subtask, 1));
         }
 
-        public void RemoveObserver(IEnumerable<IEntity> Observer)
+        public void AddObserver(IEntity observer)
         {
-            OnPropertyCollectionChangedRemove(ref _Observers, Observer);
+            AddRangeObserver(Enumerable.Repeat(observer, 1));
         }
-        public void RemoveDependenci(IEnumerable<ITask> Dependenci)
+
+        public void AddDependency(ITask dependency)
         {
-            OnPropertyCollectionChangedRemove(ref _Dependencies, Dependenci);
+            AddRangeDependency(Enumerable.Repeat(dependency, 1));
         }
+
+        public void RemoveSubtask(ITask subtask)
+        {
+            RemoveRangeSubtask(Enumerable.Repeat(subtask, 1));
+        }
+
+        public void RemoveObserver(IEntity observer)
+        {
+            RemoveRangeObserver(Enumerable.Repeat(observer, 1));
+        }
+
+        public void RemoveDependency(ITask dependency)
+        {
+            RemoveRangeDependency(Enumerable.Repeat(dependency, 1));
+        }
+
+        public void AddRangeSubtask(IEnumerable<ITask> subtasks)
+        {
+            OnPropertyCollectionChangedAdd(ref _Subtasks, subtasks, nameof(Subtasks));
+        }
+
+        public void AddRangeObserver(IEnumerable<IEntity> observers)
+        {
+            OnPropertyCollectionChangedAdd(ref _Observers, observers, nameof(Observers));
+        }
+
+        public void AddRangeDependency(IEnumerable<ITask> dependencies)
+        {
+            OnPropertyCollectionChangedAdd(ref _Dependencies, dependencies, nameof(Dependencies));
+        }
+
+        public void RemoveRangeSubtask(IEnumerable<ITask> subtasks)
+        {
+            OnPropertyCollectionChangedRemove(ref _Subtasks, subtasks, nameof(Subtasks));
+        }
+
+        public void RemoveRangeObserver(IEnumerable<IEntity> observers)
+        {
+            OnPropertyCollectionChangedRemove(ref _Observers, observers, nameof(Observers));
+        }
+
+        public void RemoveRangeDependency(IEnumerable<ITask> dependencies)
+        {
+            OnPropertyCollectionChangedRemove(ref _Dependencies, dependencies, nameof(Dependencies));
+        }
+
         public bool Equals(ITask other)
         {
             if (other != null)
@@ -184,14 +221,6 @@ namespace Tractor.Core.Objects.Tasks
                 return other.ID == ID;
             }
             return false;
-        }
-        public void Add(ITask item)
-        {
-            throw new NotImplementedException(); //?
-        }
-        public void Remove(ITask item)
-        {
-            throw new NotImplementedException(); //?
         }
 
         public object Clone()
@@ -206,6 +235,18 @@ namespace Tractor.Core.Objects.Tasks
             result.Producer = Producer;
             result.Progress = Progress;
             return result;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is ITask task)
+            {
+                return Equals(task);
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
     }

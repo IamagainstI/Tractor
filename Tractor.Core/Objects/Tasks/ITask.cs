@@ -14,22 +14,28 @@ namespace Tractor.Core.Objects.Tasks
     public interface ITask : IStuff, IEquatable<ITask>, INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged, ICloneable
         //IEditableTreeNode<ITask>, ITreeNodeWithParent<ITask, IEditableTreeNode<ITask>>, IObservableTreeNode<ITask>
     {
-        string Name { get; }
-        IDescription Description { get; }
-        IEnumerable<ITask> SubTasks { get; }
+        string Name { get; set; }
+        IDescription Description { get; set; }
+        IEnumerable<ITask> Subtasks { get; }
         IEnumerable<ITask> Dependencies { get; }
-        IList<IEntity> Observers { get; }
-        IEntity Performer { get; }
-        IEntity Producer { get; }
-        IProgress Progress { get; }
+        IEnumerable<IEntity> Observers { get; }
+        IEntity Performer { get; set; }
+        IEntity Producer { get; set; }
+        IProgress Progress { get; set; }
         DateTime CreationDate { get; }
         DateTime LastStateChangeDate { get; }
-        ITaskLocation Location { get; }
-        void AddSubtask(IEnumerable<ITask> Subtask);
-        void AddObserver(IEnumerable<IEntity> Obeserver);
-        void AddDependenci(IEnumerable<ITask> Dependenci);
-        void RemoveSubtask(IEnumerable<ITask> SubTask);
-        void RemoveObserver(IEnumerable<IEntity> Observer);
-        void RemoveDependenci(IEnumerable<ITask> Dependenci);
+        ITaskLocation Location { get; set; }
+        void AddSubtask(ITask subtask);
+        void AddObserver(IEntity observer);
+        void AddDependency(ITask dependency);
+        void RemoveSubtask(ITask SubTask);
+        void RemoveObserver(IEntity observer);
+        void RemoveDependency(ITask dependency);
+        void AddRangeSubtask(IEnumerable<ITask> subtasks);
+        void AddRangeObserver(IEnumerable<IEntity> observers);
+        void AddRangeDependency(IEnumerable<ITask> dependencies);
+        void RemoveRangeSubtask(IEnumerable<ITask> subtasks);
+        void RemoveRangeObserver(IEnumerable<IEntity> observers);
+        void RemoveRangeDependency(IEnumerable<ITask> dependencies);
     }
 }

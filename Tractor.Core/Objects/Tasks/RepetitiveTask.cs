@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using EmptyBox.Collections.Generic;
@@ -17,11 +18,12 @@ namespace Tractor.Core.Objects.Tasks
         #region Private objects
         private string _Name;
         private IProgress _Progress;
-        private List<ITask> _SubTasks;
+        private List<ITask> _Subtasks;
         private List<IEntity> _Observers;
         private IDescription _Description;
         private ITask _Parent;
         private IEntity _Performer;
+        private IEntity _Producer;
         private ITaskLocation _Location;
         private List<ITask> _Dependencies;
         TimeSpan _Duration;
@@ -84,15 +86,19 @@ namespace Tractor.Core.Objects.Tasks
             get => _Description;
             set => OnPropertyChange(ref _Description, value);
         }
-        public IEnumerable<ITask> SubTasks { get => _SubTasks; }
+        public IEnumerable<ITask> Subtasks { get => _Subtasks; }
         public IEnumerable<ITask> Dependencies { get => _Dependencies; }
-        public IList<IEntity> Observers { get => _Observers; }
+        public IEnumerable<IEntity> Observers { get => _Observers; }
         public IEntity Performer
         {
             get => _Performer;
             set => OnPropertyChange(ref _Performer, value);
         }
-        public IEntity Producer { get; }
+        public IEntity Producer
+        {
+            get => _Producer;
+            set => OnPropertyChange(ref _Producer, value);
+        }
         public DateTime CreationDate { get; }
         public DateTime LastStateChangeDate { get; }
         public ITaskLocation Location
@@ -103,7 +109,11 @@ namespace Tractor.Core.Objects.Tasks
         public Guid ID { get; }
         //public IEditableTreeNode<ITask> Parent { get; }
         public IEnumerable<ITask> Items { get; } //?
-        public IProgress Progress { get; } // как-то выщитываем
+        public IProgress Progress
+        {
+            get => _Progress;
+            set => OnPropertyChange(ref _Progress, value);
+        }
 
         public TimeSpan Duration { get => _Duration; }
 
@@ -134,34 +144,66 @@ namespace Tractor.Core.Objects.Tasks
         #endregion
 
         #region Public metods
-
-        public void AddSubtask(IEnumerable<ITask> Subtask)
+        public void AddSubtask(ITask subtask)
         {
-            OnPropertyCollectionChangedAdd(ref _SubTasks, Subtask);
-        }
-        public void AddObserver(IEnumerable<IEntity> Obeserver)
-        {
-            OnPropertyCollectionChangedAdd(ref _Observers, Obeserver);
+            AddRangeSubtask(Enumerable.Repeat(subtask, 1));
         }
 
-        public void AddDependenci(IEnumerable<ITask> Dependenci)
+        public void AddObserver(IEntity observer)
         {
-            OnPropertyCollectionChangedAdd(ref _Dependencies, Dependenci);
+            AddRangeObserver(Enumerable.Repeat(observer, 1));
         }
 
-        public void RemoveSubtask(IEnumerable<ITask> SubTask)
+        public void AddDependency(ITask dependency)
         {
-            OnPropertyCollectionChangedRemove(ref _SubTasks, SubTask);
+            AddRangeDependency(Enumerable.Repeat(dependency, 1));
         }
 
-        public void RemoveObserver(IEnumerable<IEntity> Observer)
+        public void RemoveSubtask(ITask subtask)
         {
-            OnPropertyCollectionChangedRemove(ref _Observers, Observer);
+            RemoveRangeSubtask(Enumerable.Repeat(subtask, 1));
         }
-        public void RemoveDependenci(IEnumerable<ITask> Dependenci)
+
+        public void RemoveObserver(IEntity observer)
         {
-            OnPropertyCollectionChangedRemove(ref _Dependencies, Dependenci);
+            RemoveRangeObserver(Enumerable.Repeat(observer, 1));
         }
+
+        public void RemoveDependency(ITask dependency)
+        {
+            RemoveRangeDependency(Enumerable.Repeat(dependency, 1));
+        }
+
+        public void AddRangeSubtask(IEnumerable<ITask> subtasks)
+        {
+            OnPropertyCollectionChangedAdd(ref _Subtasks, subtasks, nameof(Subtasks));
+        }
+
+        public void AddRangeObserver(IEnumerable<IEntity> observers)
+        {
+            OnPropertyCollectionChangedAdd(ref _Observers, observers, nameof(Observers));
+        }
+
+        public void AddRangeDependency(IEnumerable<ITask> dependencies)
+        {
+            OnPropertyCollectionChangedAdd(ref _Dependencies, dependencies, nameof(Dependencies));
+        }
+
+        public void RemoveRangeSubtask(IEnumerable<ITask> subtasks)
+        {
+            OnPropertyCollectionChangedRemove(ref _Subtasks, subtasks, nameof(Subtasks));
+        }
+
+        public void RemoveRangeObserver(IEnumerable<IEntity> observers)
+        {
+            OnPropertyCollectionChangedRemove(ref _Observers, observers, nameof(Observers));
+        }
+
+        public void RemoveRangeDependency(IEnumerable<ITask> dependencies)
+        {
+            OnPropertyCollectionChangedRemove(ref _Dependencies, dependencies, nameof(Dependencies));
+        }
+
         public bool Equals(ITask other)
         {
             if (other != null)

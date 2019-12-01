@@ -11,7 +11,7 @@ namespace Tractor.Core.Routers.Pipeline
     public class PipelineConstructor
     {
         public TaskEditor TaskEditor = new TaskEditor();
-        public Navigator Navigator = new Navigator();
+        public UIRouter Navigator = new UIRouter();
         public ExternalInput<ITask> ExternalTaskInput = new ExternalInput<ITask>();
 
         public PipelineConstructor()

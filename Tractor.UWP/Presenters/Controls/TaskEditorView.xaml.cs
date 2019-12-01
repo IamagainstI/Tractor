@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Navigation;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Tractor.UWP.UI.Controls
+namespace Tractor.UWP.Presenters.Controls
 {
     public sealed partial class TaskEditorView : UserControl
     {

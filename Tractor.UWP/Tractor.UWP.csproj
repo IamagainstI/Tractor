@@ -18,6 +18,7 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -119,32 +120,42 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Decorators\Tasks\TaskEditorTemplateSelector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\Controls\EntityTeamControl.xaml.cs">
+    <Compile Include="Presenters\Controls\EntityTeamControl.xaml.cs">
       <DependentUpon>EntityTeamControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controls\EntityView.xaml.cs">
+    <Compile Include="Presenters\Controls\EntityView.xaml.cs">
       <DependentUpon>EntityView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controls\TasksPresenterView.xaml.cs">
+    <Compile Include="Presenters\Controls\TasksPresenterView.xaml.cs">
       <DependentUpon>TasksPresenterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controls\TaskEditorView.xaml.cs">
+    <Compile Include="Presenters\Controls\TaskEditorView.xaml.cs">
       <DependentUpon>TaskEditorView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controls\TaskView.xaml.cs">
+    <Compile Include="Presenters\Controls\TaskView.xaml.cs">
       <DependentUpon>TaskView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Pages\OverallPage.xaml.cs">
+    <Compile Include="Presenters\Pages\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Presenters\Pages\OverallPage.xaml.cs">
       <DependentUpon>OverallPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Pages\TeamsManagmentPage.xaml.cs">
+    <Compile Include="Presenters\Pages\ProjectManagementPage.xaml.cs">
+      <DependentUpon>ProjectManagementPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Presenters\Pages\ProjectsPage.xaml.cs">
+      <DependentUpon>ProjectsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Presenters\Pages\TeamsManagmentPage.xaml.cs">
       <DependentUpon>TeamsManagmentPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Pages\TestPage.xaml.cs">
+    <Compile Include="Presenters\Pages\TestPage.xaml.cs">
       <DependentUpon>TestPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Pages\UserSetupPage.xaml.cs">
+    <Compile Include="Presenters\Pages\UserSetupPage.xaml.cs">
       <DependentUpon>UserSetupPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -184,49 +195,71 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="UI\Controls\EntityTeamControl.xaml">
+    <Page Include="Presenters\Controls\EntityTeamControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Controls\EntityView.xaml">
+    <Page Include="Presenters\Controls\EntityView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Controls\TasksPresenterView.xaml">
+    <Page Include="Presenters\Controls\TasksPresenterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Controls\TaskEditorView.xaml">
+    <Page Include="Presenters\Controls\TaskEditorView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Controls\TaskView.xaml">
+    <Page Include="Presenters\Controls\TaskView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Pages\OverallPage.xaml">
+    <Page Include="Presenters\Pages\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Pages\TeamsManagmentPage.xaml">
+    <Page Include="Presenters\Pages\OverallPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Pages\TestPage.xaml">
+    <Page Include="Presenters\Pages\ProjectManagementPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Pages\UserSetupPage.xaml">
+    <Page Include="Presenters\Pages\ProjectsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Presenters\Pages\TeamsManagmentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Presenters\Pages\TestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Presenters\Pages\UserSetupPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Interactors\" />
+    <Folder Include="Objects\" />
+    <Folder Include="Routers\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tractor.Core\Tractor.Core.csproj">
       <Project>{bc5e80dc-c11f-470c-b3e1-16897bfe4fab}</Project>
       <Name>Tractor.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\ru-RU\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
