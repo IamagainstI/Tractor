@@ -4,30 +4,17 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace Tractor.Core.Objects.Progress
+namespace Tractor.Core.Objects.Entities.Permissions
 {
-    public class Progress : IProgress
+    class EntityPermission : IEntityPermission
     {
-        private double _ProgressPercentage;
-        private DateTime _TimeLastchangeProgress;
-        public double ProgressPercentage 
-        {
-            get => _ProgressPercentage;
-            set => OnPropertyChange(ref _ProgressPercentage, value);
-        }
-
-        public DateTime TimeLastChangeProgress
-        {
-            get => _TimeLastchangeProgress;
-            set => OnPropertyChange(ref _TimeLastchangeProgress, value);
-        }
-
-        public Guid ID { get; }
+        private AccessType _AccessType;
+        private IEntity _Entity;
 
         public event PropertyChangedEventHandler PropertyChanged;
         public event PropertyChangingEventHandler PropertyChanging;
+
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
-         where T : IEquatable<T>
         {
             if (true)
             {
@@ -37,7 +24,20 @@ namespace Tractor.Core.Objects.Progress
             }
         }
 
-        public bool Equals(IProgress other)
+        public IEntity Entity 
+        { 
+            get => _Entity; 
+            set => OnPropertyChange(ref _Entity, value); 
+        }
+        public AccessType AccessType 
+        { 
+            get => _AccessType;
+            set => OnPropertyChange(ref _AccessType, value); 
+        }
+
+        public Guid ID { get; }
+
+        public bool Equals(IPermission other)
         {
             return ID == other.ID;
         }

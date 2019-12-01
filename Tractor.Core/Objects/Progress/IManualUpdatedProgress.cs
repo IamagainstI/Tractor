@@ -6,5 +6,6 @@ namespace Tractor.Core.Objects.Progress
 {
     public interface IManualUpdatedProgress : IProgress
     {
+        bool TaskCompleted { get; set; }
     }
 }

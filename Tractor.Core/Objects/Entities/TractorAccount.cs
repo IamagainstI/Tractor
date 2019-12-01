@@ -7,9 +7,13 @@ namespace Tractor.Core.Objects
 {
     public class TractorAccount : IEntity
     {
-        public string Name => throw new NotImplementedException();
-
-        public Guid ID => throw new NotImplementedException();
+        public TractorAccount(Guid id)
+        {
+            ID = id;
+        }
+        public string Name { get; }
+        
+        public Guid ID{ get; }
 
         public IEntity Clone()
         {
@@ -18,7 +22,7 @@ namespace Tractor.Core.Objects
 
         public bool Equals(IEntity other)
         {
-            throw new NotImplementedException();
+            return ID == other.ID;
         }
     }
 }
