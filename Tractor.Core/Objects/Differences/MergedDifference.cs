@@ -17,7 +17,7 @@ namespace Tractor.Core.Objects.Difference
         public object OldValue { get; set; }
         public object NewValue { get; set; }
         public NotifyCollectionChangedAction Type { get; set; }
-        public List<Guid> MergedIDs { get; set;  }
+        public List<Guid> MergedIDs { get; set; }
 
         public MergedDifference(Guid id)
         {
