@@ -12,9 +12,10 @@ using Tractor.Core.Objects.Tasks.Locations;
 
 namespace Tractor.Core.Objects.Tasks
 {
-    public interface ITask : IStuff, IEquatable<ITask>, INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged, ICloneable
+    public interface ITask : IEquatable<ITask>, INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged, ICloneable
         //IEditableTreeNode<ITask>, ITreeNodeWithParent<ITask, IEditableTreeNode<ITask>>, IObservableTreeNode<ITask>
     {
+        Guid ID { get; }
         string Name { get; set; }
         IDescription Description { get; set; }
         IEnumerable<ITask> Subtasks { get; }
