@@ -17,7 +17,7 @@ namespace Tractor.Core.Routers.Pipeline
         public RuntimeDifferenceHandler RuntimeDifferenceHandler = new RuntimeDifferenceHandler();
         public SynchronizationDifferenceHandler SynchronizationDifferenceHandler = new SynchronizationDifferenceHandler();
         public DataBaseDifferenceHandler DataBaseDifferenceHandler = new DataBaseDifferenceHandler(null);
-        public TaskEditor TaskEditor = new TaskEditor();
+        public DataEditor TaskEditor = new DataEditor();
         public UIRouter Navigator = new UIRouter();
 
         public PipelineConstructor()

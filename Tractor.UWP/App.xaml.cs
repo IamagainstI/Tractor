@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Tractor.Core;
+using Tractor.Core.Routers.UI;
+using Tractor.UWP.Decorators.Pages;
 using Tractor.UWP.Presenters.Pages;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -23,14 +26,40 @@ namespace Tractor.UWP
     /// </summary>
     sealed partial class App : Application
     {
+        public TractorInstance Instance = new TractorInstance();
+        private Frame RootFrame;
+        private MainPage mainPage;
+
+        public static App CurrentInstance { get; private set; }
+
         /// <summary>
         /// Инициализирует одноэлементный объект приложения. Это первая выполняемая строка разрабатываемого
         /// кода, поэтому она является логическим эквивалентом main() или WinMain().
         /// </summary>
         public App()
         {
+            CurrentInstance = this;
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            Instance.UIRouter.NavigationRequested += UIRouter_NavigationRequested;
+        }
+
+        private void UIRouter_NavigationRequested(object sender, NavigationInfo e)
+        {
+            if (RootFrame.Content == null)
+            {
+                RootFrame.Navigate(typeof(MainPage));
+                mainPage = RootFrame.Content as MainPage;
+            }
+            switch (e.Name)
+            {
+                case UIViews.OVERALL_PAGE:
+                    mainPage.NavigateTo(typeof(OverallPage), null);
+                    break;
+                case UIViews.PROJECTS_PAGE:
+                    mainPage.NavigateTo(typeof(ProjectsPage), null);
+                    break;
+            }
         }
 
         /// <summary>
@@ -40,16 +69,16 @@ namespace Tractor.UWP
         /// <param name="e">Сведения о запросе и обработке запуска.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
+            RootFrame = Window.Current.Content as Frame;
 
             // Не повторяйте инициализацию приложения, если в окне уже имеется содержимое,
             // только обеспечьте активность окна
-            if (rootFrame == null)
+            if (RootFrame == null)
             {
                 // Создание фрейма, который станет контекстом навигации, и переход к первой странице
-                rootFrame = new Frame();
+                RootFrame = new Frame();
 
-                rootFrame.NavigationFailed += OnNavigationFailed;
+                RootFrame.NavigationFailed += OnNavigationFailed;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -57,17 +86,14 @@ namespace Tractor.UWP
                 }
 
                 // Размещение фрейма в текущем окне
-                Window.Current.Content = rootFrame;
+                Window.Current.Content = RootFrame;
             }
 
             if (e.PrelaunchActivated == false)
             {
-                if (rootFrame.Content == null)
+                if (RootFrame.Content == null)
                 {
-                    // Если стек навигации не восстанавливается для перехода к первой странице,
-                    // настройка новой страницы путем передачи необходимой информации в качестве параметра
-                    // навигации
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    Instance.ApplicationLaunched();
                 }
                 // Обеспечение активности текущего окна
                 Window.Current.Activate();

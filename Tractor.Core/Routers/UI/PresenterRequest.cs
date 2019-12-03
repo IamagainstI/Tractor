@@ -4,9 +4,8 @@ using System.Text;
 
 namespace Tractor.Core.Routers.UI
 {
-    public class NavigationInfo
+    public class PresenterRequest
     {
-        public string Name { get; set; }
-        public object Presenter { get; set; }
+        public string RequestedPresenter { get; set; }
     }
 }

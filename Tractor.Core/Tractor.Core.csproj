@@ -13,6 +13,12 @@
 
   <ItemGroup>
     <Folder Include="Decorators\" />
+    <Folder Include="Interactors\Descriptions\" />
+    <Folder Include="Interactors\Entities\" />
+    <Folder Include="Interactors\Labels\" />
+    <Folder Include="Interactors\Progress\" />
+    <Folder Include="Interactors\Projects\" />
+    <Folder Include="Interactors\Tasks\" />
     <Folder Include="Presenters\Tasks\" />
   </ItemGroup>
 

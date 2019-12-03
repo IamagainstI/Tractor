@@ -9,7 +9,7 @@ namespace Tractor.Core.Routers.UI
     {
         EventHandler<NavigationInfo> IPipelineInput<NavigationInfo>.Input => OnInput;
 
-        public event EventHandler<string> NavigationRequested;
+        public event EventHandler<NavigationInfo> NavigationRequested;
 
         public Stack<NavigationInfo> BackStack { get; } = new Stack<NavigationInfo>();
         public Stack<NavigationInfo> ForwardStack { get; } = new Stack<NavigationInfo>();
@@ -20,6 +20,16 @@ namespace Tractor.Core.Routers.UI
         private void OnInput(object sender, NavigationInfo info)
         {
             RequestNavigation(info);
+        }
+
+        private void Navigate(NavigationInfo info)
+        {
+            if (CurrentView != null)
+            {
+                BackStack.Push(CurrentView);
+            }
+            NavigationRequested?.Invoke(this, info);
+            CurrentView = info;
         }
 
         public void RequestBack()
@@ -52,12 +62,7 @@ namespace Tractor.Core.Routers.UI
 
         public void RequestNavigation(NavigationInfo info)
         {
-            if (CurrentView != null)
-            {
-                BackStack.Push(CurrentView);
-            }
-            CurrentView = info;
-            NavigationRequested?.Invoke(this, info.Name);
+            Navigate(info);
         }
     }
 }
