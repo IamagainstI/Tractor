@@ -21,7 +21,6 @@ namespace Tractor.Core.Objects.Tasks
         private string _Name;
         private IProgress _Progress;
         private IDescription _Description;
-        private ITask _Parent;
         private IEntity _Performer;
         private IEntity _Producer;
         private ITaskLocation _Location;
@@ -73,7 +72,7 @@ namespace Tractor.Core.Objects.Tasks
             set => OnPropertyChange(ref _Progress, value);
         }
         public TimeSpan Duration
-        { 
+        {
             get => _Duration;
             set => OnPropertyChange(ref _Duration, value);
         }
@@ -82,6 +81,7 @@ namespace Tractor.Core.Objects.Tasks
             get => _StartTime;
             set => OnPropertyChange(ref _StartTime, value);
         }
+        public ITaskStorage Parent { get; set; }
         #endregion
 
         #region Constructors

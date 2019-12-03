@@ -21,7 +21,6 @@ namespace Tractor.Core.Objects.Tasks
         private string _Name;
         private IProgress _Progress;
         private IDescription _Description;
-        private ITask _Parent;
         private IEntity _Performer;
         private IEntity _Producer;
         private ITaskLocation _Location;
@@ -54,7 +53,7 @@ namespace Tractor.Core.Objects.Tasks
             get => _Performer;
             set => OnPropertyChange(ref _Performer, value);
         }
-        public IEntity Producer 
+        public IEntity Producer
         {
             get => _Producer;
             set => OnPropertyChange(ref _Producer, value);
@@ -67,12 +66,12 @@ namespace Tractor.Core.Objects.Tasks
             set => OnPropertyChange(ref _Location, value);
         }
         public Guid ID { get; }
-        public IEnumerable<ITask> Items { get; } //?
-        public IProgress Progress 
+        public IProgress Progress
         {
             get => _Progress;
             set => OnPropertyChange(ref _Progress, value);
         }
+        public ITaskStorage Parent { get; set; }
         #endregion
         #region Constructors
         public JournalTask(Guid id)
