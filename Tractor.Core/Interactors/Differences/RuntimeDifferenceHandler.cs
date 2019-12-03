@@ -12,11 +12,14 @@ using Tractor.Core.Objects.Tasks;
 
 namespace Tractor.Core.Interactors.Differences
 {
-    public class RuntimeDifferenceHandler : Pipeline<IDifference>, IPipelineOutput<IDifference>, IPipelineInput<IProject>
+    public class RuntimeDifferenceHandler : Pipeline<IDifference>, IPipelineOutput<IDifference>,
+        IPipelineInput<IProject>,
+        IPipelineInput<ITask>
     {
         Dictionary<object, Difference> Differences = new Dictionary<object, Difference>();
 
         EventHandler<IProject> IPipelineInput<IProject>.Input => (x, y) => AddSubscription(y);
+        EventHandler<ITask> IPipelineInput<ITask>.Input => (x,y) => AddSubscription(y);
 
         public event EventHandler<IDifference> Output;
 
