@@ -95,8 +95,6 @@ namespace Tractor.Core.Objects.Tasks
             Observers.CollectionChanged += OnCollectionChanged;
             Observers.PropertyChanging += OnCollectionPropertyChanging;
         }
-
-
         #endregion
 
         #region Private methods
@@ -145,7 +143,29 @@ namespace Tractor.Core.Objects.Tasks
         #region Public methods
         public object Clone()
         {
-            throw new NotImplementedException();
+            EventTask result = new EventTask(ID);
+            result._Name = Name;
+            result._Description = Description;
+            result._Location = Location;
+            result._Parent = Parent;
+            result._Performer = Performer;
+            result._Producer = Producer;
+            result._Progress = Progress;
+            result._Duration = Duration;
+            result._StartTime = StartTime;
+            foreach (ITask task in Subtasks)
+            {
+                result.Subtasks.Add(task);
+            }
+            foreach (ITask task in Dependencies)
+            {
+                result.Dependencies.Add(task);
+            }
+            foreach (IEntity observer in Observers)
+            {
+                result.Observers.Add(observer);
+            }
+            return result;
         }
 
         public bool Equals(ITask other)

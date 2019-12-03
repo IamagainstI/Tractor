@@ -26,7 +26,6 @@ namespace Tractor.Core.Objects.Progress
         public event PropertyChangedEventHandler PropertyChanged;
         public event PropertyChangingEventHandler PropertyChanging;
 
-
         public DateTime TimeLastChangeProgress
         {
             get => _TimeLastchangeProgress;

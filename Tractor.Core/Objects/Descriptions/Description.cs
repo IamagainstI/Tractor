@@ -56,7 +56,7 @@ namespace Tractor.Core.Objects.Descriptions
         #endregion
 
         #region Constructors
-        public Description(Guid id = new Guid())
+        public Description(Guid id)
         {
             ID = id;
         }
