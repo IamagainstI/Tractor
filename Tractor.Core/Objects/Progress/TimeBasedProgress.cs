@@ -25,9 +25,9 @@ namespace Tractor.Core.Objects.Progress
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public event PropertyChangingEventHandler PropertyChanging;
-        
 
-        public DateTime TimeLastChangeProgress 
+
+        public DateTime TimeLastChangeProgress
         {
             get => _TimeLastchangeProgress;
             set => OnPropertyChange(ref _TimeLastchangeProgress, value);
@@ -38,20 +38,20 @@ namespace Tractor.Core.Objects.Progress
             get => _ProgressPercentage;
             set => OnPropertyChange(ref _ProgressPercentage, value);
         }
-        public TimeSpan Interval 
-        { 
-            get => _Interval; 
-            set => OnPropertyChange(ref _Interval, value); 
+        public TimeSpan Interval
+        {
+            get => _Interval;
+            set => OnPropertyChange(ref _Interval, value);
         }
-        public DateTime StartTime 
-        { 
-            get => _StartTime; 
-            set => OnPropertyChange(ref _StartTime, value); 
+        public DateTime StartTime
+        {
+            get => _StartTime;
+            set => OnPropertyChange(ref _StartTime, value);
         }
-        public DateTime EndTime 
-        { 
-            get => _EndTime; 
-            set => OnPropertyChange(ref _EndTime, value); 
+        public DateTime EndTime
+        {
+            get => _EndTime;
+            set => OnPropertyChange(ref _EndTime, value);
         }
 
         public Guid ID { get; }
@@ -59,6 +59,11 @@ namespace Tractor.Core.Objects.Progress
         public bool Equals(IProgress other)
         {
             return other.ID == ID;
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

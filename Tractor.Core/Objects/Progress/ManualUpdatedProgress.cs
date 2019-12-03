@@ -7,7 +7,7 @@ using System.Text;
 namespace Tractor.Core.Objects.Progress
 {
     class ManualUpdatedProgress : IManualUpdatedProgress
-    {        
+    {
         private double _ProgressPercentage;
         private DateTime _TimeLastchangeProgress;
         private bool _TaskCompleted;
@@ -23,10 +23,10 @@ namespace Tractor.Core.Objects.Progress
             set => OnPropertyChange(ref _TimeLastchangeProgress, value);
         }
 
-        public bool TaskCompleted 
-        { 
-            get => _TaskCompleted; 
-            set => OnPropertyChange(ref _TaskCompleted, value); 
+        public bool TaskCompleted
+        {
+            get => _TaskCompleted;
+            set => OnPropertyChange(ref _TaskCompleted, value);
         }
         public Guid ID { get; }
 
@@ -46,6 +46,11 @@ namespace Tractor.Core.Objects.Progress
         public bool Equals(IProgress other)
         {
             return ID == other.ID;
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

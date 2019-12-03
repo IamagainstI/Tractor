@@ -9,7 +9,7 @@ using Tractor.Core.Objects.Tasks;
 
 namespace Tractor.Core.Objects.Progress
 {
-    
+
     public class TaskBasedProgress : IProgress
     {
         #region Public events
@@ -40,6 +40,11 @@ namespace Tractor.Core.Objects.Progress
         public Guid ID { get; }
 
         public bool Equals(IProgress other)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object Clone()
         {
             throw new NotImplementedException();
         }
