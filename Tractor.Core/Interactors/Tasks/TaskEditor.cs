@@ -4,21 +4,29 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using EmptyBox.Automation;
+using Tractor.Core.Objects.Projects;
 using Tractor.Core.Objects.Tasks;
 using Tractor.Core.Routers.UI;
 using Tractor.Core.Specialized;
 
 namespace Tractor.Core.Interactors.Tasks
 {
-    public class TaskEditor : Pipeline<ITask>, IPipelineInput<ITask>, IPipelineOutput<NavigationInfo>
+    public class TaskEditor : Pipeline<ITask, ITask>, IPipelineIO<ITask, ITask>, IPipelineOutput<NavigationInfo>
     {
         private ITask StoredTask;
         private event EventHandler<NavigationInfo> NavigationInfo_Output;
+        private event EventHandler<ITask> ITask_Output;
 
         event EventHandler<NavigationInfo> IPipelineOutput<NavigationInfo>.Output
         {
             add => NavigationInfo_Output += value;
             remove => NavigationInfo_Output -= value;
+        }
+
+        event EventHandler<ITask> IPipelineOutput<ITask>.Output
+        {
+            add => ITask_Output += value;
+            remove => ITask_Output -= value;
         }
 
         EventHandler<ITask> IPipelineInput<ITask>.Input => GetData;
@@ -28,13 +36,31 @@ namespace Tractor.Core.Interactors.Tasks
 
         public void EndEditing()
         {
-            TypeInfo taskType = StoredTask.GetType().GetTypeInfo();
-            foreach(PropertyInfo prop in taskType.DeclaredProperties)
+            if(StoredTask.GetType() == Task.GetType())
             {
-                if (prop.CanWrite)
+                TypeInfo taskType = StoredTask.GetType().GetTypeInfo();
+                foreach (PropertyInfo prop in taskType.DeclaredProperties)
                 {
-                    prop.SetValue(StoredTask, prop.GetValue(Task));
+                    if (prop.CanWrite)
+                    {
+                        prop.SetValue(StoredTask, prop.GetValue(Task));
+                    }
                 }
+            }
+            else
+            {
+                switch (StoredTask.Parent)
+                {
+                    case IProject proj:
+                        proj.Tasks[proj.Tasks.IndexOf(StoredTask)] = Task;
+                        break;
+                    case ITask task:
+                        task.Tasks[task.Tasks.IndexOf(StoredTask)] = Task;
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
+                ITask_Output?.Invoke(this, Task);
             }
             NavigationInfo_Output?.Invoke(this, new NavigationInfo() { Name = "Back" });
         }
