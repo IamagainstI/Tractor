@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tractor.Core.Collections;
 using Tractor.Core.Model;
 using Tractor.Core.Objects.Difference;
 using Tractor.Core.Objects.Entities.Permissions;
@@ -12,10 +13,10 @@ namespace Tractor.Core.Objects.DataBases
     public class LocalDataBase : IDataBase
     {
         public TractorAccount Account { get; set; }
-        public IEnumerable<IEntity> Entities { get; }
-        public IEnumerable<IProject> Projects { get; }
-        public IEnumerable<IPermission> Permissions { get; }
-        public IEnumerable<IRepository> Repositories { get; }
-        public IEnumerable<IDifference> History { get; }
+        public ObservableCollection<IEntity> Entities { get; }
+        public ObservableCollection<IProject> Projects { get; }
+        public ObservableCollection<IPermission> Permissions { get; }
+        public ObservableCollection<IRepository> Repositories { get; }
+        public ObservableCollection<IDifference> History { get; }
     }
 }
