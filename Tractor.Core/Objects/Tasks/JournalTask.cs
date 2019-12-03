@@ -44,7 +44,7 @@ namespace Tractor.Core.Objects.Tasks
             get => _Description;
             set => OnPropertyChange(ref _Description, value);
         }
-        public ObservableCollection<ITask> Subtasks { get; } = new ObservableCollection<ITask>();
+        public ObservableCollection<ITask> Tasks { get; } = new ObservableCollection<ITask>();
         public ObservableCollection<ITask> Dependencies { get; } = new ObservableCollection<ITask>();
         public ObservableCollection<IEntity> Observers { get; } = new ObservableCollection<IEntity>();
         public ObservableCollection<IEntity> Participants { get; } = new ObservableCollection<IEntity>();
@@ -78,8 +78,8 @@ namespace Tractor.Core.Objects.Tasks
         public JournalTask(Guid id)
         {
             ID = id;
-            Subtasks.CollectionChanged += OnCollectionChanged;
-            Subtasks.PropertyChanging += OnCollectionPropertyChanging;
+            Tasks.CollectionChanged += OnCollectionChanged;
+            Tasks.PropertyChanging += OnCollectionPropertyChanging;
             Dependencies.CollectionChanged += OnCollectionChanged;
             Dependencies.PropertyChanging += OnCollectionPropertyChanging;
             Observers.CollectionChanged += OnCollectionChanged;
@@ -94,9 +94,9 @@ namespace Tractor.Core.Objects.Tasks
         #region Private methods
         private string GetCollectionName(object collection)
         {
-            if (collection == Subtasks)
+            if (collection == Tasks)
             {
-                return nameof(Subtasks);
+                return nameof(Tasks);
             }
             else if (collection == Dependencies)
             {
