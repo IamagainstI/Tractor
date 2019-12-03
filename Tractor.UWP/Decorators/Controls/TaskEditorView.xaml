@@ -1,8 +1,8 @@
 ﻿<UserControl
-    x:Class="Tractor.UWP.Presenters.Controls.TaskEditorView"
+    x:Class="Tractor.UWP.Decorators.Controls.TaskEditorView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Tractor.UWP.Presenters.Controls"
+    xmlns:local="using:Tractor.UWP.Decorators.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -11,7 +11,7 @@
     MinHeight="64"
     MinWidth="128">
 
-    <Grid Tapped="Grid_Tapped">
+    <!--<Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
             <RowDefinition Height="32"/>
@@ -44,5 +44,5 @@
             Grid.Row="2"
             Text="{x:Bind PresentedTask.Description, Mode=OneWay}"
             FontSize="20"/>
-    </Grid>
+    </Grid>-->
 </UserControl>

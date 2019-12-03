@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mcux="using:Microsoft.UI.Xaml.Controls"
-    x:Class="Tractor.UWP.Presenters.Pages.MainPage"
+    x:Class="Tractor.UWP.Decorators.Pages.MainPage"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -28,7 +28,7 @@
                   FallbackColor="{ThemeResource SystemChromeMediumColor}"/>
         </Grid.Resources>
 
-        <mcux:NavigationView PaneTitle="Меню" IsSettingsVisible="True" IsPaneVisible="True" IsPaneOpen="False" PaneDisplayMode="Left" IsBackButtonVisible="Collapsed">
+        <mcux:NavigationView Name="nv_LeftPane" PaneTitle="Меню" IsSettingsVisible="True" IsPaneVisible="True" IsPaneOpen="False" PaneDisplayMode="Left" IsBackButtonVisible="Collapsed" SelectionChanged="nv_LeftPane_SelectionChanged">
             <mcux:NavigationView.MenuItems>
                 <Grid Height="64">
                     <Grid.ColumnDefinitions>
@@ -76,7 +76,7 @@
                 </mcux:NavigationViewItem>
             </mcux:NavigationView.MenuItems>
             <mcux:NavigationView.Content>
-                <mcux:NavigationView PaneDisplayMode="Top" IsPaneOpen="False" IsPaneToggleButtonVisible="False" IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
+                <mcux:NavigationView Name="nv_TopPane" PaneDisplayMode="Top" IsPaneOpen="False" IsPaneToggleButtonVisible="False" IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
                     <mcux:NavigationView.MenuItems>
                         <mcux:NavigationViewItem Content="Локальная база"/>
                         <mcux:NavigationViewItem Content="ООО ''ЖОПА МИРА''"/>

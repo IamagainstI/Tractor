@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Tractor.Core.Interactors.Tasks;
 using Tractor.Core.Model;
 using Tractor.Core.Objects.Tasks;
 using Windows.Foundation;
@@ -18,30 +18,21 @@ using Windows.UI.Xaml.Navigation;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Tractor.UWP.Presenters.Controls
+namespace Tractor.UWP.Decorators.Controls
 {
-    public sealed partial class TaskEditorView : UserControl
+    public sealed partial class TasksPresenterView : UserControl
     {
-        //public static readonly DependencyProperty PresentedTaskProperty = DependencyProperty.Register(nameof(PresentedTask), typeof(ITask), typeof(TaskView), new PropertyMetadata(null));
+        public static readonly DependencyProperty PresentedTaskProperty = DependencyProperty.Register(nameof(PresentedTasks), typeof(ObservableCollection<ITask>), typeof(TasksPresenterView), new PropertyMetadata(null));
 
-        public UsualTask PresentedTask
+        public ObservableCollection<ITask> PresentedTasks
         {
-            //get => (UsualTask)GetValue(PresentedTaskProperty);
-            //set => SetValue(PresentedTaskProperty, value);
-            get => (UsualTask)Editor.Task;
-            set => Editor.Task = value;
+            get => (ObservableCollection<ITask>)GetValue(PresentedTaskProperty);
+            set => SetValue(PresentedTaskProperty, value);
         }
 
-        public TaskEditor Editor { get; set; }
-
-        public TaskEditorView()
+        public TasksPresenterView()
         {
             this.InitializeComponent();
-        }
-
-        private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-
         }
     }
 }

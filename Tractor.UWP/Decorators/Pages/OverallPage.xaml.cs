@@ -15,14 +15,14 @@ using Windows.UI.Xaml.Navigation;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Tractor.UWP.Presenters.Pages
+namespace Tractor.UWP.Decorators.Pages
 {
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class ProjectManagementPage : Page
+    public sealed partial class OverallPage : Page
     {
-        public ProjectManagementPage()
+        public OverallPage()
         {
             this.InitializeComponent();
         }

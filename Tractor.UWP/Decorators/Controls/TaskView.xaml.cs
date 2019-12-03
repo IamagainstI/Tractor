@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Tractor.Core.Objects;
+using Tractor.Core.Model;
+using Tractor.Core.Objects.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -16,19 +17,19 @@ using Windows.UI.Xaml.Navigation;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Tractor.UWP.Presenters.Controls
+namespace Tractor.UWP.Decorators.Controls
 {
-    public sealed partial class EntityView : UserControl
+    public sealed partial class TaskView : UserControl
     {
-        public static readonly DependencyProperty PresentedEntityProperty = DependencyProperty.Register(nameof(PresentedEntity), typeof(IEntity), typeof(EntityView), new PropertyMetadata(null));
+        public static readonly DependencyProperty PresentedTaskProperty = DependencyProperty.Register(nameof(PresentedTask), typeof(ITask), typeof(TaskView), new PropertyMetadata(null));
 
-        public IEntity PresentedEntity
+        public ITask PresentedTask
         {
-            get => (IEntity)GetValue(PresentedEntityProperty);
-            set => SetValue(PresentedEntityProperty, value);
+            get => (ITask)GetValue(PresentedTaskProperty);
+            set => SetValue(PresentedTaskProperty, value);
         }
 
-        public EntityView()
+        public TaskView()
         {
             this.InitializeComponent();
         }
