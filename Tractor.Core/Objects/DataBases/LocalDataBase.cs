@@ -13,10 +13,10 @@ namespace Tractor.Core.Objects.DataBases
     public class LocalDataBase : IDataBase
     {
         public TractorAccount Account { get; set; }
-        public ObservableCollection<IEntity> Entities { get; }
-        public ObservableCollection<IProject> Projects { get; }
-        public ObservableCollection<IPermission> Permissions { get; }
-        public ObservableCollection<IRepository> Repositories { get; }
-        public ObservableCollection<IDifference> History { get; }
+        public ObservableCollection<IEntity> Entities { get; } = new ObservableCollection<IEntity>();
+        public ObservableCollection<IProject> Projects { get; } = new ObservableCollection<IProject>();
+        public ObservableCollection<IPermission> Permissions { get; } = new ObservableCollection<IPermission>();
+        public ObservableCollection<IRepository> Repositories { get; } = new ObservableCollection<IRepository>();
+        public ObservableCollection<IDifference> History { get; } = new ObservableCollection<IDifference>();
     }
 }
