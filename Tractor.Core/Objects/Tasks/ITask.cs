@@ -13,14 +13,13 @@ using Tractor.Core.Objects.Tasks.Locations;
 
 namespace Tractor.Core.Objects.Tasks
 {
-    public interface ITask : IEquatable<ITask>, INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged, ICloneable
+    public interface ITask : ITaskStorage, IEquatable<ITask>, ICloneable,
+        INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged
         //IEditableTreeNode<ITask>, ITreeNodeWithParent<ITask, IEditableTreeNode<ITask>>, IObservableTreeNode<ITask>
     {
         Guid ID { get; }
         string Name { get; set; }
         IDescription Description { get; set; }
-        ObservableCollection<ITask> Subtasks { get; }
-        ObservableCollection<ITask> Dependencies { get; }
         ObservableCollection<IEntity> Observers { get; }
         IEntity Performer { get; set; }
         IEntity Producer { get; set; }
@@ -28,5 +27,6 @@ namespace Tractor.Core.Objects.Tasks
         DateTime CreationDate { get; }
         DateTime LastStateChangeDate { get; }
         ITaskLocation Location { get; set; }
+        ITaskStorage Parent { get; set; }
     }
 }
