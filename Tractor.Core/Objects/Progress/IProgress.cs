@@ -6,7 +6,7 @@ using Tractor.Core.Objects.Difference;
 
 namespace Tractor.Core.Objects.Progress
 {
-    public interface IProgress : IEquatable<IProgress>, INotifyPropertyChanged, INotifyPropertyChanging
+    public interface IProgress : IEquatable<IProgress>, INotifyPropertyChanged, INotifyPropertyChanging, ICloneable
     {
         double ProgressPercentage { get; }
         DateTime TimeLastChangeProgress { get; }

@@ -20,6 +20,12 @@ namespace Tractor.Core.Objects.Progress
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
             }
         }
+
+        public BaseProgress(Guid id)
+        {
+            ID = id;
+        }
+
         public DateTime TimeLastChangeProgress
         {
             get => _TimeLastchangeProgress;
@@ -38,6 +44,14 @@ namespace Tractor.Core.Objects.Progress
         public bool Equals(IProgress other)
         {
             return other.ID == ID;
+        }
+
+        public object Clone()
+        {
+            BaseProgress result = new BaseProgress(ID);
+            result.ProgressPercentage = ProgressPercentage;
+            result.TimeLastChangeProgress = TimeLastChangeProgress;
+            return result;
         }
     }
 }
