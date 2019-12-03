@@ -41,5 +41,10 @@ namespace Tractor.Core.Objects.Progress
         {
             return ID == other.ID;
         }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

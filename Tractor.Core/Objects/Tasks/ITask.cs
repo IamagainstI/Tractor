@@ -28,5 +28,6 @@ namespace Tractor.Core.Objects.Tasks
         DateTime CreationDate { get; }
         DateTime LastStateChangeDate { get; }
         ITaskLocation Location { get; set; }
+        ITask Parent { get; set; }
     }
 }

@@ -43,5 +43,10 @@ namespace Tractor.Core.Objects.Progress
         {
             throw new NotImplementedException();
         }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

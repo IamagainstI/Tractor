@@ -11,6 +11,11 @@ namespace Tractor.Core.Objects.Progress
         private double _ProgressPercentage;
         private DateTime _TimeLastchangeProgress;
         private bool _TaskCompleted;
+
+        public ManualUpdatedProgress(Guid id)
+        {
+            ID = id;
+        }
         public double ProgressPercentage
         {
             get => _ProgressPercentage;
@@ -46,6 +51,15 @@ namespace Tractor.Core.Objects.Progress
         public bool Equals(IProgress other)
         {
             return ID == other.ID;
+        }
+
+        public object Clone()
+        {
+            ManualUpdatedProgress result = new ManualUpdatedProgress(ID);
+            result._ProgressPercentage = ProgressPercentage;
+            result._TaskCompleted = TaskCompleted;
+            result._TimeLastchangeProgress = TimeLastChangeProgress;
+            return result;
         }
     }
 }

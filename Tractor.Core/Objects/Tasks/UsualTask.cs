@@ -59,7 +59,7 @@ namespace Tractor.Core.Objects.Tasks
             get => _Producer;
             set => OnPropertyChange(ref _Producer, value);
         }
-        public DateTime CreationDate { get; }
+        public DateTime CreationDate { get; set; }
         public DateTime LastStateChangeDate { get; }
         public ITaskLocation Location
         {
@@ -67,11 +67,15 @@ namespace Tractor.Core.Objects.Tasks
             set => OnPropertyChange(ref _Location, value);
         }
         public Guid ID { get; }
-        public IEnumerable<ITask> Items { get; } //?
         public IProgress Progress
         {
             get => _Progress;
             set => OnPropertyChange(ref _Progress, value);
+        }
+        public ITask Parent
+        {
+            get => _Parent;
+            set => OnPropertyChange(ref _Parent, value);
         }
         #endregion
 
@@ -87,6 +91,7 @@ namespace Tractor.Core.Objects.Tasks
             Observers.PropertyChanging += OnCollectionPropertyChanging;
         }
         #endregion
+
         #region Private methods
         private string GetCollectionName(object collection)
         {
@@ -128,10 +133,8 @@ namespace Tractor.Core.Objects.Tasks
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
             }
         }
-        #endregion
-                
-        
-
+        #endregion        
+       
         #region Public metod
         public bool Equals(ITask other)
         {
@@ -144,7 +147,27 @@ namespace Tractor.Core.Objects.Tasks
 
         public object Clone()
         {
-            throw new NotImplementedException();
+            UsualTask result = new UsualTask(ID);
+            result._Name = Name;
+            result._Description = Description;
+            result._Location = Location;
+            result._Parent = Parent;
+            result._Performer = Performer;
+            result._Producer = Producer;
+            result._Progress = Progress;
+            foreach(ITask task in Subtasks)
+            {
+                result.Subtasks.Add(task);
+            }
+            foreach(ITask task in Dependencies)
+            {
+                result.Dependencies.Add(task);
+            }
+            foreach(IEntity observer in Observers)
+            {
+                result.Observers.Add(observer);
+            }
+            return result;
         }
 
         public override bool Equals(object obj)

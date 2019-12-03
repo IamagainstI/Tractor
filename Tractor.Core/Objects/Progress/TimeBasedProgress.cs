@@ -25,8 +25,6 @@ namespace Tractor.Core.Objects.Progress
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public event PropertyChangingEventHandler PropertyChanging;
-        
-
         public DateTime TimeLastChangeProgress 
         {
             get => _TimeLastchangeProgress;
@@ -59,6 +57,11 @@ namespace Tractor.Core.Objects.Progress
         public bool Equals(IProgress other)
         {
             return other.ID == ID;
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }
