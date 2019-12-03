@@ -46,8 +46,7 @@ namespace Tractor.Core.Objects.Tasks
             get => _Description;
             set => OnPropertyChange(ref _Description, value);
         }
-        public ObservableCollection<ITask> Subtasks { get; } = new ObservableCollection<ITask>();
-        public ObservableCollection<ITask> Dependencies { get; } = new ObservableCollection<ITask>();
+        public ObservableCollection<ITask> Tasks { get; } = new ObservableCollection<ITask>();
         public ObservableCollection<IEntity> Observers { get; } = new ObservableCollection<IEntity>();
         public IEntity Performer
         {
@@ -59,7 +58,7 @@ namespace Tractor.Core.Objects.Tasks
             get => _Producer;
             set => OnPropertyChange(ref _Producer, value);
         }
-        public DateTime CreationDate { get; set; }
+        public DateTime CreationDate { get; }
         public DateTime LastStateChangeDate { get; }
         public ITaskLocation Location
         {
@@ -67,26 +66,21 @@ namespace Tractor.Core.Objects.Tasks
             set => OnPropertyChange(ref _Location, value);
         }
         public Guid ID { get; }
+        public IEnumerable<ITask> Items { get; } //?
         public IProgress Progress
         {
             get => _Progress;
             set => OnPropertyChange(ref _Progress, value);
         }
-        public ITask Parent
-        {
-            get => _Parent;
-            set => OnPropertyChange(ref _Parent, value);
-        }
+        public ITaskStorage Parent { get; set; }
         #endregion
 
         #region Constructors
         public UsualTask(Guid id)
         {
             ID = id;
-            Subtasks.CollectionChanged += OnCollectionChanged;
-            Subtasks.PropertyChanging += OnCollectionPropertyChanging;
-            Dependencies.CollectionChanged += OnCollectionChanged;
-            Dependencies.PropertyChanging += OnCollectionPropertyChanging;
+            Tasks.CollectionChanged += OnCollectionChanged;
+            Tasks.PropertyChanging += OnCollectionPropertyChanging;
             Observers.CollectionChanged += OnCollectionChanged;
             Observers.PropertyChanging += OnCollectionPropertyChanging;
         }
@@ -95,13 +89,9 @@ namespace Tractor.Core.Objects.Tasks
         #region Private methods
         private string GetCollectionName(object collection)
         {
-            if (collection == Subtasks)
+            if (collection == Tasks)
             {
-                return nameof(Subtasks);
-            }
-            else if (collection == Dependencies)
-            {
-                return nameof(Dependencies);
+                return nameof(Tasks);
             }
             else if (collection == Observers)
             {
@@ -133,8 +123,8 @@ namespace Tractor.Core.Objects.Tasks
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
             }
         }
-        #endregion        
-       
+        #endregion
+
         #region Public metod
         public bool Equals(ITask other)
         {
@@ -147,27 +137,7 @@ namespace Tractor.Core.Objects.Tasks
 
         public object Clone()
         {
-            UsualTask result = new UsualTask(ID);
-            result._Name = Name;
-            result._Description = Description;
-            result._Location = Location;
-            result._Parent = Parent;
-            result._Performer = Performer;
-            result._Producer = Producer;
-            result._Progress = Progress;
-            foreach(ITask task in Subtasks)
-            {
-                result.Subtasks.Add(task);
-            }
-            foreach(ITask task in Dependencies)
-            {
-                result.Dependencies.Add(task);
-            }
-            foreach(IEntity observer in Observers)
-            {
-                result.Observers.Add(observer);
-            }
-            return result;
+            throw new NotImplementedException();
         }
 
         public override bool Equals(object obj)
