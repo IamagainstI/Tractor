@@ -13,7 +13,7 @@ using Tractor.Core.Objects.Tasks;
 
 namespace Tractor.Core.Objects.Projects
 {
-    public interface IProject : ITaskStorage,
+    public interface IProject : IProjectStorage, ITaskStorage,
         IEquatable<IProject>, ICloneable,
         INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged
     {
