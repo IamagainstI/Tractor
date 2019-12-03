@@ -13,7 +13,6 @@ namespace Tractor.Core.Interactors.Descriptions
 {
     public class DescriptionEditor : Pipeline<IDescription>, IPipelineInput<IDescription>, IPipelineOutput<NavigationInfo>
     {
-
         private event EventHandler<NavigationInfo> NavigationInfo_Output;
         private IDescription StoredDescription;
 
