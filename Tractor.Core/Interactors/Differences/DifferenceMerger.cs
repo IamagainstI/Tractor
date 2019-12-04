@@ -33,7 +33,6 @@ namespace Tractor.Core.Interactors.Differences
                         IDifference baseDiff = sorted.Last();
                         MergedDifference diff = new MergedDifference(baseDiff.ID)
                         {
-                            MergedIDs = sorted.Select(x => x.ID).ToList(),
                             Entity = baseDiff.Entity,
                             CreationDate = baseDiff.CreationDate,
                             ChangedObject = baseDiff.ChangedObject,
@@ -42,6 +41,7 @@ namespace Tractor.Core.Interactors.Differences
                             NewValue = baseDiff.NewValue,
                             OldValue = sorted.First().OldValue
                         };
+                        diff.MergedIDs.AddRange(sorted.Select(x => x.ID));
                         result.Add(diff);
                         break;
                 }
