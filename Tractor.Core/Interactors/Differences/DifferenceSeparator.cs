@@ -30,20 +30,25 @@ namespace Tractor.Core.Interactors.Differences
                         result.AddRange(group0);
                         break;
                     default:
-                        MergedDifference mergedgroup = new MergedDifference(Guid.NewGuid());
+                        List<IMergedDifference> mergedgroup = new List<IMergedDifference>();
                         List<IDifference> differencesgroup = new List<IDifference>();
-                        if(group0 is IMergedDifference merged)
+                        foreach(var group1 in group0)
                         {
-                            mergedgroup.MergedIDs.Add(group0);
+                            if (group1 is IMergedDifference merged)
+                            {
+                                mergedgroup.Add((IMergedDifference)group1);
+                            }
+                            else
+                            {
+                                differencesgroup.Add(group1);
+                            }
                         }
-                        else
-                        {
-                            differencesgroup.AddRange(group0);
-                        }                                     
-                        var inter = mergedgroup.MergedIDs.Intersect(differencesgroup.Select(x => x.ID));
-                        MergedDifference before = new MergedDifference(Guid.NewGuid());
-                        MergedDifference after = new MergedDifference(Guid.NewGuid());
-                        before.MergedIDs.AddRange(mergedgroup.MergedIDs.TakeWhile(x => x != inter.First()));
+                        var first = mergedgroup.Select(x => x.MergedIDs).First();
+                        var last = mergedgroup.Select(x => x.MergedIDs).Last();
+                        var inter = mergedgroup.Select(x => x.MergedIDs.Intersect(differencesgroup.Select(y => y.ID)));
+                        List<MergedDifference> before = new List<MergedDifference>();
+                        MergedDifference after = new MergedDifference(Guid.NewGuid());                       
+                        before.Add(mergedgroup.Select(y => y.MergedIDs).TakeWhile(x => x != inter.First())));
                         after.MergedIDs.AddRange(mergedgroup.MergedIDs.TakeWhile(x => x != inter.Last()));
                         result.Add(before);
                         result.AddRange(differencesgroup);
