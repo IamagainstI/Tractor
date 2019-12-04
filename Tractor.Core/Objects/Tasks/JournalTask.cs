@@ -21,7 +21,6 @@ namespace Tractor.Core.Objects.Tasks
         private string _Name;
         private IProgress _Progress;
         private IDescription _Description;
-        private ITask _Parent;
         private IEntity _Performer;
         private IEntity _Producer;
         private ITaskLocation _Location;
@@ -44,7 +43,7 @@ namespace Tractor.Core.Objects.Tasks
             get => _Description;
             set => OnPropertyChange(ref _Description, value);
         }
-        public ObservableCollection<ITask> Subtasks { get; } = new ObservableCollection<ITask>();
+        public ObservableCollection<ITask> Tasks { get; } = new ObservableCollection<ITask>();
         public ObservableCollection<ITask> Dependencies { get; } = new ObservableCollection<ITask>();
         public ObservableCollection<IEntity> Observers { get; } = new ObservableCollection<IEntity>();
         public ObservableCollection<IEntity> Participants { get; } = new ObservableCollection<IEntity>();
@@ -54,7 +53,7 @@ namespace Tractor.Core.Objects.Tasks
             get => _Performer;
             set => OnPropertyChange(ref _Performer, value);
         }
-        public IEntity Producer 
+        public IEntity Producer
         {
             get => _Producer;
             set => OnPropertyChange(ref _Producer, value);
@@ -67,19 +66,19 @@ namespace Tractor.Core.Objects.Tasks
             set => OnPropertyChange(ref _Location, value);
         }
         public Guid ID { get; }
-        public IEnumerable<ITask> Items { get; } //?
-        public IProgress Progress 
+        public IProgress Progress
         {
             get => _Progress;
             set => OnPropertyChange(ref _Progress, value);
         }
+        public ITaskStorage Parent { get; set; }
         #endregion
         #region Constructors
         public JournalTask(Guid id)
         {
             ID = id;
-            Subtasks.CollectionChanged += OnCollectionChanged;
-            Subtasks.PropertyChanging += OnCollectionPropertyChanging;
+            Tasks.CollectionChanged += OnCollectionChanged;
+            Tasks.PropertyChanging += OnCollectionPropertyChanging;
             Dependencies.CollectionChanged += OnCollectionChanged;
             Dependencies.PropertyChanging += OnCollectionPropertyChanging;
             Observers.CollectionChanged += OnCollectionChanged;
@@ -94,9 +93,9 @@ namespace Tractor.Core.Objects.Tasks
         #region Private methods
         private string GetCollectionName(object collection)
         {
-            if (collection == Subtasks)
+            if (collection == Tasks)
             {
-                return nameof(Subtasks);
+                return nameof(Tasks);
             }
             else if (collection == Dependencies)
             {
@@ -152,7 +151,35 @@ namespace Tractor.Core.Objects.Tasks
         }
         public object Clone()
         {
-            throw new NotImplementedException();
+            JournalTask result = new JournalTask(ID);
+            result._Description = Description;
+            result._Location = Location;
+            result._Name = Name;
+            result._Parent = Parent;
+            result._Performer = Performer;
+            result._Producer = Producer;
+            result._Progress = Progress;
+            foreach (ITask task in Subtasks)
+            {
+                result.Subtasks.Add(task);
+            }
+            foreach (ITask task in Dependencies)
+            {
+                result.Dependencies.Add(task);
+            }
+            foreach (IEntity observer in Observers)
+            {
+                result.Observers.Add(observer);
+            }
+            foreach (KeyValuePair<IEntity, bool> check in CheckList)
+            {
+                result.CheckList.Add(check);
+            }
+            foreach(IEntity entity in Participants)
+            {
+                result.Participants.Add(entity);
+            }
+            return result;
         }
         #endregion
 

@@ -46,8 +46,7 @@ namespace Tractor.Core.Objects.Tasks
             get => _Description;
             set => OnPropertyChange(ref _Description, value);
         }
-        public ObservableCollection<ITask> Subtasks { get; } = new ObservableCollection<ITask>();
-        public ObservableCollection<ITask> Dependencies { get; } = new ObservableCollection<ITask>();
+        public ObservableCollection<ITask> Tasks { get; } = new ObservableCollection<ITask>();
         public ObservableCollection<IEntity> Observers { get; } = new ObservableCollection<IEntity>();
         public IEntity Performer
         {
@@ -73,30 +72,26 @@ namespace Tractor.Core.Objects.Tasks
             get => _Progress;
             set => OnPropertyChange(ref _Progress, value);
         }
+        public ITaskStorage Parent { get; set; }
         #endregion
 
         #region Constructors
         public UsualTask(Guid id)
         {
             ID = id;
-            Subtasks.CollectionChanged += OnCollectionChanged;
-            Subtasks.PropertyChanging += OnCollectionPropertyChanging;
-            Dependencies.CollectionChanged += OnCollectionChanged;
-            Dependencies.PropertyChanging += OnCollectionPropertyChanging;
+            Tasks.CollectionChanged += OnCollectionChanged;
+            Tasks.PropertyChanging += OnCollectionPropertyChanging;
             Observers.CollectionChanged += OnCollectionChanged;
             Observers.PropertyChanging += OnCollectionPropertyChanging;
         }
         #endregion
+
         #region Private methods
         private string GetCollectionName(object collection)
         {
-            if (collection == Subtasks)
+            if (collection == Tasks)
             {
-                return nameof(Subtasks);
-            }
-            else if (collection == Dependencies)
-            {
-                return nameof(Dependencies);
+                return nameof(Tasks);
             }
             else if (collection == Observers)
             {
@@ -129,8 +124,6 @@ namespace Tractor.Core.Objects.Tasks
             }
         }
         #endregion
-                
-        
 
         #region Public metod
         public bool Equals(ITask other)

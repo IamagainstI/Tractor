@@ -7,5 +7,6 @@ namespace Tractor.Core.Routers.UI
     public class NavigationInfo
     {
         public string Name { get; set; }
+        public object Presenter { get; set; }
     }
 }

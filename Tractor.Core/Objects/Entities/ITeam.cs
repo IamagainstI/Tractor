@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Text;
+using Tractor.Core.Collections;
 
 namespace Tractor.Core.Objects
 {
     public interface ITeam : IEntity, INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged, ICloneable
     {
-        IDictionary<IEntity, IEntityRole> Members { get; }
-        void AddMember(IDictionary<IEntity, IEntityRole> membres);
-        void RemoveMember(IDictionary<IEntity, IEntityRole> membres);
+        ObservableDictionary<IEntity, IEntityRole> Members { get; }
     }
 }

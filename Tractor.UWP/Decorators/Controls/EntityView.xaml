@@ -1,0 +1,23 @@
+﻿<UserControl
+    x:Class="Tractor.UWP.Decorators.Controls.EntityView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Tractor.UWP.Decorators.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="32"
+    d:DesignWidth="128">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Image/>
+        <TextBlock
+            Grid.Column="1"
+            Text="{x:Bind PresentedEntity.Name, Mode=OneWay}"/>
+
+    </Grid>
+</UserControl>

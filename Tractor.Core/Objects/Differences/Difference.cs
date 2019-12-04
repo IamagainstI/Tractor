@@ -33,7 +33,24 @@ namespace Tractor.Core.Objects.Difference
 
         public bool Equals(IDifference other)
         {
-            return ID.Equals(other.ID);
+            return other is Difference &&
+                (ID == other.ID ||
+                ChangedObject == other.ChangedObject &&
+                PropertyName == other.PropertyName &&
+                OldValue == other.OldValue &&
+                NewValue == other.NewValue);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is IDifference diff)
+            {
+                return Equals(diff);
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
