@@ -23,36 +23,81 @@ namespace Tractor.Core.Interactors.Differences
                 switch (group0.Count())
                 {
                     case 0:
-                    case 1:
                         throw new Exception("Неожиданное случилось!");                        
-                    case int _ when group0.Any(x => x.Type != NotifyCollectionChangedAction.Replace):
-                    case 2:
+                    case 1:
                         result.AddRange(group0);
                         break;
                     default:
-                        List<IMergedDifference> mergedgroup = new List<IMergedDifference>();
-                        List<IDifference> differencesgroup = new List<IDifference>();
-                        foreach(var group1 in group0)
+                        List<Guid> ids = new List<Guid>();
+                        Dictionary<Guid, IDifference> diffs = new Dictionary<Guid, IDifference>();
+                        List<IDifference> sorted = group0.ToList();
+                        sorted.Sort((x, y) => x.CompareTo(y));
+                        foreach (IDifference diff in sorted)
                         {
-                            if (group1 is IMergedDifference merged)
+                            if (diff is IMergedDifference merge)
                             {
-                                mergedgroup.Add((IMergedDifference)group1);
+                                Guid prev;
+                                foreach (Guid id in merge.MergedIDs)
+                                {
+                                    if (!diffs.ContainsKey(id))
+                                    {
+                                        ids.Insert(ids.IndexOf(prev)+1, id);
+                                        diffs[id] = null;
+                                    }
+                                    else
+                                    {
+                                        prev = id;
+                                    }
+                                }
                             }
                             else
                             {
-                                differencesgroup.Add(group1);
+                                ids.Add(diff.ID);
+                                diffs[diff.ID] = diff; 
                             }
                         }
-                        var first = mergedgroup.Select(x => x.MergedIDs).First();
-                        var last = mergedgroup.Select(x => x.MergedIDs).Last();
-                        var inter = mergedgroup.Select(x => x.MergedIDs.Intersect(differencesgroup.Select(y => y.ID)));
-                        List<MergedDifference> before = new List<MergedDifference>();
-                        MergedDifference after = new MergedDifference(Guid.NewGuid());                       
-                        before.Add(mergedgroup.Select(y => y.MergedIDs).TakeWhile(x => x != inter.First())));
-                        after.MergedIDs.AddRange(mergedgroup.MergedIDs.TakeWhile(x => x != inter.Last()));
-                        result.Add(before);
-                        result.AddRange(differencesgroup);
-                        result.Add(after);
+                        List<Guid> missed = new List<Guid>();
+                        foreach (Guid id in ids)
+                        {
+                            if (diffs[id] != null)
+                            {
+                                switch (missed.Count)
+                                {
+                                    case 0:
+                                        break;
+                                    case 1:
+                                        Difference diff = new Difference(missed.Last())
+                                        {
+                                            ChangedObject = group0.Key.ChangedObject,
+                                            PropertyName = group0.Key.PropertyName,
+                                            NewValue = diffs[id].OldValue,
+                                            OldValue = result.LastOrDefault()?.NewValue,
+                                            Type = NotifyCollectionChangedAction.Replace
+                                        };
+                                        missed.Clear();
+                                        result.Add(diff);
+                                        break;
+                                    default:
+                                        MergedDifference merge = new MergedDifference(missed.Last())
+                                        {
+                                            ChangedObject = group0.Key.ChangedObject,
+                                            PropertyName = group0.Key.PropertyName,
+                                            NewValue = diffs[id].OldValue,
+                                            OldValue = result.LastOrDefault()?.NewValue,
+                                            Type = NotifyCollectionChangedAction.Replace
+                                        };
+                                        merge.MergedIDs.AddRange(missed);
+                                        missed.Clear();
+                                        result.Add(merge);
+                                        break;
+                                }
+                                result.Add(diffs[id]);
+                            }
+                            else
+                            {
+                                missed.Add(id);
+                            }
+                        }
                         break;
                 }
             }
