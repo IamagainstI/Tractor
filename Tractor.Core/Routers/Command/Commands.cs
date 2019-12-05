@@ -18,5 +18,7 @@ namespace Tractor.Core.Routers.Command
         public const string SET_PROJECT_STATE = nameof(SET_PROJECT_STATE);
         public const string DELETE_TASK = nameof(DELETE_TASK);
         public const string DELETE_PROJECT = nameof(DELETE_PROJECT);
+        public const string SET_TASK_PERFORMER = nameof(SET_TASK_PERFORMER);
+        public const string SET_TASK_OBSERVABLE = nameof(SET_TASK_OBSERVABLE);
     }
 }

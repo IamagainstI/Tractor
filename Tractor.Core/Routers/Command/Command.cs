@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using Tractor.Core.Objects;
 using Tractor.Core.Objects.DataBases;
@@ -7,13 +8,12 @@ using Tractor.Core.Objects.Entities.Permissions;
 
 namespace Tractor.Core.Routers.Command
 {
-    class Command
+    public interface ICommand : INotifyPropertyChanged
     {
-        public AccessType AccessType { get; set; }
-        public string Commands { get; set; }
-        public IEntity Entity { get; set; }
-        public IDataBase DataBase { get; set; }
-
-
+        List<Guid> Path { get; set; }
+        IEntity Entity { get; set; }
+        IDataBase DataBase { get; set; }
+        Guid ID { get; }
+        ProgressState Progress { get; set; } 
     }
 }
