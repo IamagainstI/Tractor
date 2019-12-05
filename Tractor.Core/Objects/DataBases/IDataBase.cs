@@ -9,11 +9,10 @@ using Tractor.Core.Objects.Repositories;
 
 namespace Tractor.Core.Objects.DataBases
 {
-    public interface IDataBase
+    public interface IDataBase : IProjectStorage
     {
         TractorAccount Account { get; }
         ObservableCollection<IEntity> Entities { get; }
-        ObservableCollection<IProject> Projects { get; }
         ObservableCollection<IPermission> Permissions { get; }
         ObservableCollection<IRepository> Repositories { get; }
         ObservableCollection<IDifference> History { get; }
