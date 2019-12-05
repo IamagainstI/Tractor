@@ -9,7 +9,7 @@ namespace Tractor.Core.Objects.DataBases
 {
     public static class DataBaseHelper
     {
-        public static object GetValue(this IDataBase db, IEnumerable<Guid> path)
+        public static IEnumerable<object> GetSpecifiedPath(this IDataBase db, IEnumerable<Guid> path)
         {
             Stack<Guid> pathStack = new Stack<Guid>(path);
             object currentObject = null;
@@ -46,8 +46,8 @@ namespace Tractor.Core.Objects.DataBases
                         throw new Exception();
                     }
                 }
+                yield return currentObject;
             }
-            return currentObject;
         }
     }
 }
