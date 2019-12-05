@@ -10,7 +10,7 @@ namespace Tractor.Core.Routers.Command
     class Command
     {
         public AccessType AccessType { get; set; }
-        public string Command { get; set; }
+        public string Commands { get; set; }
         public IEntity Entity { get; set; }
         public IDataBase DataBase { get; set; }
 
