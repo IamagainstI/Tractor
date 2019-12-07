@@ -8,50 +8,50 @@ using Tractor.Core.Objects.Projects;
 
 namespace Tractor.Core.Interactors
 {
-    public class DataRelocator : Pipeline<IDifference>, IPipelineInput<IDifference>, IPipelineOutput<object>, IPipelineOutput<string>
+    public class DataRelocator : Pipeline<DataRelocationInfo, IDifference>, IPipelineIO<DataRelocationInfo, IDifference>
     {
   
-        private event EventHandler<object> Object_Output;
-        private event EventHandler<string> Action_Output;
+        private event EventHandler<IDifference> IDifference_Output;
 
-        event EventHandler<object> IPipelineOutput<object>.Output
+        event EventHandler<IDifference> IPipelineOutput<IDifference>.Output
         {
-            add => Object_Output += value;
-            remove => Object_Output -= value;
+            add => IDifference_Output += value;
+            remove => IDifference_Output -= value;
         }
 
-        event EventHandler<string> IPipelineOutput<string>.Output
-        {
-            add => Action_Output += value;
-            remove => Action_Output -= value;
-        }
+        EventHandler<DataRelocationInfo> IPipelineInput<DataRelocationInfo>.Input => GetData;
 
-        EventHandler<IDifference> IPipelineInput<IDifference>.Input => GetData;
-
-        private void GetData(object sender, IDifference data)
+        private void GetData(object sender, DataRelocationInfo data)
         {
-            if (((data.NewValue != null) || (data.OldValue != null)) && (data.ChangedObject != null))
+            if (data.Object != null)
             {
-                if (data.OldValue != null)
+                if (data.OldStorage != null)
                 {
-                    if (typeof(ITaskStorage).IsAssignableFrom(data.OldValue.GetType()))
+                    if (data.OldStorage is ITaskStorage storage0)
                     {
-                        ((ITaskStorage)data.OldValue).Tasks.Remove((ITask)data.ChangedObject);
+                        storage0.Tasks.Remove(data.Object as ITask);
                     }
-                    else if (typeof(IProjectStorage).IsAssignableFrom(data.OldValue.GetType()))
+                    else if (data.OldStorage is IProjectStorage storage1)
                     {
-                        ((IProjectStorage)data.OldValue).Projects.Remove((IProject)data.ChangedObject);
+                        storage1.Projects.Remove(data.Object as IProject);
                     }
+                    Difference diff = new Difference(Guid.NewGuid())
+                    {
+                        ChangedObject = data.OldStorage,
+                        CreationDate = DateTime.Now,
+                        
+                    };
+                    IDifference_Output?.Invoke(this, diff);
                 }
-                if (data.NewValue != null)
+                if (data.NewStorage != null)
                 {
-                    if (typeof(ITaskStorage).IsAssignableFrom(data.NewValue.GetType()))
+                    if (data.OldStorage is ITaskStorage storage0)
                     {
-                        ((ITaskStorage)data.NewValue).Tasks.Add((ITask)data.ChangedObject);
+                        storage0.Tasks.Add(data.Object as ITask);
                     }
-                    else if (typeof(IProjectStorage).IsAssignableFrom(data.NewValue.GetType()))
+                    else if (data.OldStorage is IProjectStorage storage1)
                     {
-                        ((IProjectStorage)data.NewValue).Projects.Add((IProject)data.ChangedObject);
+                        storage1.Projects.Add(data.Object as IProject);
                     }
                 }
             }
