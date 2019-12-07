@@ -46,6 +46,9 @@ namespace Tractor.Core.Interactors.DataBases
         }
 
         private void GetGrantedAccess()
+        {
+
+        }
 
         private AccessType GetRequiredAccess(ICommand command)
         {
