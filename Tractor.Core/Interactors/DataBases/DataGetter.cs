@@ -10,14 +10,15 @@ namespace Tractor.Core.Interactors.DataBases
 {
     public class DataGetter : Pipeline<GetCommand, object>, IPipelineIO<GetCommand, object>
     {
-        EventHandler<GetCommand> IPipelineInput<GetCommand>.Input => InputCommand;
+        private event EventHandler<object> OutputGetter;
 
-        public event EventHandler<object> OutputGetter;
         event EventHandler<object> IPipelineOutput<object>.Output
         {
             add => OutputGetter += value;
             remove => OutputGetter -= value;
         }
+
+        EventHandler<GetCommand> IPipelineInput<GetCommand>.Input => InputCommand;
 
         private void InputCommand(object sender, GetCommand getCommand)
         {
