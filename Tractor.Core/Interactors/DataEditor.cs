@@ -14,17 +14,17 @@ using Tractor.Core.Specialized;
 
 namespace Tractor.Core.Interactors
 {
-    public class DataEditor : Pipeline<IDifference, IDifference>, IPipelineIO<IDifference, IDifference>, IPipelineOutput<object>
+    public class DataEditor : Pipeline<IDifference, IDifference>, IPipelineIO<IDifference, IDifference>, IPipelineOutput<DataRelocationInfo>
     {
         private event EventHandler<IDifference> IDifference_Output;
-        private event EventHandler<object> Object_Output;
+        private event EventHandler<DataRelocationInfo> Object_Output;
 
         event EventHandler<IDifference> IPipelineOutput<IDifference>.Output
         {
             add => IDifference_Output += value;
             remove => IDifference_Output -= value;
         }
-        event EventHandler<object> IPipelineOutput<object>.Output
+        event EventHandler<DataRelocationInfo> IPipelineOutput<DataRelocationInfo>.Output
         {
             add => Object_Output += value;
             remove => Object_Output -= value;
@@ -101,17 +101,17 @@ namespace Tractor.Core.Interactors
                     }
                 }
             }
-            else if (data.OldValue is ITask || data.NewValue is ITask || data.NewValue is IProject || data.OldValue is IProject)
+            else if (data.OldValue is ITask oldTask || data.NewValue is ITask newTask)
             {
                 if (data.OldValue != null)
                 {
                     //отправляем старые данные в релокатор на удаление
-                    Object_Output?.Invoke(this, null);
+                    Object_Output?.Invoke(this, new DataRelocationInfo() { Object = data.OldValue, OldStorage = data.ChangedObject });
                 }
                 if (data.NewValue != null)
                 {
                     //Отправляем новые данные в релокатор на добавление
-                    Object_Output?.Invoke(this, null);
+                    Object_Output?.Invoke(this, new DataRelocationInfo() { Object = data.OldValue, NewStorage = data.ChangedObject });
                 }
             }
             else
