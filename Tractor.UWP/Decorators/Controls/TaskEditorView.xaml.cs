@@ -31,7 +31,7 @@ namespace Tractor.UWP.Decorators.Controls
         //    set => Editor.Task = value;
         //}
 
-        public DataEditor Editor { get; set; }
+        //public DataEditor Editor { get; set; }
 
         public TaskEditorView()
         {

@@ -144,27 +144,27 @@ namespace Tractor.Core.Objects.Tasks
         public object Clone()
         {
             EventTask result = new EventTask(ID);
-            result._Name = Name;
-            result._Description = Description;
-            result._Location = Location;
-            result._Parent = Parent;
-            result._Performer = Performer;
-            result._Producer = Producer;
-            result._Progress = Progress;
-            result._Duration = Duration;
-            result._StartTime = StartTime;
-            foreach (ITask task in Subtasks)
-            {
-                result.Subtasks.Add(task);
-            }
-            foreach (ITask task in Dependencies)
-            {
-                result.Dependencies.Add(task);
-            }
-            foreach (IEntity observer in Observers)
-            {
-                result.Observers.Add(observer);
-            }
+            //result._Name = Name;
+            //result._Description = Description;
+            //result._Location = Location;
+            //result._Parent = Parent;
+            //result._Performer = Performer;
+            //result._Producer = Producer;
+            //result._Progress = Progress;
+            //result._Duration = Duration;
+            //result._StartTime = StartTime;
+            //foreach (ITask task in Subtasks)
+            //{
+            //    result.Subtasks.Add(task);
+            //}
+            //foreach (ITask task in Dependencies)
+            //{
+            //    result.Dependencies.Add(task);
+            //}
+            //foreach (IEntity observer in Observers)
+            //{
+            //    result.Observers.Add(observer);
+            //}
             return result;
         }
 

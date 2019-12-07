@@ -6,7 +6,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Tractor.Core;
 using Tractor.Core.Routers.UI;
 using Tractor.UWP.Decorators.Pages;
-using Tractor.UWP.Presenters.Pages;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;

@@ -6,11 +6,11 @@ using Tractor.Core.Objects.Projects;
 
 namespace Tractor.Core.Presenters.Projects
 {
-    public class ProjectsPagePresenter
+    public class ProjectsCollectionPresenter
     {
-        public ObservableCollection<IProject> Projects { get; }
+        public IProjectStorage Projects { get; }
 
-        public ProjectsPagePresenter(ObservableCollection<IProject> projects)
+        public ProjectsCollectionPresenter(IProjectStorage projects)
         {
             Projects = projects;
         }

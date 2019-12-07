@@ -2,11 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Tractor.Core.Objects;
+using Tractor.Core.Routers.Command;
 
 namespace Tractor.Core.Routers.UI
 {
-    public sealed class UIRouter : Pipeline<NavigationInfo>, IPipelineInput<NavigationInfo>
+    public sealed class UIRouter : Pipeline<NavigationInfo, ICommand>, IPipelineInput<NavigationInfo>, IPipelineOutput<ICommand>
     {
+        private EventHandler<ICommand> ICommand_Output;
+
+        event EventHandler<ICommand> IPipelineOutput<ICommand>.Output
+        {
+            add => ICommand_Output += value;
+            remove => ICommand_Output -= value;
+        }
+
         EventHandler<NavigationInfo> IPipelineInput<NavigationInfo>.Input => OnInput;
 
         public event EventHandler<NavigationInfo> NavigationRequested;
@@ -16,7 +26,7 @@ namespace Tractor.Core.Routers.UI
         public bool IsBackAvailable => BackStack.Count > 0;
         public bool IsFrowardAvailable => ForwardStack.Count > 0;
         public NavigationInfo CurrentView { get; private set; }
-
+        
         private void OnInput(object sender, NavigationInfo info)
         {
             RequestNavigation(info);

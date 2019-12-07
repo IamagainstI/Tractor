@@ -9,12 +9,17 @@ namespace Tractor.Core
 {
     public sealed class TractorInstance
     {
-        public LocalDataBase DataBase { get; } = new LocalDataBase();
+        public TractorAccount CurrentAccount { get; private set; }
+        public IDataBase CurrentDataBase { get; set; }
         public UIRouter UIRouter { get; } = new UIRouter();
 
         public TractorInstance()
         {
-            DataBase.Account = new TractorAccount(Guid.NewGuid()) { Name = "Me" };
+            LocalDataBase a = new LocalDataBase
+            {
+                Account = new TractorAccount(Guid.NewGuid()) { Name = "Me" }
+            };
+            CurrentDataBase = a;
         }
 
         public void ApplicationLaunched()

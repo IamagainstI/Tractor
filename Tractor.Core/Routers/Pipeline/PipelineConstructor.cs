@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Tractor.Core.Interactors.Tasks;
 using Tractor.Core.Routers.UI;
 using EmptyBox.Automation;
 using Tractor.Core.Objects.Tasks;
@@ -17,7 +16,7 @@ namespace Tractor.Core.Routers.Pipeline
         public RuntimeDifferenceHandler RuntimeDifferenceHandler = new RuntimeDifferenceHandler();
         public SynchronizationDifferenceHandler SynchronizationDifferenceHandler = new SynchronizationDifferenceHandler();
         public DataBaseDifferenceHandler DataBaseDifferenceHandler = new DataBaseDifferenceHandler(null);
-        public DataEditor TaskEditor = new DataEditor();
+        //public DataEditor TaskEditor = new DataEditor();
         public UIRouter Navigator = new UIRouter();
 
         public PipelineConstructor()
@@ -28,7 +27,7 @@ namespace Tractor.Core.Routers.Pipeline
             //При получении IDifference от SynchronizationDifferenceHandler обрабатываем её и отправляем в DifferenceDispenser
             _ = SynchronizationDifferenceHandler >> DataBaseDifferenceHandler >> DifferenceDispenser;
             //При получении задачи для редактирования открываем соответствующий интерфейс
-            _ = TaskEditor >> Navigator;
+            //_ = TaskEditor >> Navigator;
         }
     }
 }

@@ -6,7 +6,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Tractor.Core.Objects.Tasks;
 using Tractor.Core.Routers.Pipeline;
 using Tractor.Core.Routers.UI;
-using Tractor.UWP.Presenters.Controls;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;

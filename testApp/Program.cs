@@ -28,8 +28,7 @@ namespace testApp
             ExternalInput<IEnumerable<IDifference>> c1 = new ExternalInput<IEnumerable<IDifference>>();
             ExternalOutput<IEnumerable<IDifference>> d0 = new ExternalOutput<IEnumerable<IDifference>>((x, y) => store0 = y);
             ExternalOutput<IEnumerable<IDifference>> d1 = new ExternalOutput<IEnumerable<IDifference>>((x, y) => store1 = y);
-            _ = c0 >> a >> d0;
-            _ = c1 >> b >> d1;
+            _ = c0 >> a >> b >> d1;
             List<IDifference> @out = new List<IDifference>()
             {
                 new Difference(NewGuid())
