@@ -16,15 +16,17 @@ namespace Tractor.Core.Routers.Command
         public IEntity Entity { get; set; }
         public IDataBase DataBase { get; set; }
         public Guid ID { get; }
+        public ProgressState Progress
+        {
+            get => _ProgressState;
+            set => OnPropertyChange(ref _ProgressState, value);
+        }
+
         public GetCommand(Guid id)
         {
             ID = id;
         }
-        public ProgressState Progress 
-        { 
-            get => _ProgressState; 
-            set => OnPropertyChange(ref _ProgressState, value); 
-        }
+        
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
         {
             if (!field.Equals(newValue))

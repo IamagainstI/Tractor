@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Tractor.Core.Presenters.Projects;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,9 +23,17 @@ namespace Tractor.UWP.Decorators.Pages
     /// </summary>
     public sealed partial class ProjectManagementPage : Page
     {
+        public ProjectManagementPagePresenter Presenter { get; private set; }
+
         public ProjectManagementPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            Presenter = e.Parameter as ProjectManagementPagePresenter;
+            base.OnNavigatingFrom(e);
         }
     }
 }

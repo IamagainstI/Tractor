@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Tractor.Core.Objects;
+using Tractor.Core.Objects.DataBases;
 using Tractor.Core.Routers.Command;
 
 namespace Tractor.Core.Routers.UI
@@ -26,7 +27,9 @@ namespace Tractor.Core.Routers.UI
         public bool IsBackAvailable => BackStack.Count > 0;
         public bool IsFrowardAvailable => ForwardStack.Count > 0;
         public NavigationInfo CurrentView { get; private set; }
-        
+        public TractorAccount CurrentAccount { get; private set; }
+        public IDataBase CurrentDataBase { get; set; }
+
         private void OnInput(object sender, NavigationInfo info)
         {
             RequestNavigation(info);
@@ -72,7 +75,10 @@ namespace Tractor.Core.Routers.UI
 
         public void RequestNavigation(NavigationInfo info)
         {
-            Navigate(info);
+            switch (info.Name)
+            {
+                case 
+            }
         }
     }
 }
