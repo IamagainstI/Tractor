@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Tractor.Core.Objects.Entities.Permissions;
 using Tractor.Core.Objects.Projects;
 using Tractor.Core.Objects.Tasks;
 

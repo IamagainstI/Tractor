@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tractor.Core.Objects.Entities.Permissions
 {
-    interface IEntityRolePermission : IPermission
+    public interface IEntityRolePermission : IPermission
     {
         IEntityRole EntityRole { get; set; }
     }

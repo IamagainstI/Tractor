@@ -13,6 +13,7 @@ namespace Tractor.Core.Objects.DataBases
     {
         TractorAccount Account { get; }
         ObservableCollection<IEntity> Entities { get; }
+        ObservableCollection<ITeam> Teams { get; }
         ObservableCollection<IPermission> Permissions { get; }
         ObservableCollection<IRepository> Repositories { get; }
         ObservableCollection<IDifference> History { get; }
