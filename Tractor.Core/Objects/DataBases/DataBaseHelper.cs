@@ -77,5 +77,74 @@ namespace Tractor.Core.Objects.DataBases
                     throw new NotImplementedException();
             }
         }
+
+        public static AccessType GetAccessType(this IDataBase db, IEntity entity)
+        {
+            if (db.Entities.Contains(entity))
+            {
+                AccessType? entityPerm = db.Permissions.FirstOrDefault(y => y is IEntityPermission entityP && entityP.Entity == entity)?.AccessType;
+                if (!(entity is ITeam))
+                {
+                    IEnumerable<ITeam> teams = db.Teams.Where(x => x.Members.ContainsKey(entity));
+                    AccessType? teamPerm = teams.Select(x =>
+                    {
+                        AccessType team = GetAccessType(db, x);
+                        IPermission role = db.Permissions.FirstOrDefault(y => y is IEntityRolePermission rolePerm && rolePerm.EntityRole == x.Members[entity]);
+                        return team & role?.AccessType;
+                    }).Aggregate((x, y) => x | y);
+                    entityPerm |= teamPerm;
+                }
+                return entityPerm ?? AccessType.None;
+            }
+            else
+            {
+                return AccessType.None;
+            }
+        }
+
+        public static AccessType GetAccessType(this IProject db, IEntity entity)
+        {
+            if (db.Participants.ContainsKey(entity))
+            {
+                AccessType? entityPerm = db.Permissions.FirstOrDefault(y => y is IEntityPermission entityP && entityP.Entity == entity)?.AccessType;
+                AccessType? rolePerm = db.Permissions.FirstOrDefault(x => x is IEntityPermission roleP && roleP.Entity == db.Participants[entity])?.AccessType;
+                entityPerm |= rolePerm;
+                return entityPerm ?? AccessType.None;
+            }
+            else
+            {
+                return AccessType.None;
+            }
+        }
+
+        public static AccessType GetAccessType(this IDataBase db, IEntity entity, object obj)
+        {
+            AccessType dbAccessType = GetAccessType(db, entity);
+            if (dbAccessType != AccessType.None)
+            {
+                switch (obj)
+                {
+                    case IEntity _:
+                        return dbAccessType;
+                    default:
+                        IEnumerable<IProject> pathobj = GetSpecifiedPath(db, GetPath(db, obj)).Where(x => x is IProject).Select(x => x as IProject);
+                        foreach (IProject proj in pathobj)
+                        {
+                            AccessType tmp = GetAccessType(db, entity, proj);
+                            if (tmp == AccessType.None)
+                            {
+                                return AccessType.None;
+                            }
+                            else
+                            {
+                                dbAccessType = tmp;
+                            }
+                        }
+                        break;
+                }
+                return dbAccessType;
+            }
+            return AccessType.None;
+        }
     }
 }
