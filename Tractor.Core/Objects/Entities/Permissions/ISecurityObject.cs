@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tractor.Core.Collections;
 
 namespace Tractor.Core.Objects.Entities.Permissions
 {
-    public interface IEntityRolePermission : IPermission
+    public interface ISecurityObject
     {
-        IEntityRole EntityRole { get; set; }
+        ObservableCollection<IPermission> Permissions { get; }
     }
 }
