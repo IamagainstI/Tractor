@@ -11,16 +11,23 @@ namespace Tractor.Core.Objects.DataBases
     {
         public static IEnumerable<object> GetSpecifiedPath(this IDataBase db, IEnumerable<Guid> path)
         {
-            Stack<Guid> pathStack = new Stack<Guid>(path);
+            Queue<Guid> pathStack = new Queue<Guid>(path);
             object currentObject = null;
             while (pathStack.Count > 0)
             {
-                Guid currentEntry = pathStack.Pop();
+                Guid currentEntry = pathStack.Dequeue();
                 if (currentObject == null)
                 {
-                    currentObject =
-                        (object)db.Entities.FirstOrDefault(x => x.ID == currentEntry) ??
-                        db.Projects.FirstOrDefault(x => x.ID == currentEntry);
+                    if (path.Count() == pathStack.Count + 1)
+                    {
+                        currentObject =
+                            (object)db.Entities.FirstOrDefault(x => x.ID == currentEntry) ??
+                            db.Projects.FirstOrDefault(x => x.ID == currentEntry);
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
                 }
                 else
                 {
@@ -31,19 +38,15 @@ namespace Tractor.Core.Objects.DataBases
                             break;
                         case IProject proj:
                             currentObject =
-                                proj.Description.ID == currentEntry ? proj.Description :
+                                proj.Description?.ID == currentEntry ? proj.Description :
                                 (object)proj.Projects.FirstOrDefault(x => x.ID == currentEntry) ??
                                 proj.Tasks.FirstOrDefault(x => x.ID == currentEntry);
                             break;
                         case ITask task:
                             currentObject =
-                                task.Description.ID == currentEntry ? (object)task.Description :
+                                task.Description?.ID == currentEntry ? (object)task.Description :
                                 task.Tasks.FirstOrDefault(x => x.ID == currentEntry);
                             break;
-                    }
-                    if (currentObject == null)
-                    {
-                        throw new Exception();
                     }
                 }
                 yield return currentObject;
@@ -57,7 +60,7 @@ namespace Tractor.Core.Objects.DataBases
                 case ITask task:
                     if (task.Parent == null)
                     {
-                        return Enumerable.Empty<Guid>();
+                        return Enumerable.Repeat(task.ID, 1);
                     }
                     else
                     {
@@ -66,7 +69,7 @@ namespace Tractor.Core.Objects.DataBases
                 case IProject proj:
                     if (proj.Parent == null || proj.Parent is IDataBase)
                     {
-                        return Enumerable.Empty<Guid>();
+                        return Enumerable.Repeat(proj.ID, 1);
                     }
                     else
                     {
