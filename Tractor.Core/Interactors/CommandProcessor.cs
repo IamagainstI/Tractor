@@ -9,10 +9,11 @@ using Tractor.Core.Objects.DataBases;
 
 namespace Tractor.Core.Interactors
 {
-    public class CommandProcessor : Pipeline<ICommand, ICommand>, IPipelineIO<ICommand, IDifference>, IPipelineOutput<GetCommand>
+    public class CommandProcessor : Pipeline<ICommand, ICommand>, IPipelineIO<ICommand, IDifference>, IPipelineOutput<DataRelocationInfo>, IPipelineOutput<GetCommand>
     {
         private event EventHandler<IDifference> IDifference_Output;
         private event EventHandler<GetCommand> Command_Output;
+        private event EventHandler<DataRelocationInfo> DataRelocationInfo_Output;
 
         event EventHandler<IDifference> IPipelineOutput<IDifference>.Output
         {
@@ -24,39 +25,41 @@ namespace Tractor.Core.Interactors
             add => Command_Output += value;
             remove => Command_Output -= value;
         }
+        event EventHandler<DataRelocationInfo> IPipelineOutput<DataRelocationInfo>.Output
+        {
+            add => DataRelocationInfo_Output += value;
+            remove => DataRelocationInfo_Output -= value;
+        }
 
         EventHandler<ICommand> IPipelineInput<ICommand>.Input => CommandHandler;
 
         private void CommandHandler(object sender, ICommand Command)
         {
             Type CommandType = Command.GetType();
-            if (Command is SetCommand)
+            if (Command is SetCommand setCommand)
             {
-                IDifference difference = new Difference(new Guid())
+                IDifference difference = new Difference(Guid.NewGuid())
                 {
-                    ChangedObject = (Command as SetCommand).NewValue,
-                    Entity = (Command as SetCommand).Entity,
-                    NewValue = (object)(Command as SetCommand).DataBase.Projects.FirstOrDefault(x => x.ID == (Command as SetCommand).Path.Last()),
-                    OldValue = (object)(Command as SetCommand).DataBase.Projects.FirstOrDefault(x => x.ID == (Command as SetCommand).Path.Last())
+                    ChangedObject = setCommand.DataBase.GetSpecifiedPath(setCommand.Path.Take(setCommand.Path.Count - 1)).LastOrDefault(),
+                    Entity = setCommand.Entity,
+                    NewValue = setCommand.NewValue,
+                    OldValue = setCommand.DataBase.GetSpecifiedPath(setCommand.Path).LastOrDefault()
                 };
                 IDifference_Output?.Invoke(sender, difference);
             }
-            else if (Command is RelocateCommand)
+            else if (Command is RelocateCommand relocateCommand)
             {
-                Guid oldPathGuid = (Command as RelocateCommand).Path[(Command as SetCommand).Path.Count - 2];
-                Guid newPathGuid = (Command as RelocateCommand).NewPath[(Command as SetCommand).Path.Count - 2];
-                IDifference difference = new Difference(new Guid())
+                DataRelocationInfo a = new DataRelocationInfo()
                 {
-                    ChangedObject = Command.DataBase.Projects.FirstOrDefault(x => x.ID == ((Command as SetCommand).Path.Last())),
-                    NewValue = Command.DataBase.Projects.FirstOrDefault(x => x.ID == newPathGuid),
-                    OldValue = Command.DataBase.Projects.FirstOrDefault(x => x.ID == oldPathGuid),
-                    Entity = Command.Entity
+                    OldStorage = relocateCommand.DataBase.GetSpecifiedPath(relocateCommand.Path).LastOrDefault(),
+                    NewStorage = relocateCommand.DataBase.GetSpecifiedPath(relocateCommand.NewPath).LastOrDefault(),
+                    Object = relocateCommand.DataBase.GetSpecifiedPath(relocateCommand.Path.Take(relocateCommand.Path.Count - 1)).LastOrDefault()
                 };
-                IDifference_Output?.Invoke(sender, difference);
+                DataRelocationInfo_Output?.Invoke(this, a);
             }
-            else if (Command is GetCommand)
+            else if (Command is GetCommand getCommand)
             {
-                Command_Output?.Invoke(sender, (Command as GetCommand));
+                Command_Output?.Invoke(sender, getCommand);
             }
                
         }
