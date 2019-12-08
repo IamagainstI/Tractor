@@ -1,16 +1,20 @@
 ﻿using EmptyBox.Automation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using Tractor.Core.Objects;
 using Tractor.Core.Objects.DataBases;
+using Tractor.Core.Objects.Projects;
+using Tractor.Core.Objects.Tasks;
 using Tractor.Core.Routers.Command;
 
 namespace Tractor.Core.Routers.UI
 {
-    public sealed class UIRouter : Pipeline<NavigationInfo, ICommand>, IPipelineInput<NavigationInfo>, IPipelineOutput<ICommand>
+    public sealed class UIRouter : Pipeline<NavigationHistory, ICommand>, IPipelineInput<NavigationHistory>, IPipelineOutput<ICommand>
     {
-        private EventHandler<ICommand> ICommand_Output;
+        private event EventHandler<ICommand> ICommand_Output;
 
         event EventHandler<ICommand> IPipelineOutput<ICommand>.Output
         {
@@ -18,30 +22,60 @@ namespace Tractor.Core.Routers.UI
             remove => ICommand_Output -= value;
         }
 
-        EventHandler<NavigationInfo> IPipelineInput<NavigationInfo>.Input => OnInput;
+        EventHandler<NavigationHistory> IPipelineInput<NavigationHistory>.Input => OnInput;
 
         public event EventHandler<NavigationInfo> NavigationRequested;
 
-        public Stack<NavigationInfo> BackStack { get; } = new Stack<NavigationInfo>();
-        public Stack<NavigationInfo> ForwardStack { get; } = new Stack<NavigationInfo>();
+        public Stack<NavigationHistory> BackStack { get; } = new Stack<NavigationHistory>();
+        public Stack<NavigationHistory> ForwardStack { get; } = new Stack<NavigationHistory>();
         public bool IsBackAvailable => BackStack.Count > 0;
         public bool IsFrowardAvailable => ForwardStack.Count > 0;
-        public NavigationInfo CurrentView { get; private set; }
-        public TractorAccount CurrentAccount { get; private set; }
+        public NavigationHistory CurrentView { get; set; }
+        public TractorAccount CurrentAccount { get; set; }
         public IDataBase CurrentDataBase { get; set; }
 
-        private void OnInput(object sender, NavigationInfo info)
+        private Type GetUsualType(Type t)
+        {
+            if (t == typeof(ITask))
+            {
+                return typeof(UsualTask);
+            }
+            else if (t == typeof(IProject))
+            {
+                return typeof(UsualProject);
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        private void OnInput(object sender, NavigationHistory info)
         {
             RequestNavigation(info);
         }
 
-        private void Navigate(NavigationInfo info)
+        private void Navigate(NavigationHistory info, bool isForward = false)
         {
+            if (!isForward)
+            {
+                ForwardStack.Clear();
+            }
             if (CurrentView != null)
             {
                 BackStack.Push(CurrentView);
             }
-            NavigationRequested?.Invoke(this, info);
+            object presenter = null;
+            if (info.PresenterType != null)
+            {
+                ConstructorInfo constructorInfo = info.PresenterType.GetConstructors().First();
+                IEnumerable<ParameterInfo> @params = constructorInfo.GetParameters().Skip(1);
+                IEnumerable<object> values = info.Paths.Select(CurrentDataBase.GetSpecifiedPath).Select(x => x.LastOrDefault());
+                List<object> forInvoke = values.Select((x, y) => x ?? GetUsualType(@params.ElementAt(y).ParameterType).GetConstructors().First().Invoke(new object[] { info.Paths[y].First() })).ToList();
+                forInvoke.Insert(0, this);
+                presenter = constructorInfo.Invoke(forInvoke.ToArray());
+            }
+            NavigationRequested?.Invoke(this, new NavigationInfo() { PageName = info.Name, Presenter = presenter });
             CurrentView = info;
         }
 
@@ -51,7 +85,7 @@ namespace Tractor.Core.Routers.UI
             {
                 ForwardStack.Push(CurrentView);
                 CurrentView = null;
-                RequestNavigation(BackStack.Pop());
+                Navigate(BackStack.Pop());
             }
             else
             {
@@ -65,7 +99,7 @@ namespace Tractor.Core.Routers.UI
             {
                 BackStack.Push(CurrentView);
                 CurrentView = null;
-                RequestNavigation(ForwardStack.Pop());
+                Navigate(ForwardStack.Pop(), true);
             }
             else
             {
@@ -73,12 +107,14 @@ namespace Tractor.Core.Routers.UI
             }
         }
 
-        public void RequestNavigation(NavigationInfo info)
+        public void RequestNavigation(NavigationHistory info)
         {
-            switch (info.Name)
-            {
-                case 
-            }
+            Navigate(info);
+        }
+
+        public void SendCommand(ICommand command)
+        {
+            ICommand_Output?.Invoke(this, command);
         }
     }
 }
