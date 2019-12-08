@@ -49,5 +49,32 @@ namespace Tractor.Core.Objects.DataBases
                 yield return currentObject;
             }
         }
+
+        public static IEnumerable<Guid> GetPath(this IDataBase db, object obj)
+        {
+            switch (obj)
+            {
+                case ITask task:
+                    if (task.Parent == null)
+                    {
+                        return Enumerable.Empty<Guid>();
+                    }
+                    else
+                    {
+                        return GetPath(db, task.Parent).Concat(Enumerable.Repeat(task.ID, 1));
+                    }
+                case IProject proj:
+                    if (proj.Parent == null || proj.Parent is IDataBase)
+                    {
+                        return Enumerable.Empty<Guid>();
+                    }
+                    else
+                    {
+                        return GetPath(db, proj.Parent).Concat(Enumerable.Repeat(proj.ID, 1));
+                    }
+                default:
+                    throw new NotImplementedException();
+            }
+        }
     }
 }
