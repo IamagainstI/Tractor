@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Tractor.Core.Objects.Tasks;
-using Tractor.Core.Routers.Pipeline;
+using Tractor.Core.Presenters.Projects;
 using Tractor.Core.Routers.UI;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -43,10 +43,10 @@ namespace Tractor.UWP.Decorators.Pages
             string cmd = (string)item.Content switch
             {
                 "Общий вид" => UIViews.OVERALL_PAGE,
-                "Управление проектами" => UIViews.PROJECTS_PAGE,
+                "Управление проектами" => UIViews.PROJECT_MANAGEMENT_PAGE,
                 _ => string.Empty
             };
-            App.CurrentInstance.Instance.UIRouter.RequestNavigation(new NavigationInfo() { Name = cmd });
+            App.CurrentInstance.Instance.UIRouter.RequestNavigation(new NavigationHistory() { Name = cmd, PresenterType = typeof(ProjectManagementPagePresenter), Paths = new[] { new List<Guid>() { App.CurrentInstance.Instance.CurrentDataBase.Projects.First().ID } } });
         }
 
         public void NavigateTo(Type type, object obj)
