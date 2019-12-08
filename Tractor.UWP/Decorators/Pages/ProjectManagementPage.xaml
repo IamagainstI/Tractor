@@ -5,8 +5,19 @@
     xmlns:local="using:Tractor.UWP.Decorators.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Tractor.UWP.Decorators.Controls"
+    xmlns:tasks="using:Tractor.Core.Objects.Tasks"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.Content>
+                <Grid/>
+            </CommandBar.Content>
+            <AppBarButton Icon="Add" Label="Добавить задачу" Click="abb_Add_Click"/>
+            <AppBarButton Icon="Cancel" Label="AppBarButton"/>
+        </CommandBar>
+    </Page.BottomAppBar>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -16,7 +27,7 @@
             <RowDefinition Height="256"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Hub Grid.Row="2">
+        <!--<Hub Grid.Row="2">
             <HubSection Header="В плане">
                 <DataTemplate>
                     <GridView ItemsSource="{x:Bind Path=Presenter.ToDoTasks, Mode=OneWay}"/>
@@ -32,10 +43,15 @@
                     <GridView ItemsSource="{x:Bind Path=Presenter.DoneTasks, Mode=OneWay}"/>
                 </DataTemplate>
             </HubSection>
-        </Hub>
-        <TextBlock Text="{x:Bind Presenter.PresentedProject.Name, Mode=OneWay}" TextWrapping="Wrap" Margin="10"/>
+        </Hub>-->
+        <GridView Grid.Row="2" ItemsSource="{x:Bind Presenter.ToDoTasks}">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="tasks:ITask">
+                    <controls:TaskView PresentedTask="{x:Bind}"/>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+        <TextBlock Text="{x:Bind Presenter.Project.Name, Mode=OneWay}" TextWrapping="Wrap" Margin="10"/>
         <TextBlock HorizontalAlignment="Left" Margin="363,101,0,0" Grid.Row="1" Text="Описание и статистика" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <local:ProjectsPage Grid.Row="3"/>
-
     </Grid>
 </Page>

@@ -30,10 +30,15 @@ namespace Tractor.UWP.Decorators.Pages
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Presenter = e.Parameter as ProjectManagementPagePresenter;
-            base.OnNavigatingFrom(e);
+            base.OnNavigatedTo(e);
+        }
+
+        private void abb_Add_Click(object sender, RoutedEventArgs e)
+        {
+            Presenter.AddTask();
         }
     }
 }
