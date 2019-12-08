@@ -13,7 +13,7 @@ using Tractor.Core.Objects.Tasks;
 
 namespace Tractor.Core.Objects.Projects
 {
-    public interface IProject : IProjectStorage, ITaskStorage,
+    public interface IProject : IProjectStorage, ITaskStorage, ISecurityObject,
         IEquatable<IProject>, ICloneable,
         INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged
     {
@@ -23,6 +23,5 @@ namespace Tractor.Core.Objects.Projects
         IDescription Description { get; set; }
         IProjectStorage Parent { get; }
         ObservableDictionary<IEntity, IEntityRole> Participants { get; }
-        ObservableCollection<IPermission> Permissions { get; }
     }
 }
