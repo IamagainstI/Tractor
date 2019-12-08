@@ -62,20 +62,20 @@ namespace Tractor.Core.Interactors
 
         private void GetData(object sender, IDifference data)
         {
-            TypeInfo oldDataType = data.OldValue.GetType().GetTypeInfo();
+            TypeInfo oldDataType = data.OldValue?.GetType().GetTypeInfo();
             if (oldDataType == data.NewValue?.GetType().GetTypeInfo())
             {
                 foreach (PropertyInfo prop in oldDataType.DeclaredProperties)
                 {
-                    if (typeof(IEnumerable).IsAssignableFrom(prop.PropertyType))
+                    if (typeof(IList).IsAssignableFrom(prop.PropertyType))
                     {
-                        //List<int> A = new List<int>();
-                        //List<int> B = new List<int>();
-
-                        //IEnumerable<int> intersect = A.Intersect(B);
-                        //List<(int val, int ind)> c0 = A.Select((x, y) => (x, intersect.Contains(y) ? y : -1)).ToList();
-                        //List<(int val, int ind)> c1 = B.Select((x, y) => (x, intersect.Contains(y) ? y : -1)).ToList();
-                        //IEnumerable<int> c2 = A.Except()
+                        IList a = (IList)prop.GetValue(data.NewValue);
+                        IList b = (IList)prop.GetValue(data.OldValue);
+                        b.Clear();
+                        foreach (object obj in a)
+                        {
+                            b.Add(obj);
+                        }
                     }
                     else
                     {
@@ -111,7 +111,7 @@ namespace Tractor.Core.Interactors
                 if (data.NewValue != null)
                 {
                     //Отправляем новые данные в релокатор на добавление
-                    Object_Output?.Invoke(this, new DataRelocationInfo() { Object = data.OldValue, NewStorage = data.ChangedObject });
+                    Object_Output?.Invoke(this, new DataRelocationInfo() { Object = data.NewValue, NewStorage = data.ChangedObject });
                 }
             }
             else
