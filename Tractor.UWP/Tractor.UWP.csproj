@@ -120,6 +120,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Decorators\Pages\TaskEditorPage.xaml.cs">
+      <DependentUpon>TaskEditorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Presenters\Tasks\TaskEditorTemplateSelector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Decorators\Controls\EntityTeamControl.xaml.cs">
@@ -225,6 +228,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Decorators\Pages\ProjectsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Decorators\Pages\TaskEditorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -19,7 +19,6 @@
     <Folder Include="Interactors\Progress\" />
     <Folder Include="Interactors\Projects\" />
     <Folder Include="Interactors\Tasks\" />
-    <Folder Include="Presenters\Tasks\" />
   </ItemGroup>
 
 </Project>
