@@ -5,11 +5,26 @@
     xmlns:local="using:Tractor.UWP.Decorators.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:descriptions="using:Tractor.Core.Objects.Descriptions"
+    xmlns:description="using:Tractor.UWP.Presenters.Description"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
     MinHeight="64"
     MinWidth="128">
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="NullDescriptionTemplate">
+            <Button x:Name="b_AddDescription" Content="Добавить описание" VerticalAlignment="Center" HorizontalAlignment="Center" Click="b_AddDescription_Click"/>
+        </DataTemplate>
+        <DataTemplate x:Key="DescriptionTemplate" x:DataType="descriptions:IDescription">
+            <local:DescriptionView PresentedDescription="{x:Bind Mode=OneWay}"/>
+        </DataTemplate>
+        <description:DescriptionViewTemplateSelector
+            x:Key="DescriptionTemplateSelector"
+            DescriptionTemplate="{StaticResource DescriptionTemplate}"
+            NullDescriptionTemplate="{StaticResource NullDescriptionTemplate}"/>
+    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -40,9 +55,9 @@
                 Text="{x:Bind PresentedTask.CreationDate, Mode=OneWay}"
                 FontSize="20"/>
         </Grid>
-        <TextBlock
-            Grid.Row="2"
-            Text="{x:Bind PresentedTask.Description, Mode=OneWay}"
-            FontSize="20"/>
+        <ContentPresenter
+                Grid.Row="2"
+                Content="{x:Bind PresentedTask.Description}"
+                ContentTemplateSelector="{StaticResource DescriptionTemplateSelector}"/>
     </Grid>
 </UserControl>

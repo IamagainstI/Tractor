@@ -33,5 +33,10 @@ namespace Tractor.UWP.Decorators.Controls
         {
             this.InitializeComponent();
         }
+
+        private void b_AddDescription_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
