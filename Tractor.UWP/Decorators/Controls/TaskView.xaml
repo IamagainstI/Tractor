@@ -11,38 +11,43 @@
     MinHeight="64"
     MinWidth="128">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="32"/>
-            <RowDefinition Height="32"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock
-                Text="{x:Bind PresentedTask.Name, Mode=OneWay}"/>
-        </Grid>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="32"/>
+			<RowDefinition Height="32"/>
+			<RowDefinition Height="1*"/>
+		</Grid.RowDefinitions>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<TextBlock
+                Text="{x:Bind PresentedTask.Name, Mode=OneWay}" SelectionChanged="TextBlock_SelectionChanged"/>
+		</Grid>
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <local:EntityView
-                Grid.Column="1"
-                PresentedEntity="{x:Bind PresentedTask.Producer, Mode=OneWay}"/>
-            <TextBlock
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="0*"/>
+				<ColumnDefinition Width="133*"/>
+				<ColumnDefinition Width="134*"/>
+				<ColumnDefinition Width="133*"/>
+			</Grid.ColumnDefinitions>
+			<local:EntityView
                 Grid.Column="2"
-                Text="{x:Bind PresentedTask.CreationDate, Mode=OneWay}"
+                PresentedEntity="{x:Bind PresentedTask.Producer, Mode=OneWay}"/>
+			<TextBlock
+                Grid.Column="3"
+                Text="{x:Bind PresentedTask.CreationDate.Date.Day, Mode=OneWay}"
                 FontSize="20"/>
-        </Grid>
-        <TextBlock
+		</Grid>
+		<TextBlock
             Grid.Row="2"
             Text="{x:Bind PresentedTask.Description, Mode=OneWay}"
-            FontSize="20"/>
-    </Grid>
+            FontSize="20" Margin="0,0,0,43"/>
+		<TextBlock
+            Grid.Row="2"
+            Text="{x:Bind PresentedTask.Progress, Mode=OneWay}"
+            FontSize="20" Margin="226,195,0,9"/>
+	</Grid>
 </UserControl>
