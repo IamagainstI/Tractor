@@ -6,6 +6,7 @@ using System.Text;
 using Tractor.Core.Objects;
 using Tractor.Core.Objects.DataBases;
 using Tractor.Core.Objects.Entities.Permissions;
+using Tractor.Core.Objects.Tasks;
 using Tractor.Core.Routers.Command;
 
 namespace Tractor.Core.Interactors.DataBases
@@ -25,29 +26,11 @@ namespace Tractor.Core.Interactors.DataBases
         private void HandleAccess(object sender, ICommand command)
         {
             AccessType requiredAccess = GetRequiredAccess(command);
-            foreach (IPermission perm in command.DataBase.Permissions)
+            AccessType grantedAccess = command.DataBase.GetAccessType(command.Entity, command.DataBase.GetSpecifiedPath(command.Path).LastOrDefault());
+            if (requiredAccess == (requiredAccess | grantedAccess))
             {
-                switch (perm)
-                {
-                    case IEntityPermission entityPerm:
-                        if (entityPerm.Entity == command.Entity)
-                        {
-                            AccessType gainedAccess = requiredAccess | entityPerm.AccessType;
-                            switch (gainedAccess)
-                            {
-                                case AccessType.None:
-
-                                    break;
-                            }
-                        }
-                        break;
-                }
+                Command_Output?.Invoke(this, command);
             }
-        }
-
-        private void GetGrantedAccess()
-        {
-
         }
 
         private AccessType GetRequiredAccess(ICommand command)
@@ -55,11 +38,53 @@ namespace Tractor.Core.Interactors.DataBases
             switch (command)
             {
                 case GetCommand get:
-                    return AccessType.View;
+                    switch (get.DataBase.GetSpecifiedPath(get.Path))
+                    {
+                        case ITask task:
+                            if (task.Performer == get.Entity)
+                            {
+                                return AccessType.PerformerView;
+                            }
+                            else if (task.Producer == get.Entity)
+                            {
+                                return AccessType.OwnerView;
+                            }
+                            else goto default;
+                        default:
+                            return AccessType.View;
+                    }
                 case SetCommand set:
-                    return AccessType.Edit;
+                    switch (set.DataBase.GetSpecifiedPath(set.Path))
+                    {
+                        case ITask task:
+                            if (task.Performer == set.Entity)
+                            {
+                                return AccessType.PerformerEdit;
+                            }
+                            else if (task.Producer == set.Entity)
+                            {
+                                return AccessType.OwnerEdit;
+                            }
+                            else goto default;
+                        default:
+                            return AccessType.Edit;
+                    }
                 case RelocateCommand relocate:
-                    return AccessType.Add | AccessType.Remove;
+                    switch (relocate.DataBase.GetSpecifiedPath(relocate.Path))
+                    {
+                        case ITask task:
+                            if (task.Performer == relocate.Entity)
+                            {
+                                return AccessType.PerformerAdd | AccessType.PerformerRemove;
+                            }
+                            else if (task.Producer == relocate.Entity)
+                            {
+                                return AccessType.OwnerAdd | AccessType.OwnerRemove;
+                            }
+                            else goto default;
+                        default:
+                            return AccessType.Add | AccessType.Remove;
+                    }
                 default:
                     return AccessType.None;
             }
