@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Tractor.Core;
 using Tractor.Core.Routers.UI;
+using Tractor.UWP.Decorators.Controls;
 using Tractor.UWP.Decorators.Pages;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -50,13 +51,19 @@ namespace Tractor.UWP
                 RootFrame.Navigate(typeof(MainPage));
                 mainPage = RootFrame.Content as MainPage;
             }
-            switch (e.Name)
+            switch (e.PageName)
             {
                 case UIViews.OVERALL_PAGE:
-                    mainPage.NavigateTo(typeof(OverallPage), null);
+                    mainPage.NavigateTo(typeof(OverallPage), e.Presenter);
                     break;
                 case UIViews.PROJECTS_PAGE:
-                    mainPage.NavigateTo(typeof(ProjectsPage), null);
+                    mainPage.NavigateTo(typeof(ProjectsPage), e.Presenter);
+                    break;
+                case UIViews.TASK_EDITOR:
+                    mainPage.NavigateTo(typeof(TaskEditorPage), e.Presenter);
+                    break;
+                case UIViews.PROJECT_MANAGEMENT_PAGE:
+                    mainPage.NavigateTo(typeof(ProjectManagementPage), e.Presenter);
                     break;
             }
         }

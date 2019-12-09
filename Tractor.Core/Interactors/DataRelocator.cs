@@ -45,11 +45,11 @@ namespace Tractor.Core.Interactors
                 }
                 if (data.NewStorage != null)
                 {
-                    if (data.OldStorage is ITaskStorage storage0)
+                    if (data.NewStorage is ITaskStorage storage0)
                     {
                         storage0.Tasks.Add(data.Object as ITask);
                     }
-                    else if (data.OldStorage is IProjectStorage storage1)
+                    else if (data.NewStorage is IProjectStorage storage1)
                     {
                         storage1.Projects.Add(data.Object as IProject);
                     }

@@ -39,13 +39,13 @@ namespace Tractor.Core.Objects.Projects
             set => OnPropertyChange(ref _Name, value);
         }
         public IProgress Progress { get; set; }
-        public ObservableCollection<IProject> Projects { get; }
+        public ObservableCollection<IProject> Projects { get; } = new ObservableCollection<IProject>();
         public IDescription Description { get; set; }
-        public ObservableCollection<ITask> Tasks { get; }
-        public ObservableDictionary<IEntity, IEntityRole> Participants { get; }
+        public ObservableCollection<ITask> Tasks { get; } = new ObservableCollection<ITask>();
+        public ObservableDictionary<IEntity, IEntityRole> Participants { get; } = new ObservableDictionary<IEntity, IEntityRole>();
         public Guid ID { get; }
         public IProjectStorage Parent { get; set; }
-        public ObservableCollection<IPermission> Permissions { get; }
+        public ObservableCollection<IPermission> Permissions { get; } = new ObservableCollection<IPermission>();
 
         #endregion
 
@@ -53,7 +53,7 @@ namespace Tractor.Core.Objects.Projects
         protected void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
             where T : IEquatable<T>
         {
-            if (!field.Equals(newValue))
+            if (true)
             {
                 PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
                 field = newValue;
