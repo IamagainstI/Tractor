@@ -18,5 +18,6 @@ namespace Tractor.Core.Objects.DataBases
         public ObservableCollection<IPermission> Permissions { get; } = new ObservableCollection<IPermission>();
         public ObservableCollection<IRepository> Repositories { get; } = new ObservableCollection<IRepository>();
         public ObservableCollection<IDifference> History { get; } = new ObservableCollection<IDifference>();
+        public ObservableCollection<ITeam> Teams { get; } = new ObservableCollection<ITeam>();
     }
 }
