@@ -66,7 +66,6 @@ namespace Tractor.Core.Objects.Tasks
             set => OnPropertyChange(ref _Location, value);
         }
         public Guid ID { get; }
-        public IEnumerable<ITask> Items { get; } //?
         public IProgress Progress
         {
             get => _Progress;

@@ -6,7 +6,7 @@ using Tractor.Core.Objects;
 
 namespace Tractor.Core.Objects.Descriptions.Labels
 {
-    public class Label : ILabel
+    public class UsualLabel : ILabel
     {
         private string _Name;
         private Color _Color;
@@ -24,7 +24,7 @@ namespace Tractor.Core.Objects.Descriptions.Labels
             }
         }
 
-        public Label(Guid id = new Guid())
+        public UsualLabel(Guid id = new Guid())
         {
             ID = id;
         }
@@ -49,7 +49,7 @@ namespace Tractor.Core.Objects.Descriptions.Labels
 
         public object Clone()
         {
-            Label label = new Label(ID);
+            UsualLabel label = new UsualLabel(ID);
             label._Name = Name;
             label._Color = Color;
             return label;

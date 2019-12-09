@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Tractor.Core.Model;
-using Tractor.Core.Objects.Tasks;
+using Tractor.Core.Objects.Descriptions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -19,24 +18,19 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Tractor.UWP.Decorators.Controls
 {
-    public sealed partial class TaskView : UserControl
+    public sealed partial class DescriptionView : UserControl
     {
-        public static readonly DependencyProperty PresentedTaskProperty = DependencyProperty.Register(nameof(PresentedTask), typeof(ITask), typeof(TaskView), new PropertyMetadata(null));
+        public readonly static DependencyProperty PresentedDescriptionProperty = DependencyProperty.Register(nameof(PresentedDescription), typeof(IDescription), typeof(DescriptionView), new PropertyMetadata(null));
 
-        public ITask PresentedTask
+        public IDescription PresentedDescription
         {
-            get => (ITask)GetValue(PresentedTaskProperty);
-            set => SetValue(PresentedTaskProperty, value);
+            get => (IDescription)GetValue(PresentedDescriptionProperty);
+            set => SetValue(PresentedDescriptionProperty, value);
         }
 
-        public TaskView()
+        public DescriptionView()
         {
             this.InitializeComponent();
-        }
-
-        private void b_AddDescription_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

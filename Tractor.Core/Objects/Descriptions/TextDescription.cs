@@ -27,8 +27,8 @@ namespace Tractor.Core.Objects.Descriptions
             get => _Text;
             set => OnPropertyChange(ref _Text, value);
         }
-        public ObservableCollection<ILabel> Labels { get; }
-        public ObservableCollection<IStorageItem> Attachments { get; }
+        public ObservableCollection<ILabel> Labels { get; } = new ObservableCollection<ILabel>();
+        public ObservableCollection<IStorageItem> Attachments { get; } = new ObservableCollection<IStorageItem>();
         public Guid ID { get; }
         #endregion Public Objects
 
