@@ -6,5 +6,6 @@ namespace Tractor.Core.Objects.Stages
 {
     public interface IStage
     {
+        IDictionary<string, bool> StageDictionary { get; }
     }
 }

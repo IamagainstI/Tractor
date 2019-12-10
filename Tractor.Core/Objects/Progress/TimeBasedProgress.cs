@@ -9,8 +9,6 @@ namespace Tractor.Core.Objects.Progress
     public class TimeBasedProgress : ITimeBasedProgress
     {
         private DateTime _TimeLastchangeProgress;
-        private double _ProgressPercentage;
-        private TimeSpan _Interval;
         private DateTime _StartTime;
         private DateTime _EndTime;
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
@@ -32,15 +30,24 @@ namespace Tractor.Core.Objects.Progress
             set => OnPropertyChange(ref _TimeLastchangeProgress, value);
         }
 
-        public double ProgressPercentage
+        public double ProgressPercentage 
         {
-            get => _ProgressPercentage;
-            set => OnPropertyChange(ref _ProgressPercentage, value);
+            get
+            {
+                TimeSpan TimeNow = DateTime.Now - StartTime;
+                if (TimeNow.TotalMilliseconds / Interval.TotalMilliseconds > 1)
+                {
+                    return 1;
+                }
+                else return TimeNow.TotalMilliseconds / Interval.TotalMilliseconds;
+            }
         }
         public TimeSpan Interval
         {
-            get => _Interval;
-            set => OnPropertyChange(ref _Interval, value);
+            get
+            {
+                return EndTime - StartTime;
+            }
         }
         public DateTime StartTime
         {

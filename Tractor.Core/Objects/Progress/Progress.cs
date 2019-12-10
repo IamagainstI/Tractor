@@ -8,14 +8,8 @@ namespace Tractor.Core.Objects.Progress
 {
     public class Progress : IProgress
     {
-        private double _ProgressPercentage;
         private DateTime _TimeLastchangeProgress;
-        public double ProgressPercentage
-        {
-            get => _ProgressPercentage;
-            set => OnPropertyChange(ref _ProgressPercentage, value);
-        }
-
+        public double ProgressPercentage { get; }
         public DateTime TimeLastChangeProgress
         {
             get => _TimeLastchangeProgress;
