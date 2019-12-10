@@ -4,4 +4,5 @@
     xmlns:local="using:Tractor.UWP.Presenters">
 
     <local:ColorConventer x:Key="ColorConventer"/>
+    <local:ColorConventer x:Key="DateConventer"/>
 </ResourceDictionary>
