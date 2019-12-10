@@ -115,7 +115,7 @@ namespace Tractor.Core.Objects.Tasks
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
          where T : IEquatable<T>
         {
-            if (!field.Equals(newValue))
+            if (true)
             {
                 PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
                 field = newValue;
