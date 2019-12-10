@@ -6,6 +6,7 @@ using Tractor.Core.Interactors.DataBases;
 using Tractor.Core.Objects;
 using Tractor.Core.Objects.DataBases;
 using Tractor.Core.Objects.Projects;
+using Tractor.Core.Objects.Tasks;
 using Tractor.Core.Routers.UI;
 
 namespace Tractor.Core
@@ -33,6 +34,7 @@ namespace Tractor.Core
             DataBaseDifferenceHandler = new DataBaseDifferenceHandler(CurrentDataBase);
             //////////////////////
             a.Projects.Add(new UsualProject(Guid.NewGuid()) { Name = "Хуй", Parent = CurrentDataBase });
+            a.Projects[0].Tasks.Add(new UsualTask(Guid.NewGuid()) { Name = "Отлов евреев", Parent = a.Projects[0] });
             //////////////////////
             _ = UIRouter >> CommandProcessor;
             _ = DataEditor >> DataRelocator;

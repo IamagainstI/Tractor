@@ -23,6 +23,10 @@ namespace Tractor.Core.Objects.Progress
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public event PropertyChangingEventHandler PropertyChanging;
+        public TimeBasedProgress(Guid id)
+        {
+            ID = id;
+        }
 
         public DateTime TimeLastChangeProgress
         {
@@ -64,12 +68,20 @@ namespace Tractor.Core.Objects.Progress
 
         public bool Equals(IProgress other)
         {
-            return other.ID == ID;
+            return ID.Equals(other.ID) && ProgressPercentage.Equals(other.ProgressPercentage) &&
+                Interval.Equals((other as TimeBasedProgress).Interval) && StartTime.Equals((other as TimeBasedProgress).StartTime)
+                && EndTime.Equals((other as TimeBasedProgress).EndTime);
         }
 
         public object Clone()
         {
-            throw new NotImplementedException();
+            var result = new TimeBasedProgress(ID);
+            result.TimeLastChangeProgress = TimeLastChangeProgress;
+            result.StartTime = StartTime;
+            result.ProgressPercentage = ProgressPercentage;
+            result.EndTime = EndTime;
+            result.Interval = Interval;
+            return result;
         }
     }
 }

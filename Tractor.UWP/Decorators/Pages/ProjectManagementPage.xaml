@@ -44,7 +44,7 @@
                 </DataTemplate>
             </HubSection>
         </Hub>-->
-        <GridView Grid.Row="2" ItemsSource="{x:Bind Presenter.ToDoTasks}">
+        <GridView Grid.Row="2" ItemsSource="{x:Bind Presenter.ToDoTasks}" ItemClick="GridView_ItemClick" SelectionChanged="GridView_SelectionChanged">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="tasks:ITask">
                     <controls:TaskView PresentedTask="{x:Bind}"/>

@@ -12,5 +12,6 @@ namespace Tractor.Core.Routers.UI
         public const string TEAMS_MANAGEMENT_PAGE = nameof(TEAMS_MANAGEMENT_PAGE);
         public const string USER_SETUP_PAGE = nameof(USER_SETUP_PAGE);
         public const string TASK_EDITOR = nameof(TASK_EDITOR);
+        public const string TASK_VIEW_DIALOG = nameof(TASK_VIEW_DIALOG);
     }
 }

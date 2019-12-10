@@ -4,8 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Tractor.Core;
+using Tractor.Core.Presenters.Tasks;
 using Tractor.Core.Routers.UI;
 using Tractor.UWP.Decorators.Controls;
+using Tractor.UWP.Decorators.Dialogs;
 using Tractor.UWP.Decorators.Pages;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -44,7 +46,7 @@ namespace Tractor.UWP
             Instance.UIRouter.NavigationRequested += UIRouter_NavigationRequested;
         }
 
-        private void UIRouter_NavigationRequested(object sender, NavigationInfo e)
+        private async void UIRouter_NavigationRequested(object sender, NavigationInfo e)
         {
             if (RootFrame.Content == null)
             {
@@ -64,6 +66,10 @@ namespace Tractor.UWP
                     break;
                 case UIViews.PROJECT_MANAGEMENT_PAGE:
                     mainPage.NavigateTo(typeof(ProjectManagementPage), e.Presenter);
+                    break;
+                case UIViews.TASK_VIEW_DIALOG:
+                    var dialog = new TaskViewDialog(e.Presenter as TaskViewPresenter);
+                    await dialog.ShowAsync();
                     break;
             }
         }

@@ -76,7 +76,8 @@ namespace Tractor.Core.Objects
 
         public bool Equals(IEntity other)
         {
-            return other.ID == ID;
+
+            return ID.Equals(other.ID) && Members.Equals((other as ITeam).Members);
         }
 
         public object Clone()

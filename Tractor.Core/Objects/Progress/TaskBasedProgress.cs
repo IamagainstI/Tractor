@@ -36,7 +36,7 @@ namespace Tractor.Core.Objects.Progress
             }
         }
         public DateTime TimeLastChangeProgress { get; set; }
-
+        public ITaskStorage Tasks { get; set; }
         public Guid ID { get; }
 
         public bool Equals(IProgress other)

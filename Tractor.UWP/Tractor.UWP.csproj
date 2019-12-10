@@ -126,6 +126,9 @@
     <Compile Include="Decorators\Controls\LabelView.xaml.cs">
       <DependentUpon>LabelView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Decorators\Dialogs\TaskViewDialog.xaml.cs">
+      <DependentUpon>TaskViewDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Decorators\Pages\TaskEditorPage.xaml.cs">
       <DependentUpon>TaskEditorPage.xaml</DependentUpon>
     </Compile>
@@ -229,6 +232,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Decorators\Controls\TaskView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Decorators\Dialogs\TaskViewDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

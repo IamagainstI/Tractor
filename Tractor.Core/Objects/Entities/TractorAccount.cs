@@ -40,7 +40,7 @@ namespace Tractor.Core.Objects
              
         public bool Equals(IEntity other)
         {
-            return ID == other.ID;
+            return ID.Equals(other.ID) && Name.Equals(other.Name);
         }
 
         public bool CheckAvailability(DateTime dateTime, TimeSpan timeSpan)
