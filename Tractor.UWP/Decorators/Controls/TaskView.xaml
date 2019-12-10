@@ -13,33 +13,33 @@
     MinHeight="64"
     MinWidth="128">
 
-    <UserControl.Resources>
-        <DataTemplate x:Key="NullDescriptionTemplate">
-            <Button x:Name="b_AddDescription" Content="Добавить описание" VerticalAlignment="Center" HorizontalAlignment="Center" Click="b_AddDescription_Click"/>
-        </DataTemplate>
-        <DataTemplate x:Key="DescriptionTemplate" x:DataType="descriptions:IDescription">
-            <local:DescriptionView PresentedDescription="{x:Bind Mode=OneWay}"/>
-        </DataTemplate>
-        <description:DescriptionViewTemplateSelector
+	<UserControl.Resources>
+		<DataTemplate x:Key="NullDescriptionTemplate">
+			<Button x:Name="b_AddDescription" Content="Добавить описание" VerticalAlignment="Center" HorizontalAlignment="Center" Click="b_AddDescription_Click"/>
+		</DataTemplate>
+		<DataTemplate x:Key="DescriptionTemplate" x:DataType="descriptions:IDescription">
+			<local:DescriptionView PresentedDescription="{x:Bind Mode=OneWay}"/>
+		</DataTemplate>
+		<description:DescriptionViewTemplateSelector
             x:Key="DescriptionTemplateSelector"
             DescriptionTemplate="{StaticResource DescriptionTemplate}"
             NullDescriptionTemplate="{StaticResource NullDescriptionTemplate}"/>
-    </UserControl.Resources>
+	</UserControl.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="32"/>
-            <RowDefinition Height="32"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="32"/>
+			<RowDefinition Height="32"/>
+			<RowDefinition Height="1*"/>
+		</Grid.RowDefinitions>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<TextBlock
                 Text="{x:Bind PresentedTask.Name, Mode=OneWay}"/>
-        </Grid>
+		</Grid>
 
 		<Grid Grid.Row="1">
 			<Grid.ColumnDefinitions>
@@ -55,10 +55,22 @@
                 Grid.Column="3"
                 Text="{x:Bind PresentedTask.CreationDate.Date.Day, Mode=OneWay}"
                 FontSize="20"/>
-        </Grid>
-        <ContentPresenter
+		</Grid>
+		<ContentPresenter
                 Grid.Row="2"
                 Content="{x:Bind PresentedTask.Description}"
-                ContentTemplateSelector="{StaticResource DescriptionTemplateSelector}"/>
-    </Grid>
+                ContentTemplateSelector="{StaticResource DescriptionTemplateSelector}" Margin="0,0,0,30"/>
+		<TextBlock 
+			Grid.Row="2" 
+			Text="{x:Bind PresentedTask.Progress.ProgressPercentage.ToString(), Mode=OneWay}"
+			VerticalAlignment="Top" 
+			Width="122" Margin="268,145,10,0"/>
+		<ProgressBar 
+			Height="15" 
+			Margin="231,211,10,0" 
+			Grid.Row="2" 
+			VerticalAlignment="Top"
+			
+			/>
+	</Grid>
 </UserControl>
