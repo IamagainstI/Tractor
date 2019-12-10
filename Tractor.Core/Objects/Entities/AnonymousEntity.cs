@@ -11,7 +11,7 @@ namespace Tractor.Core.Objects.Entities
         private string _Name;
 
         public Guid ID { get; }
-        string IEntity.Name 
+        public string Name 
         { 
             get => _Name; 
             set => OnPropertyChange(ref _Name, value); 
@@ -38,12 +38,14 @@ namespace Tractor.Core.Objects.Entities
 
         public IEntity Clone()
         {
-            throw new NotImplementedException();
+            var result = new AnonymousEntity(ID);
+            result._Name = Name;
+            return result;
         }
 
         public bool Equals(IEntity other)
         {
-            return ID == other.ID;
+            return (ID.Equals(ID) && Name.Equals(other.Name));
         }
     }
 }
