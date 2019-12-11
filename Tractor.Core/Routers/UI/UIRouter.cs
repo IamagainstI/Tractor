@@ -63,7 +63,14 @@ namespace Tractor.Core.Routers.UI
             }
             if (CurrentView != null)
             {
-                BackStack.Push(CurrentView);
+                switch (CurrentView.Name)
+                {
+                    case UIViews.TASK_VIEW_DIALOG:
+                        break;
+                    default:
+                        BackStack.Push(CurrentView);
+                        break;
+                }
             }
             object presenter = null;
             if (info.PresenterType != null)
