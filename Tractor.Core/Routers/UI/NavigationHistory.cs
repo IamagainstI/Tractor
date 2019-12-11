@@ -8,6 +8,6 @@ namespace Tractor.Core.Routers.UI
     {
         public string Name { get; set; }
         public Type PresenterType { get; set; }
-        public List<Guid>[] Paths { get; set; }
+        public IEnumerable<Guid>[] Paths { get; set; }
     }
 }
