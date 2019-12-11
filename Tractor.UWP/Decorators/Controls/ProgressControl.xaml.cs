@@ -20,7 +20,7 @@ namespace Tractor.UWP.Decorators.Controls
 {
     public sealed partial class ProgressControl : UserControl
     {
-        public static readonly DependencyProperty PresentedProgressProperty = DependencyProperty.Register(nameof(PresentedProgress), typeof(IProgress), typeof(TaskView), new PropertyMetadata(null));
+        public static readonly DependencyProperty PresentedProgressProperty = DependencyProperty.Register(nameof(PresentedProgress), typeof(IProgress), typeof(ProgressControl), new PropertyMetadata(null));
 
         public IProgress PresentedProgress
         {
