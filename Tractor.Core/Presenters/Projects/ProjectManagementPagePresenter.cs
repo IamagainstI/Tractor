@@ -12,7 +12,7 @@ using Tractor.Core.Routers.UI;
 
 namespace Tractor.Core.Presenters.Projects
 {
-    public class ProjectManagementPagePresenter : AbstractPresentor, INotifyPropertyChanged
+    public class ProjectManagementPagePresenter : AbstractPresenter, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -37,20 +37,8 @@ namespace Tractor.Core.Presenters.Projects
             }
         }
 
-        public void AddTask()
-        {
-            NavigationHistory info = new NavigationHistory()
-            {
-                Name = UIViews.TASK_EDITOR,
-                PresenterType = typeof(TaskEditPresenter),
-                Paths = new []
-                {
-                    new List<Guid>(Router.CurrentDataBase.GetPath(Project)),
-                    new List<Guid>() { Guid.NewGuid() }
-                }
-            };
-            Router.RequestNavigation(info);
-        }
+        public void AddTask() => TaskMethods.AddTask(Router, Project);
+        public void RemoveTask(ITask task) => TaskMethods.RemoveTask(Router, task);
 
         public void AddSubProject()
         {

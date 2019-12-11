@@ -20,9 +20,9 @@ namespace Tractor.UWP.Decorators.Dialogs
 {
     public sealed partial class TaskViewDialog : ContentDialog
     {
-        public TaskViewPresenter Presenter { get; private set; }
+        public TaskEditPresenter Presenter { get; private set; }
 
-        public TaskViewDialog(TaskViewPresenter presenter)
+        public TaskViewDialog(TaskEditPresenter presenter)
         {
             Presenter = presenter;
             this.InitializeComponent();

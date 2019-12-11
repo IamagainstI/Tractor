@@ -10,10 +10,10 @@ using Tractor.Core.Routers.UI;
 
 namespace Tractor.Core.Presenters.Tasks
 {
-    public class TaskEditPresenter : AbstractPresentor
+    public class TaskEditPresenter : AbstractPresenter
     {
         public ITaskStorage Storage { get; }
-        public ITask Task { get; private set; }
+        public ITask Task { get; set; }
 
         public TaskEditPresenter(UIRouter router, ITaskStorage storage, ITask task) : base(router)
         {
@@ -21,48 +21,9 @@ namespace Tractor.Core.Presenters.Tasks
             Task = task;
         }
 
-        public void AddSubtaskTask()
-        {
-            NavigationHistory info = new NavigationHistory()
-            {
-                Name = UIViews.TASK_EDITOR,
-                PresenterType = typeof(TaskEditPresenter),
-                Paths = new[]
-                {
-                    new List<Guid>(Router.CurrentDataBase.GetPath(Storage)),
-                    new List<Guid>() { Guid.NewGuid() }
-                }
-            };
-            Router.RequestNavigation(info);
-        }
-
-        public void RemoveSubtask(ITask task)
-        {
-            RelocateCommand cmd = new RelocateCommand(Guid.NewGuid())
-            {
-                DataBase = Router.CurrentDataBase,
-                Entity = Router.CurrentAccount,
-                NewPath = null,
-                Path = new List<Guid>(Router.CurrentDataBase.GetPath(Storage))
-            };
-            Router.SendCommand(cmd);
-        }
-        public void Save()
-        {
-            SetCommand cmd = new SetCommand(Guid.NewGuid())
-            {
-                DataBase = Router.CurrentDataBase,
-                Entity = Router.CurrentAccount,
-                NewValue = Task,
-                Path = new List<Guid>(Router.CurrentDataBase.GetPath(Storage).Concat(Enumerable.Repeat(Task.ID, 1)))
-            };
-            Router.SendCommand(cmd);
-            Router.RequestBack();
-        }
-
-        public void Cancel()
-        {
-            Router.RequestBack();
-        }
+        public void AddTask() => TaskMethods.AddTask(Router, Task);
+        public void RemoveTask(ITask task) => TaskMethods.RemoveTask(Router, task);
+        public void Save() => TaskMethods.SaveTask(Router, Storage, Task);
+        public void Cancel() => Router.RequestBack();
     }
 }

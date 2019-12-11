@@ -9,7 +9,7 @@ using Tractor.Core.Objects.DataBases;
 
 namespace Tractor.Core.Presenters.Projects
 {
-    public class ProjectPresenter : AbstractPresentor
+    public class ProjectPresenter : AbstractPresenter
     {
         public IProject Project { get; private set; }
         public IProjectStorage Storage { get; private set; }

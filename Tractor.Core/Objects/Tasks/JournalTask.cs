@@ -142,6 +142,7 @@ namespace Tractor.Core.Objects.Tasks
         {
             return ID == other.ID;
         }
+
         public override bool Equals(object obj)
         {
             if (obj is ITask task)
@@ -153,6 +154,7 @@ namespace Tractor.Core.Objects.Tasks
                 return false;
             }
         }
+
         public object Clone()
         {
             JournalTask result = new JournalTask(ID);

@@ -1,49 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Tractor.Core.Objects.DataBases;
+using Tractor.Core.Objects.Projects;
 using Tractor.Core.Objects.Tasks;
 using Tractor.Core.Routers.Command;
 using Tractor.Core.Routers.UI;
-using Tractor.Core.Objects.DataBases;
 
 namespace Tractor.Core.Presenters.Tasks
 {
-    public class TaskViewPresenter : AbstractPresentor
+    public class TaskViewPresenter : AbstractPresenter
     {
-        public ITask Task { get; }
-        public ITaskStorage Storage { get; }
+        public ITask Task { get; set; }
 
-        public TaskViewPresenter(UIRouter router, ITask task, ITaskStorage taskStorage) : base(router)
+        public TaskViewPresenter(UIRouter router, ITask task) : base(router)
         {
             Task = task;
-            Storage = taskStorage;
         }
 
-        public void AddSubtaskTask()
-        {
-            NavigationHistory info = new NavigationHistory()
-            {
-                Name = UIViews.TASK_EDITOR,
-                PresenterType = typeof(TaskEditPresenter),
-                Paths = new[]
-                {
-                    new List<Guid>(Router.CurrentDataBase.GetPath(Storage)),
-                    new List<Guid>() { Guid.NewGuid() }
-                }
-            };
-            Router.RequestNavigation(info);
-        }
-        public void RemoveSubtask(ITask task)
-        {
-            RelocateCommand cmd = new RelocateCommand(Guid.NewGuid())
-            {
-                DataBase = Router.CurrentDataBase,
-                Entity = Router.CurrentAccount,
-                NewPath = null,
-                Path = new List<Guid>(Router.CurrentDataBase.GetPath(Storage))
-            };
-            Router.SendCommand(cmd);
-        }
-
+        public void AddTask() => TaskMethods.AddTask(Router, Task);
+        public void RemoveTask(ITask task) => TaskMethods.RemoveTask(Router, task);
+        public void Edit() => TaskMethods.EditTask(Router, Task.Parent, Task);
+        public void Cancel() => Router.RequestBack();
     }
 }

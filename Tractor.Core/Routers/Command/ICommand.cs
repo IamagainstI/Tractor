@@ -10,7 +10,7 @@ namespace Tractor.Core.Routers.Command
 {
     public interface ICommand : INotifyPropertyChanged
     {
-        List<Guid> Path { get; set; }
+        IEnumerable<Guid> Path { get; set; }
         IEntity Entity { get; set; }
         IDataBase DataBase { get; set; }
         Guid ID { get; }

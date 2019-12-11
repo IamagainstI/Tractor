@@ -76,6 +76,8 @@ namespace Tractor.Core.Objects.DataBases
                     {
                         return GetPath(db, proj.Parent).Concat(Enumerable.Repeat(proj.ID, 1));
                     }
+                case null:
+                    return null;
                 default:
                     throw new NotImplementedException();
             }
