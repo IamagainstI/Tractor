@@ -139,7 +139,6 @@
     <Compile Include="Presenters\Description\DescriptionContentViewTemplateSelector.cs" />
     <Compile Include="Presenters\Description\DescriptionViewTemplateSelector.cs" />
     <Compile Include="Presenters\Tasks\TaskViewTemplateSelector.cs" />
-    <Compile Include="Presenters\Tasks\TaskViewModeTemplateSelector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Decorators\Controls\EntityTeamControl.xaml.cs">
       <DependentUpon>EntityTeamControl.xaml</DependentUpon>
