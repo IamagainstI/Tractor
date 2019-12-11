@@ -44,7 +44,7 @@ namespace Tractor.Core.Presenters
         {
             NavigationHistory navigationHistory = new NavigationHistory()
             {
-                Name = UIViews.TASK_EDITOR,
+                Name = UIViews.TASK_EDIT_PAGE,
                 PresenterType = typeof(TaskEditPresenter),
                 Paths = new IEnumerable<Guid>[]
                 {
