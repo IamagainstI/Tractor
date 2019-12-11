@@ -12,16 +12,14 @@ using Tractor.Core.Routers.UI;
 
 namespace Tractor.Core.Presenters.Projects
 {
-    public class ProjectManagementPagePresenter : AbstractPresenter, INotifyPropertyChanged
+    public class ProjectViewPresenter : AbstractPresenter
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public IProject Project { get; }
         public IEnumerable<ITask> ToDoTasks => Project.Tasks;
         public IEnumerable<ITask> InProgressTasks => Project.Tasks.Where(x => x.Progress.ProgressPercentage > 0 && x.Progress.ProgressPercentage < 1);
         public IEnumerable<ITask> DoneTasks => Project.Tasks.Where(x => x.Progress.ProgressPercentage == 1);
 
-        public ProjectManagementPagePresenter(UIRouter router, IProject presented) : base(router)
+        public ProjectViewPresenter(UIRouter router, IProject presented) : base(router)
         {
             Project = presented;
             Project.PropertyChanged += PresentedProject_PropertyChanged;
@@ -31,29 +29,20 @@ namespace Tractor.Core.Presenters.Projects
         {
             if (e.PropertyName == nameof(Project.Tasks))
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ToDoTasks)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(InProgressTasks)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DoneTasks)));
+                OnPropertyChanged(nameof(ToDoTasks));
+                OnPropertyChanged(nameof(InProgressTasks));
+                OnPropertyChanged(nameof(DoneTasks));
             }
         }
 
         public void AddTask() => TaskMethods.AddTask(Router, Project);
         public void RemoveTask(ITask task) => TaskMethods.RemoveTask(Router, task);
-
-        public void AddSubProject()
-        {
-            NavigationHistory history = new NavigationHistory()
-            {
-                Name = UIViews.PROJECT_MANAGEMENT_PAGE,
-                PresenterType = typeof(ProjectManagementPagePresenter),
-                Paths = new[]
-                {
-                    new List<Guid>(Router.CurrentDataBase.GetPath(Project)),
-                    new List<Guid>() { Guid.NewGuid() }
-                }
-            };
-            Router.RequestNavigation(history);
-        }
-
+        public void AddProject() => ProjectMethods.AddProject(Router, Project);
+        public void RemoveProject(IProject project) => ProjectMethods.RemoveProject(Router, project);
+        public void ShowTask(ITask task) => TaskMethods.ShowTask(Router, task);
+        public void EditTask(ITask task) => TaskMethods.EditTask(Router, Project, task);
+        public void ShowProject(IProject project) => ProjectMethods.ShowProject(Router, project);
+        public void EditProject(IProject project) => ProjectMethods.EditProject(Router, Project, project);
+        public void Edit() => ProjectMethods.EditProject(Router, Project.Parent, Project);
     }
 }
