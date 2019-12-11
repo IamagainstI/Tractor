@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tractor.Core.Objects.Tasks;
 using Windows.UI.Xaml.Data;
 
 namespace Tractor.UWP.Presenters
@@ -13,9 +12,8 @@ namespace Tractor.UWP.Presenters
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             return value switch
-            {               
-                DateTime s => DateTime.Now.ToString(s.Day, s.Month, s.Year),
-                DateTime uwp => uwp,
+            {
+                System.DateTime _ => DateTime.Now.ToString("MM/dd/yyyy"),
                 _ => throw new ArgumentException(),
             };
         }

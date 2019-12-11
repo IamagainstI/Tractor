@@ -126,6 +126,9 @@
     <Compile Include="Decorators\Controls\LabelView.xaml.cs">
       <DependentUpon>LabelView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Decorators\Controls\ProgressControl.xaml.cs">
+      <DependentUpon>ProgressControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Decorators\Dialogs\TaskViewDialog.xaml.cs">
       <DependentUpon>TaskViewDialog.xaml</DependentUpon>
     </Compile>
@@ -133,6 +136,7 @@
       <DependentUpon>TaskEditorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Presenters\ColorConventer.cs" />
+    <Compile Include="Presenters\DateConventer.cs" />
     <Compile Include="Presenters\Description\DescriptionContentViewTemplateSelector.cs" />
     <Compile Include="Presenters\Description\DescriptionViewTemplateSelector.cs" />
     <Compile Include="Presenters\Tasks\TaskEditorTemplateSelector.cs" />
@@ -220,6 +224,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Decorators\Controls\LabelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Decorators\Controls\ProgressControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
