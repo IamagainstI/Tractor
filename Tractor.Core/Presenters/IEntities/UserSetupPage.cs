@@ -6,7 +6,7 @@ using Tractor.Core.Routers.UI;
 
 namespace Tractor.Core.Presenters.IEntities
 {
-    public class UserSetupPage : AbstractPresentor
+    public class UserSetupPage : AbstractPresenter
     {
         public UIRouter UIRouter { get; }
         IEntity Account { get; }

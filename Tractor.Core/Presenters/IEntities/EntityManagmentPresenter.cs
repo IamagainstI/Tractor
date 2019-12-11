@@ -6,7 +6,7 @@ using Tractor.Core.Routers.UI;
 
 namespace Tractor.Core.Presenters.IEntities
 {
-    public class EntityManagmentPresenter : AbstractPresentor
+    public class EntityManagmentPresenter : AbstractPresenter
     {
         public IEntity Entity { get; }
 

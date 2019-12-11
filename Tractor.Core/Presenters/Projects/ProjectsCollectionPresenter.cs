@@ -9,7 +9,7 @@ using Tractor.Core.Routers.Command;
 
 namespace Tractor.Core.Presenters.Projects
 {
-    public class ProjectsCollectionPresenter : AbstractPresentor
+    public class ProjectsCollectionPresenter : AbstractPresenter
     {
         public IProjectStorage Projects { get; }
 

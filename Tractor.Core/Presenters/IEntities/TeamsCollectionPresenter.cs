@@ -7,7 +7,7 @@ using Tractor.Core.Objects.DataBases;
 
 namespace Tractor.Core.Presenters.IEntities
 {
-    public class TeamsCollectionPresenter : AbstractPresentor
+    public class TeamsCollectionPresenter : AbstractPresenter
     {
         public IEnumerable<ITeam> Teams { get; }
         UIRouter UIRouter { get; }
