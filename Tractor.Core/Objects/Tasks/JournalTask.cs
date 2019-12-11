@@ -122,9 +122,8 @@ namespace Tractor.Core.Objects.Tasks
         }
 
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
-         where T : IEquatable<T>
         {
-            if (!field.Equals(newValue))
+            if (!Equals(field, newValue))
             {
                 PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
                 field = newValue;
@@ -138,6 +137,7 @@ namespace Tractor.Core.Objects.Tasks
         {
             return ID == other.ID;
         }
+
         public override bool Equals(object obj)
         {
             if (obj is ITask task)
@@ -149,36 +149,37 @@ namespace Tractor.Core.Objects.Tasks
                 return false;
             }
         }
+
         public object Clone()
         {
             JournalTask result = new JournalTask(ID);
-            //result._Description = Description;
-            //result._Location = Location;
-            //result._Name = Name;
-            //result._Parent = Parent;
-            //result._Performer = Performer;
-            //result._Producer = Producer;
-            //result._Progress = Progress;
-            //foreach (ITask task in Subtasks)
-            //{
-            //    result.Subtasks.Add(task);
-            //}
-            //foreach (ITask task in Dependencies)
-            //{
-            //    result.Dependencies.Add(task);
-            //}
-            //foreach (IEntity observer in Observers)
-            //{
-            //    result.Observers.Add(observer);
-            //}
-            //foreach (KeyValuePair<IEntity, bool> check in CheckList)
-            //{
-            //    result.CheckList.Add(check);
-            //}
-            //foreach(IEntity entity in Participants)
-            //{
-            //    result.Participants.Add(entity);
-            //}
+            result._Description = Description;
+            result._Location = Location;
+            result._Name = Name;
+            result.Parent = Parent;
+            result._Performer = Performer;
+            result._Producer = Producer;
+            result._Progress = Progress;
+            foreach (ITask task in Tasks)
+            {
+                result.Tasks.Add(task);
+            }
+            foreach (ITask task in Dependencies)
+            {
+                result.Dependencies.Add(task);
+            }
+            foreach (IEntity observer in Observers)
+            {
+                result.Observers.Add(observer);
+            }
+            foreach (KeyValuePair<IEntity, bool> check in CheckList)
+            {
+                result.CheckList.Add(check);
+            }
+            foreach (IEntity entity in Participants)
+            {
+                result.Participants.Add(entity);
+            }
             return result;
         }
         #endregion
