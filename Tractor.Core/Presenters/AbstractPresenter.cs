@@ -21,11 +21,16 @@ namespace Tractor.Core.Presenters
         protected void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
          where T : IEquatable<T>
         {
-            if (true)
+            if (!Equals(field, newValue))
             {
                 field = newValue;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
             }
+        }
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }
