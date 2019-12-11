@@ -24,7 +24,7 @@ namespace Tractor.Core.Objects.Tasks
         IEntity Performer { get; set; }
         IEntity Producer { get; set; }
         IProgress Progress { get; set; }
-        DateTime CreationDate { get; }
+        DateTime CreationDate { get; set; }
         DateTime LastStateChangeDate { get; }
         ITaskLocation Location { get; set; }
         ITaskStorage Parent { get; set; }

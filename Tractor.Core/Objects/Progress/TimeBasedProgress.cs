@@ -78,9 +78,7 @@ namespace Tractor.Core.Objects.Progress
             var result = new TimeBasedProgress(ID);
             result.TimeLastChangeProgress = TimeLastChangeProgress;
             result.StartTime = StartTime;
-            result.ProgressPercentage = ProgressPercentage;
             result.EndTime = EndTime;
-            result.Interval = Interval;
             return result;
         }
     }

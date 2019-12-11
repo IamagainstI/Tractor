@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Tractor.Core.Objects.Difference;
@@ -16,12 +17,16 @@ namespace Tractor.Core.Objects.Progress
         public event PropertyChangingEventHandler PropertyChanging;
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
-
         public double ProgressPercentage
         {
             get
             {
-                throw new NotImplementedException();
+                double progress = 0;
+                foreach (var a in Tasks.Tasks)
+                {
+                    progress += a.Progress.ProgressPercentage;
+                }
+                return progress / Tasks.Tasks.Count();
             }
         }
 
@@ -38,7 +43,10 @@ namespace Tractor.Core.Objects.Progress
         public DateTime TimeLastChangeProgress { get; set; }
         public ITaskStorage Tasks { get; set; }
         public Guid ID { get; }
-
+        public TaskBasedProgress(Guid id)
+        {
+            ID = id;
+        }
         public bool Equals(IProgress other)
         {
             throw new NotImplementedException();

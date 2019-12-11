@@ -27,6 +27,8 @@ namespace Tractor.Core.Objects.Tasks
         private IEntity _Producer;
         private ITaskLocation _Location;
         private IProgress _Progress;
+        private DateTime _CreationDate;
+        private DateTime _LastStateChangeDate;
         #endregion
 
         #region Public events
@@ -58,8 +60,16 @@ namespace Tractor.Core.Objects.Tasks
             get => _Producer;
             set => OnPropertyChange(ref _Producer, value);
         }
-        public DateTime CreationDate { get; }
-        public DateTime LastStateChangeDate { get; }
+        public DateTime CreationDate 
+        {
+            get => _CreationDate;
+            set => OnPropertyChange(ref _CreationDate, value);
+        }
+        public DateTime LastStateChangeDate 
+        {
+            get => _LastStateChangeDate;
+            set => OnPropertyChange(ref _LastStateChangeDate, value);
+        }
         public ITaskLocation Location
         {
             get => _Location;
@@ -113,9 +123,8 @@ namespace Tractor.Core.Objects.Tasks
         }
 
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
-         where T : IEquatable<T>
         {
-            if (true)
+            if (!Equals(field, newValue))
             {
                 PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
                 field = newValue;
@@ -136,7 +145,25 @@ namespace Tractor.Core.Objects.Tasks
 
         public object Clone()
         {
-            throw new NotImplementedException();
+            var result = new UsualTask(ID);
+            result._Name = _Name;
+            foreach (var obs in Observers)
+            {
+                result.Observers.Add(obs);
+            }
+            result._Parent = _Parent;
+            result._Performer = _Performer;
+            result._Producer = _Producer;
+            result._Progress = _Progress;
+            foreach (var item in Tasks)
+            {
+                result.Tasks.Add(item);
+            }
+            result._CreationDate = _CreationDate;
+            result._Description = _Description;
+            result._LastStateChangeDate = _LastStateChangeDate;
+            result._Location = _Location;
+            return result;
         }
 
         public override bool Equals(object obj)
