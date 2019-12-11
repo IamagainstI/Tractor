@@ -8,9 +8,10 @@
     xmlns:controls="using:Tractor.UWP.Decorators.Controls"
     mc:Ignorable="d"
     Title="TITLE"
+    PrimaryButtonText="Редактировать"
     SecondaryButtonText="Назад"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
 
-    <controls:TaskView PresentedTask="{x:Bind Presenter.Task, Mode=OneWay}"/>
+    <controls:TaskView PresentedTask="{x:Bind Presenter.Task, Mode=OneWay}" MinHeight="400" MinWidth="400"/>
 </ContentDialog>

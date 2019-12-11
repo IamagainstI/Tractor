@@ -7,70 +7,229 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:descriptions="using:Tractor.Core.Objects.Descriptions"
     xmlns:description="using:Tractor.UWP.Presenters.Description"
+    xmlns:tasks="using:Tractor.Core.Objects.Tasks"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400"
     MinHeight="64"
-    MinWidth="128">
-
-	<UserControl.Resources>
-		<DataTemplate x:Key="NullDescriptionTemplate">
-			<Button x:Name="b_AddDescription" Content="Добавить описание" VerticalAlignment="Center" HorizontalAlignment="Center" Click="b_AddDescription_Click"/>
-		</DataTemplate>
-		<DataTemplate x:Key="DescriptionTemplate" x:DataType="descriptions:IDescription">
-			<local:DescriptionView PresentedDescription="{x:Bind Mode=OneWay}"/>
-		</DataTemplate>
-		<description:DescriptionViewTemplateSelector
+    MinWidth="128" SizeChanged="UserControl_SizeChanged"
+    >
+    <UserControl.Resources>
+        <DataTemplate
+            x:Key="NullDescriptionTemplate">
+            <Button
+            x:Name="b_AddDescription"
+            Content="Добавить описание"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"/>
+        </DataTemplate>
+        <DataTemplate
+            x:Key="DescriptionViewTemplate"
+            x:DataType="descriptions:IDescription">
+            <local:DescriptionView PresentedDescription="{x:Bind Mode=OneWay}"/>
+        </DataTemplate>
+        <description:DescriptionViewTemplateSelector
             x:Key="DescriptionTemplateSelector"
-            DescriptionTemplate="{StaticResource DescriptionTemplate}"
+            DescriptionTemplate="{StaticResource DescriptionViewTemplate}"
             NullDescriptionTemplate="{StaticResource NullDescriptionTemplate}"/>
-	</UserControl.Resources>
 
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="32"/>
-			<RowDefinition Height="32"/>
-			<RowDefinition Height="1*"/>
-		</Grid.RowDefinitions>
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-			</Grid.ColumnDefinitions>
-			<TextBlock
-                Text="{x:Bind PresentedTask.Name, Mode=OneWay}"/>
-		</Grid>
+        <DataTemplate
+            x:Key="ITaskNarrowViewTemplate"
+            x:DataType="tasks:ITask">
+            <RelativePanel>
+                <TextBlock
+                Name="tb_Name"
+                RelativePanel.AlignTopWithPanel="true"
+                RelativePanel.AlignLeftWithPanel="true"
+                RelativePanel.AlignRightWithPanel="true"
+                Text="{x:Bind Name, Mode=OneWay}"
+                HorizontalTextAlignment="Left"
+                MinHeight="32"
+                MinWidth="128"
+                Margin="10" DoubleTapped="tb_Name_DoubleTapped"/>
+                <ContentPresenter
+                Name="cp_Description"
+                RelativePanel.Below="tb_Performer"
+                RelativePanel.AlignLeftWithPanel="True"
+                RelativePanel.AlignRightWithPanel="True"
+                Content="{x:Bind Description, Mode=OneWay}"
+                ContentTemplateSelector="{StaticResource DescriptionTemplateSelector}"
+                MinHeight="128"
+                MinWidth="128"
+                Margin="10"/>
+                <TextBlock
+                Name="tb_Performer"
+                RelativePanel.Below="tb_Name"
+                RelativePanel.AlignLeftWithPanel="true"
+                Text="Исполнитель:"
+                MinHeight="32"
+                MinWidth="128"
+            Margin="10"/>
+                <local:EntityView
+                Name="ev_Performer"
+                RelativePanel.Below="tb_Name"
+                RelativePanel.AlignLeftWith="tb_Performer"
+                RelativePanel.AlignRightWithPanel="true"
+                PresentedEntity="{x:Bind Performer, Mode=OneWay}"
+                MinHeight="32"
+                MinWidth="128"
+            Margin="10"/>
+                <TextBlock
+                Name="tb_Producer"
+                RelativePanel.Below="tb_Performer"
+                RelativePanel.AlignLeftWithPanel="true"
+                Text="Постановщик:"
+                MinHeight="32"
+                MinWidth="128"
+            Margin="10"/>
+                <local:EntityView
+                Name="ev_Producer"
+                RelativePanel.Below="ev_Performer"
+                RelativePanel.AlignLeftWith="tb_Producer"
+                RelativePanel.AlignRightWithPanel="true"
+                PresentedEntity="{x:Bind Producer, Mode=OneWay}"
+                MinHeight="32"
+                MinWidth="128"
+            Margin="10"/>
+            </RelativePanel>
+        </DataTemplate>
 
-		<Grid Grid.Row="1">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="0*"/>
-				<ColumnDefinition Width="133*"/>
-				<ColumnDefinition Width="134*"/>
-				<ColumnDefinition Width="133*"/>
-			</Grid.ColumnDefinitions>
-			<local:EntityView
-                Grid.Column="2"
-                PresentedEntity="{x:Bind PresentedTask.Producer, Mode=OneWay}"/>
-			<TextBlock
-                Grid.Column="3"
-                Text="{x:Bind PresentedTask.CreationDate.Date.Day, Mode=OneWay}"
-                FontSize="20"/>
-		</Grid>
-		<ContentPresenter
-                Grid.Row="2"
-                Content="{x:Bind PresentedTask.Description}"
-                ContentTemplateSelector="{StaticResource DescriptionTemplateSelector}" Margin="0,0,0,30"/>
-		<TextBlock 
-			Grid.Row="2" 
-			Text="{x:Bind PresentedTask.Progress.ProgressPercentage.ToString(), Mode=OneWay}"
-			VerticalAlignment="Top" 
-			Width="122" Margin="268,145,10,0"/>
-		<ProgressBar 
-			Height="15" 
-			Margin="231,211,10,0" 
-			Grid.Row="2" 
-			VerticalAlignment="Top"
-			
-			/>
-	</Grid>
+        <DataTemplate
+            x:Key="ITaskWideViewTemplate"
+            x:DataType="tasks:ITask">
+            <RelativePanel>
+                <TextBlock
+                    Name="tb_Name"
+                    RelativePanel.AlignTopWithPanel="true"
+                    RelativePanel.AlignLeftWithPanel="true"
+                    RelativePanel.LeftOf="tb_Performer"
+                    Text="{x:Bind Name, Mode=OneWay}"
+                    HorizontalTextAlignment="Left"
+                    MinHeight="32"
+                    MinWidth="128"
+                    Margin="10"/>
+                <ContentPresenter
+                    Name="cp_Description"
+                    RelativePanel.Below="tb_Name"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.LeftOf="tb_Producer"
+                    Content="{x:Bind Description, Mode=OneWay}"
+                    ContentTemplateSelector="{StaticResource DescriptionTemplateSelector}"
+                    MinHeight="128"
+                    MinWidth="256"
+                    Margin="10"/>
+                <TextBlock
+                    Name="tb_Performer"
+                    RelativePanel.AlignTopWithPanel="true"
+                    RelativePanel.LeftOf="ev_Performer"
+                    Text="Исполнитель:"
+                    MinHeight="32"
+                    Margin="10"
+                    HorizontalAlignment="Center"/>
+                <local:EntityView
+                    Name="ev_Performer"
+                    RelativePanel.AlignTopWithPanel="true"
+                    RelativePanel.AlignRightWithPanel="true"
+                    PresentedEntity="{x:Bind Performer, Mode=OneWay}"
+                    MinHeight="32"
+                    MinWidth="128"
+                    Margin="10"/>
+                <TextBlock
+                    Name="tb_Producer"
+                    RelativePanel.Below="tb_Performer"
+                    RelativePanel.AlignLeftWith="tb_Performer"
+                    Text="Постановщик:"
+                    MinHeight="32"
+                    Margin="10"
+                    HorizontalAlignment="Center"/>
+                <local:EntityView
+                    Name="ev_Producer"
+                    RelativePanel.Below="ev_Performer"
+                    RelativePanel.AlignLeftWith="ev_Performer"
+                    RelativePanel.RightOf="tb_Producer"
+                    RelativePanel.AlignRightWithPanel="true"
+                    PresentedEntity="{x:Bind Producer, Mode=OneWay}"
+                    MinHeight="32"
+                    MinWidth="128"
+                    Margin="10"/>
+            </RelativePanel>
+        </DataTemplate>
+
+        <DataTemplate
+            x:Key="ITaskNarrowEditTemplate"
+            x:DataType="tasks:ITask">
+            <RelativePanel>
+                <TextBox
+                    Name="tb_Name"
+                    RelativePanel.AlignTopWithPanel="true"
+                    RelativePanel.AlignLeftWithPanel="true"
+                    RelativePanel.AlignRightWithPanel="true"
+                    Text="{x:Bind Name, Mode=TwoWay}"
+                    HorizontalTextAlignment="Left"
+                    MinHeight="32"
+                    MinWidth="128"
+                    Margin="10"/>
+                <ContentPresenter
+                    Name="cp_Description"
+                    RelativePanel.Below="tb_Performer"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignRightWithPanel="True"
+                    Content="{x:Bind Description, Mode=TwoWay}"
+                    ContentTemplateSelector="{StaticResource DescriptionTemplateSelector}"
+                    MinHeight="128"
+                    MinWidth="128"
+                    Margin="10"/>
+                <TextBlock
+                    Name="tb_Performer"
+                    RelativePanel.Below="tb_Name"
+                    RelativePanel.AlignLeftWithPanel="true"
+                    Text="Исполнитель:"
+                    MinHeight="32"
+                    MinWidth="128"
+                    Margin="10"/>
+                <local:EntityView
+                    Name="ev_Performer"
+                    RelativePanel.Below="tb_Name"
+                    RelativePanel.AlignLeftWith="tb_Performer"
+                    RelativePanel.AlignRightWithPanel="true"
+                    PresentedEntity="{x:Bind Performer, Mode=OneWay}"
+                    MinHeight="32"
+                    MinWidth="128"
+                    Margin="10"/>
+                <TextBlock
+                    Name="tb_Producer"
+                    RelativePanel.Below="tb_Performer"
+                    RelativePanel.AlignLeftWithPanel="true"
+                    Text="Постановщик:"
+                    MinHeight="32"
+                    MinWidth="128"
+                    Margin="10"/>
+                <local:EntityView
+                    Name="ev_Producer"
+                    RelativePanel.Below="ev_Performer"
+                    RelativePanel.AlignLeftWith="tb_Producer"
+                    RelativePanel.AlignRightWithPanel="true"
+                    PresentedEntity="{x:Bind Producer, Mode=OneWay}"
+                    MinHeight="32"
+                    MinWidth="128"
+                    Margin="10"/>
+            </RelativePanel>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <ContentPresenter x:Name="cp_TaskView" Content="{x:Bind PresentedTask, Mode=OneWay}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="WideView">
+                    <VisualState.Setters>
+                        <Setter Target="cp_TaskView.ContentTemplate" Value="{StaticResource ITaskWideViewTemplate}"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NarrowView">
+                    <VisualState.Setters>
+                        <Setter Target="cp_TaskView.ContentTemplate" Value="{StaticResource ITaskNarrowViewTemplate}"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </ContentPresenter>
+
 </UserControl>
