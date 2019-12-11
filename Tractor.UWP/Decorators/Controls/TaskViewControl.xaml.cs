@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Tractor.Core.Model;
 using Tractor.Core.Objects.Tasks;
+using Tractor.Core.Presenters.Tasks;
 using Tractor.Core.Routers.Command;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -20,26 +21,18 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Tractor.UWP.Decorators.Controls
 {
-    public sealed partial class TaskView : UserControl
+    public sealed partial class TaskViewControl : UserControl
     {
-        public static readonly DependencyProperty PresentedTaskProperty = DependencyProperty.Register(nameof(PresentedTask), typeof(ITask), typeof(TaskView), new PropertyMetadata(null));
+        public ITask PresentedTask { get; set; }
 
-        public event EventHandler<ICommand> CommandRequested;
-
-        public ITask PresentedTask
-        {
-            get => (ITask)GetValue(PresentedTaskProperty);
-            set => SetValue(PresentedTaskProperty, value);
-        }
-
-        public TaskView()
+        public TaskViewControl()
         {
             this.InitializeComponent();
         }
 
         private void b_AddDescription_Click(object sender, RoutedEventArgs e)
         {
-            CommandRequested?.Invoke(this, null);
+            //CommandRequested?.Invoke(this, null);
         }
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -48,9 +41,13 @@ namespace Tractor.UWP.Decorators.Controls
             {
                 VisualStateManager.GoToState(this, "WideView", true);
             }
-            else
+            else if (e.NewSize.Width >= 256)
             {
                 VisualStateManager.GoToState(this, "NarrowView", true);
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, "MiniView", true);
             }
         }
 
