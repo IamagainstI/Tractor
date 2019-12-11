@@ -43,7 +43,12 @@ namespace Tractor.Core.Objects.Progress
 
         public bool Equals(IProgress other)
         {
-            return other.ID == ID;
+            if (other != null && other is IProgress)
+            {
+                return (ID.Equals(other.ID) && TimeLastChangeProgress.Equals(other.TimeLastChangeProgress) &&
+                    ProgressPercentage.Equals(other.ProgressPercentage));
+            }
+            return false;
         }
 
         public object Clone()

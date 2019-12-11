@@ -8,14 +8,8 @@ namespace Tractor.Core.Objects.Progress
 {
     public class Progress : IProgress
     {
-        private double _ProgressPercentage;
         private DateTime _TimeLastchangeProgress;
-        public double ProgressPercentage
-        {
-            get => _ProgressPercentage;
-            set => OnPropertyChange(ref _ProgressPercentage, value);
-        }
-
+        public double ProgressPercentage { get; }
         public DateTime TimeLastChangeProgress
         {
             get => _TimeLastchangeProgress;
@@ -39,12 +33,13 @@ namespace Tractor.Core.Objects.Progress
 
         public bool Equals(IProgress other)
         {
-            return ID == other.ID;
+            return ID.Equals(other.ID) && ProgressPercentage.Equals(other.ProgressPercentage)
+                && TimeLastChangeProgress.Equals(other.TimeLastChangeProgress);
         }
 
         public object Clone()
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

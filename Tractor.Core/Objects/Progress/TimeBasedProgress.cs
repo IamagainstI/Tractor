@@ -9,8 +9,6 @@ namespace Tractor.Core.Objects.Progress
     public class TimeBasedProgress : ITimeBasedProgress
     {
         private DateTime _TimeLastchangeProgress;
-        private double _ProgressPercentage;
-        private TimeSpan _Interval;
         private DateTime _StartTime;
         private DateTime _EndTime;
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
@@ -25,6 +23,10 @@ namespace Tractor.Core.Objects.Progress
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public event PropertyChangingEventHandler PropertyChanging;
+        public TimeBasedProgress(Guid id)
+        {
+            ID = id;
+        }
 
         public DateTime TimeLastChangeProgress
         {
@@ -32,15 +34,24 @@ namespace Tractor.Core.Objects.Progress
             set => OnPropertyChange(ref _TimeLastchangeProgress, value);
         }
 
-        public double ProgressPercentage
+        public double ProgressPercentage 
         {
-            get => _ProgressPercentage;
-            set => OnPropertyChange(ref _ProgressPercentage, value);
+            get
+            {
+                TimeSpan TimeNow = DateTime.Now - StartTime;
+                if (TimeNow.TotalMilliseconds / Interval.TotalMilliseconds > 1)
+                {
+                    return 1;
+                }
+                else return TimeNow.TotalMilliseconds / Interval.TotalMilliseconds;
+            }
         }
         public TimeSpan Interval
         {
-            get => _Interval;
-            set => OnPropertyChange(ref _Interval, value);
+            get
+            {
+                return EndTime - StartTime;
+            }
         }
         public DateTime StartTime
         {
@@ -57,12 +68,20 @@ namespace Tractor.Core.Objects.Progress
 
         public bool Equals(IProgress other)
         {
-            return other.ID == ID;
+            return ID.Equals(other.ID) && ProgressPercentage.Equals(other.ProgressPercentage) &&
+                Interval.Equals((other as TimeBasedProgress).Interval) && StartTime.Equals((other as TimeBasedProgress).StartTime)
+                && EndTime.Equals((other as TimeBasedProgress).EndTime);
         }
 
         public object Clone()
         {
-            throw new NotImplementedException();
+            var result = new TimeBasedProgress(ID);
+            result.TimeLastChangeProgress = TimeLastChangeProgress;
+            result.StartTime = StartTime;
+            result.ProgressPercentage = ProgressPercentage;
+            result.EndTime = EndTime;
+            result.Interval = Interval;
+            return result;
         }
     }
 }

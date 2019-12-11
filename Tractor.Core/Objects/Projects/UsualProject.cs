@@ -73,7 +73,10 @@ namespace Tractor.Core.Objects.Projects
 
         public bool Equals(IProject other)
         {
-            throw new NotImplementedException();
+            return ID.Equals(other.ID) && Name.Equals(other.Name)
+                && Projects.Equals(other.Projects) && Description.Equals(other.Description)
+                && Tasks.Equals(other.Tasks) && Participants.Equals(other.Participants) &&
+                Parent.Equals(other.Parent) && Permissions.Equals(Permissions);
         }
 
         public object Clone()

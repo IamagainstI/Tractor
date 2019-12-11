@@ -44,7 +44,7 @@ namespace Tractor.Core.Objects.Entities.Permissions
 
         public bool Equals(IPermission other)
         {
-            return ID == other.ID;
+            return (ID.Equals(other.ID));
         }
     }
 }
