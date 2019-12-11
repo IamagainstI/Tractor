@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Tractor.Core.Objects
 {
-    public interface IEntity : IEquatable<IEntity>, INotifyPropertyChanged, INotifyPropertyChanging
+    public interface IEntity : IEquatable<IEntity>, INotifyPropertyChanged, INotifyPropertyChanging, ICloneable
     {
         Guid ID { get; }
         string Name { get; set; }

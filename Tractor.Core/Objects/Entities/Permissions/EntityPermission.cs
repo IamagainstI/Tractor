@@ -16,7 +16,7 @@ namespace Tractor.Core.Objects.Entities.Permissions
 
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
         {
-            if (true)
+            if (!Equals(field, newValue))
             {
                 PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
                 field = newValue;
@@ -45,6 +45,14 @@ namespace Tractor.Core.Objects.Entities.Permissions
         public bool Equals(IPermission other)
         {
             return (ID == other.ID && _Entity.Equals(other));
+        }
+
+        public object Clone()
+        {
+            var result = new EntityPermission(ID);
+            result._Entity = _Entity;
+            result._AccessType = _AccessType;
+            return result;
         }
     }
 }

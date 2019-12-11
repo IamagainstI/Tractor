@@ -21,9 +21,8 @@ namespace Tractor.Core.Objects.Entities
         public event PropertyChangingEventHandler PropertyChanging;
 
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
-         where T : IEquatable<T>
         {
-            if (true)
+            if (!Equals(field, newValue))
             {
                 PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
                 field = newValue;
@@ -36,16 +35,16 @@ namespace Tractor.Core.Objects.Entities
             ID = id;
         }
 
-        public IEntity Clone()
+        public bool Equals(IEntity other)
+        {
+            return (ID.Equals(ID) && Name.Equals(other.Name));
+        }
+
+        object ICloneable.Clone()
         {
             var result = new AnonymousEntity(ID);
             result._Name = Name;
             return result;
-        }
-
-        public bool Equals(IEntity other)
-        {
-            return (ID.Equals(ID) && Name.Equals(other.Name));
         }
     }
 }

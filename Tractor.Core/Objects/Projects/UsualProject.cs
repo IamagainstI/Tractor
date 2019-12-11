@@ -21,7 +21,6 @@ namespace Tractor.Core.Objects.Projects
     {
         #region Private objects
         private string _Name;
-        private IProgress _Progress;
         private IDescription _Description;
         private IProject _Parent;
         #endregion
@@ -38,9 +37,13 @@ namespace Tractor.Core.Objects.Projects
             get => _Name;
             set => OnPropertyChange(ref _Name, value);
         }
-        public IProgress Progress { get; set; }
+        public TaskBasedProgress Progress { get; set; }
         public ObservableCollection<IProject> Projects { get; } = new ObservableCollection<IProject>();
-        public IDescription Description { get; set; }
+        public IDescription Description 
+        {
+            get => _Description;
+            set => OnPropertyChange(ref _Description, value);
+        }
         public ObservableCollection<ITask> Tasks { get; } = new ObservableCollection<ITask>();
         public ObservableDictionary<IEntity, IEntityRole> Participants { get; } = new ObservableDictionary<IEntity, IEntityRole>();
         public Guid ID { get; }
@@ -51,9 +54,8 @@ namespace Tractor.Core.Objects.Projects
 
         #region Protected methods
         protected void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
-            where T : IEquatable<T>
         {
-            if (true)
+            if (!Equals(field, newValue))
             {
                 PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
                 field = newValue;
@@ -82,14 +84,26 @@ namespace Tractor.Core.Objects.Projects
         public object Clone()
         {
             UsualProject result = new UsualProject(ID);
-            //result._Name = _Name;
-            //result._Parent = _Parent;
-            //result._Participants = _Participants;
-            //result._Permissions = _Permissions;
-            //result._Progress = _Progress;
-            //result._Tasks = _Tasks;
-            //result._Subprojects = _Subprojects;
-            //result._Description = _Description;
+            result._Name = _Name;
+            result._Parent = _Parent;
+            foreach (var item in Participants)
+            {
+                result.Participants.Add(item);
+            }
+            foreach (var item in Permissions)
+            {
+                result.Permissions.Add(item);
+            }
+            result.Progress = Progress;
+            foreach (var item in Tasks)
+            {
+                result.Tasks.Add(item);
+            }
+            foreach (var item in Projects)
+            {
+                result.Projects.Add(item);
+            }
+            result._Description = _Description;
             return result;
         }
 

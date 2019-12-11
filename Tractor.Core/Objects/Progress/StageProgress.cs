@@ -33,9 +33,8 @@ namespace Tractor.Core.Objects.Progress
         }
 
         protected void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
-            where T : IEquatable<T>
         {
-            if (!field.Equals(newValue))
+            if (!Equals(field, newValue))
             {
                 PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
                 field = newValue;
@@ -62,7 +61,13 @@ namespace Tractor.Core.Objects.Progress
 
         public object Clone()
         {
-            throw new NotImplementedException();
+            var result = new StageProgress(ID);
+            result._TimeLastchangeProgress = _TimeLastchangeProgress;
+            foreach (var item in StageDictionary)
+            {
+                result.StageDictionary.Add(item);
+            }
+            return result;
         }
     }
 }

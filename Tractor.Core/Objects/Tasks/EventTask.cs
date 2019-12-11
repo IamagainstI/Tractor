@@ -26,6 +26,7 @@ namespace Tractor.Core.Objects.Tasks
         private ITaskLocation _Location;
         private TimeSpan _Duration;
         private DateTime _StartTime;
+        private DateTime _LastStageChangeDate;
         #endregion
 
         #region Public events
@@ -58,8 +59,12 @@ namespace Tractor.Core.Objects.Tasks
             get => _Producer;
             set => OnPropertyChange(ref _Producer, value);
         }
-        public DateTime CreationDate { get; }
-        public DateTime LastStateChangeDate { get; }
+        public DateTime CreationDate { get; set; }
+        public DateTime LastStateChangeDate 
+        {
+            get => _LastStageChangeDate;
+            set => OnPropertyChange(ref _LastStageChangeDate, value);
+        }
         public ITaskLocation Location
         {
             get => _Location;
@@ -129,9 +134,8 @@ namespace Tractor.Core.Objects.Tasks
         }
 
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
-         where T : IEquatable<T>
         {
-            if (!field.Equals(newValue))
+            if (!Equals(field, newValue))
             {
                 PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
                 field = newValue;
@@ -144,27 +148,27 @@ namespace Tractor.Core.Objects.Tasks
         public object Clone()
         {
             EventTask result = new EventTask(ID);
-            //result._Name = Name;
-            //result._Description = Description;
-            //result._Location = Location;
-            //result._Parent = Parent;
-            //result._Performer = Performer;
-            //result._Producer = Producer;
-            //result._Progress = Progress;
-            //result._Duration = Duration;
-            //result._StartTime = StartTime;
-            //foreach (ITask task in Subtasks)
-            //{
-            //    result.Subtasks.Add(task);
-            //}
-            //foreach (ITask task in Dependencies)
-            //{
-            //    result.Dependencies.Add(task);
-            //}
-            //foreach (IEntity observer in Observers)
-            //{
-            //    result.Observers.Add(observer);
-            //}
+            result._Name = Name;
+            result._Description = Description;
+            result._Location = Location;
+            result.Parent = Parent;
+            result._Performer = Performer;
+            result._Producer = Producer;
+            result._Progress = Progress;
+            result._Duration = Duration;
+            result._StartTime = StartTime;
+            foreach (var task in Tasks)
+            {
+                result.Tasks.Add(task);
+            }
+            foreach (var task in Dependencies)
+            {
+                result.Dependencies.Add(task);
+            }
+            foreach (var observer in Observers)
+            {
+                result.Observers.Add(observer);
+            }
             return result;
         }
 

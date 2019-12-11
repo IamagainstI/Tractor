@@ -7,11 +7,14 @@ namespace Tractor.Core.Objects.Tasks.Locations
 {
     public class TaskPlaceLocation : ITaskLocation
     {
-        public Guid ID => throw new NotImplementedException();
-
+        public Guid ID { get; }
+        public TaskPlaceLocation(Guid id)
+        {
+            ID = id;
+        }
         public bool Equals(ITaskLocation other)
         {
-            throw new NotImplementedException();
+            return ID == other.ID;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Tractor.Core.Objects.Descriptions.Labels
 
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
         {
-            if (true)
+            if (!Equals(field, newValue))
             {
                 PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
                 field = newValue;

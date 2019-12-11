@@ -24,6 +24,7 @@ namespace Tractor.Core.Objects.Tasks
         private IEntity _Performer;
         private IEntity _Producer;
         private ITaskLocation _Location;
+        private DateTime _LastStateChangeDate;
         #endregion
 
         #region Public events
@@ -58,8 +59,12 @@ namespace Tractor.Core.Objects.Tasks
             get => _Producer;
             set => OnPropertyChange(ref _Producer, value);
         }
-        public DateTime CreationDate { get; }
-        public DateTime LastStateChangeDate { get; }
+        public DateTime CreationDate { get; set; }
+        public DateTime LastStateChangeDate 
+        {
+            get => _LastStateChangeDate;
+            set => OnPropertyChange(ref _LastStateChangeDate, value);
+        }
         public ITaskLocation Location
         {
             get => _Location;
@@ -122,9 +127,8 @@ namespace Tractor.Core.Objects.Tasks
         }
 
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
-         where T : IEquatable<T>
         {
-            if (!field.Equals(newValue))
+            if (!Equals(field, newValue))
             {
                 PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
                 field = newValue;
@@ -152,33 +156,35 @@ namespace Tractor.Core.Objects.Tasks
         public object Clone()
         {
             JournalTask result = new JournalTask(ID);
-            //result._Description = Description;
-            //result._Location = Location;
-            //result._Name = Name;
-            //result._Parent = Parent;
-            //result._Performer = Performer;
-            //result._Producer = Producer;
-            //result._Progress = Progress;
-            //foreach (ITask task in Subtasks)
-            //{
-            //    result.Subtasks.Add(task);
-            //}
-            //foreach (ITask task in Dependencies)
-            //{
-            //    result.Dependencies.Add(task);
-            //}
-            //foreach (IEntity observer in Observers)
-            //{
-            //    result.Observers.Add(observer);
-            //}
-            //foreach (KeyValuePair<IEntity, bool> check in CheckList)
-            //{
-            //    result.CheckList.Add(check);
-            //}
-            //foreach(IEntity entity in Participants)
-            //{
-            //    result.Participants.Add(entity);
-            //}
+            result._Description = _Description;
+            result._Location = _Location;
+            result._Name = _Name;
+            result.Parent = Parent;
+            result._Performer = _Performer;
+            result._Producer = _Producer;
+            result._Progress = _Progress;
+            result._LastStateChangeDate = _LastStateChangeDate;
+            result.CreationDate = CreationDate;
+            foreach (ITask task in Tasks)
+            {
+                result.Tasks.Add(task);
+            }
+            foreach (ITask task in Dependencies)
+            {
+                result.Dependencies.Add(task);
+            }
+            foreach (IEntity observer in Observers)
+            {
+                result.Observers.Add(observer);
+            }
+            foreach (KeyValuePair<IEntity, bool> check in CheckList)
+            {
+                result.CheckList.Add(check);
+            }
+            foreach (IEntity entity in Participants)
+            {
+                result.Participants.Add(entity);
+            }
             return result;
         }
         #endregion

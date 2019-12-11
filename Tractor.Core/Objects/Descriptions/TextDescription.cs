@@ -72,9 +72,8 @@ namespace Tractor.Core.Objects.Descriptions
         }
 
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
-         where T : IEquatable<T>
         {
-            if (!field.Equals(newValue))
+            if (!Equals(field, newValue))
             {
                 PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
                 field = newValue;
@@ -86,13 +85,13 @@ namespace Tractor.Core.Objects.Descriptions
         #region Public Metods
         public bool Equals(IDescription other)
         {
-            throw new NotImplementedException();
+            return ID == other.ID;
         }
 
         public object Clone()
         {
             TextDescription result = new TextDescription(ID);
-            result.Text = Text;
+            result._Text = _Text;
             foreach (IStorageItem item in Attachments)
             {
                 result.Attachments.Add(item);

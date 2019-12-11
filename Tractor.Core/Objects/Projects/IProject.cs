@@ -19,7 +19,7 @@ namespace Tractor.Core.Objects.Projects
     {
         Guid ID { get; }
         string Name { get; set; }
-        IProgress Progress { get; set; }
+        TaskBasedProgress Progress { get; set; }
         IDescription Description { get; set; }
         IProjectStorage Parent { get; }
         ObservableDictionary<IEntity, IEntityRole> Participants { get; }

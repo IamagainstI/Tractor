@@ -12,9 +12,8 @@ namespace Tractor.Core.Objects.Progress
         private DateTime _StartTime;
         private DateTime _EndTime;
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
-         where T : IEquatable<T>
         {
-            if (true)
+            if (!Equals(field, newValue))
             {
                 PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
                 field = newValue;

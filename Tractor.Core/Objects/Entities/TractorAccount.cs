@@ -16,9 +16,8 @@ namespace Tractor.Core.Objects
         public event PropertyChangingEventHandler PropertyChanging;
 
         private void OnPropertyChange<T>(ref T field, T newValue, [CallerMemberName]string name = null)
-         where T : IEquatable<T>
         {
-            if (true)
+            if (!Equals(field, newValue))
             {
                 PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
                 field = newValue;
@@ -46,6 +45,15 @@ namespace Tractor.Core.Objects
         public bool CheckAvailability(DateTime dateTime, TimeSpan timeSpan)
         {
             throw new NotImplementedException();
+        }
+
+        public object Clone()
+        {
+            var result = new TractorAccount(ID)
+            {
+                _Name = _Name
+            };
+            return result;
         }
     }
 }
