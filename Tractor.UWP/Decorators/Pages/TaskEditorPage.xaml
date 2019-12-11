@@ -11,7 +11,7 @@
 
     <Grid>
 
-        <Custom:TaskView PresentedTask="{x:Bind Presenter.Task}" />
+        <Custom:TaskViewControl PresentedTask="{x:Bind Presenter.Task}" />
         <Button Content="Button" Margin="0,297,0,0" VerticalAlignment="Top" Height="614" Width="1054" HorizontalAlignment="Center" Click="Button_Click"/>
 
     </Grid>

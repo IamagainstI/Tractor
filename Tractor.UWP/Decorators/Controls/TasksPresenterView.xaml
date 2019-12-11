@@ -14,7 +14,7 @@
         <ListView ItemsSource="{x:Bind PresentedTasks}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="tasks:ITask">
-                    <local:TaskView PresentedTask="{x:Bind}"/>
+                    <local:TaskViewControl PresentedTask="{x:Bind}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

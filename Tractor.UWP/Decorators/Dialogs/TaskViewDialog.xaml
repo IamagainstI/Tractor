@@ -13,5 +13,5 @@
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
 
-    <controls:TaskView PresentedTask="{x:Bind Presenter.Task, Mode=OneWay}" MinHeight="400" MinWidth="400"/>
+    <controls:TaskViewControl PresentedTask="{x:Bind Presenter.Task, Mode=OneWay}" MinHeight="400" MinWidth="400"/>
 </ContentDialog>
