@@ -19,10 +19,12 @@ namespace Tractor.Core.Presenters.Tasks
         {
             Storage = storage;
             Task = task;
+            if (!Storage.Tasks.Contains(Task))
+            {
+                Task.Producer = router.CurrentAccount;
+            }
         }
 
-        public void AddTask() => TaskMethods.AddTask(Router, Task);
-        public void RemoveTask(ITask task) => TaskMethods.RemoveTask(Router, task);
         public void Save() => TaskMethods.SaveTask(Router, Storage, Task);
         public void Cancel() => Router.RequestBack();
     }
