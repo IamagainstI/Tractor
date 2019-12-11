@@ -12,7 +12,7 @@ namespace Tractor.Core.Routers.Command
     {
         private ProgressState _ProgressState;
         public event PropertyChangedEventHandler PropertyChanged;
-        public List<Guid> Path { get; set; }
+        public IEnumerable<Guid> Path { get; set; }
         public IEntity Entity { get; set; }
         public IDataBase DataBase { get; set; }
         public Guid ID { get; }
