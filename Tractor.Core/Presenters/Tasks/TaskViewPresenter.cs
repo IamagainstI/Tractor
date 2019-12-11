@@ -12,7 +12,7 @@ namespace Tractor.Core.Presenters.Tasks
 {
     public class TaskViewPresenter : AbstractPresenter
     {
-        public ITask Task { get; set; }
+        public ITask Task { get; }
 
         public TaskViewPresenter(UIRouter router, ITask task) : base(router)
         {
@@ -21,6 +21,7 @@ namespace Tractor.Core.Presenters.Tasks
 
         public void AddTask() => TaskMethods.AddTask(Router, Task);
         public void RemoveTask(ITask task) => TaskMethods.RemoveTask(Router, task);
+        public void EditTask(ITask task) => TaskMethods.EditTask(Router, Task, task);
         public void Edit() => TaskMethods.EditTask(Router, Task.Parent, Task);
         public void Cancel() => Router.RequestBack();
     }
