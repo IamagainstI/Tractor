@@ -132,6 +132,9 @@
     <Compile Include="Decorators\Controls\ProgressControl.xaml.cs">
       <DependentUpon>ProgressControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Decorators\Controls\ProjectViewControl.xaml.cs">
+      <DependentUpon>ProjectViewControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Decorators\Dialogs\TaskViewDialog.xaml.cs">
       <DependentUpon>TaskViewDialog.xaml</DependentUpon>
     </Compile>
@@ -162,8 +165,8 @@
     <Compile Include="Decorators\Pages\OverallPage.xaml.cs">
       <DependentUpon>OverallPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Decorators\Pages\ProjectManagementPage.xaml.cs">
-      <DependentUpon>ProjectManagementPage.xaml</DependentUpon>
+    <Compile Include="Decorators\Pages\ProjectViewPage.xaml.cs">
+      <DependentUpon>ProjectViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Decorators\Pages\ProjectsPage.xaml.cs">
       <DependentUpon>ProjectsPage.xaml</DependentUpon>
@@ -239,6 +242,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Decorators\Controls\ProjectViewControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Decorators\Controls\TaskViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -255,7 +262,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Decorators\Pages\ProjectManagementPage.xaml">
+    <Page Include="Decorators\Pages\ProjectViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
