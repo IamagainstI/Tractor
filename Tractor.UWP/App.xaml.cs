@@ -61,14 +61,14 @@ namespace Tractor.UWP
                 case UIViews.PROJECTS_PAGE:
                     mainPage.NavigateTo(typeof(ProjectsPage), e.Presenter);
                     break;
-                case UIViews.TASK_EDITOR:
+                case UIViews.TASK_EDIT_DIALOG:
                     mainPage.NavigateTo(typeof(TaskEditorPage), e.Presenter);
                     break;
-                case UIViews.PROJECT_MANAGEMENT_PAGE:
-                    mainPage.NavigateTo(typeof(ProjectManagementPage), e.Presenter);
+                case UIViews.PROJECT_VIEW_PAGE:
+                    mainPage.NavigateTo(typeof(ProjectViewPage), e.Presenter);
                     break;
                 case UIViews.TASK_VIEW_DIALOG:
-                    var dialog = new TaskViewDialog(e.Presenter as TaskViewPresenter);
+                    var dialog = new TaskViewDialog(e.Presenter as TaskEditPresenter);
                     await dialog.ShowAsync();
                     break;
             }

@@ -23,7 +23,7 @@ namespace Tractor.Core.Presenters.Projects
             NavigationHistory info = new NavigationHistory()
             {
                 Name = UIViews.TEAMS_MANAGEMENT_PAGE,
-                PresenterType = typeof(ProjectManagementPagePresenter),
+                PresenterType = typeof(ProjectViewPresenter),
                 Paths = new[]
                 {
                     new List<Guid>(Router.CurrentDataBase.GetPath(Projects)),
