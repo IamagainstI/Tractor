@@ -40,7 +40,7 @@ namespace Tractor.Core.Interactors
             {
                 IDifference difference = new Difference(Guid.NewGuid())
                 {
-                    ChangedObject = setCommand.DataBase.GetSpecifiedPath(setCommand.Path.Take(setCommand.Path.Count - 1)).LastOrDefault(),
+                    ChangedObject = setCommand.DataBase.GetSpecifiedPath(setCommand.Path.Take(setCommand.Path.Count() - 1)).LastOrDefault(),
                     Entity = setCommand.Entity,
                     NewValue = setCommand.NewValue,
                     OldValue = setCommand.DataBase.GetSpecifiedPath(setCommand.Path).LastOrDefault()
@@ -53,7 +53,7 @@ namespace Tractor.Core.Interactors
                 {
                     OldStorage = relocateCommand.DataBase.GetSpecifiedPath(relocateCommand.Path).LastOrDefault(),
                     NewStorage = relocateCommand.DataBase.GetSpecifiedPath(relocateCommand.NewPath).LastOrDefault(),
-                    Object = relocateCommand.DataBase.GetSpecifiedPath(relocateCommand.Path.Take(relocateCommand.Path.Count - 1)).LastOrDefault()
+                    Object = relocateCommand.DataBase.GetSpecifiedPath(relocateCommand.Path.Take(relocateCommand.Path.Count() - 1)).LastOrDefault()
                 };
                 DataRelocationInfo_Output?.Invoke(this, a);
             }
