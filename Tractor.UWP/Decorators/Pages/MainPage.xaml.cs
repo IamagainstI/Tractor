@@ -43,10 +43,10 @@ namespace Tractor.UWP.Decorators.Pages
             string cmd = (string)item.Content switch
             {
                 "Общий вид" => UIViews.OVERALL_PAGE,
-                "Управление проектами" => UIViews.PROJECT_MANAGEMENT_PAGE,
+                "Управление проектами" => UIViews.PROJECT_VIEW_PAGE,
                 _ => string.Empty
             };
-            App.CurrentInstance.Instance.UIRouter.RequestNavigation(new NavigationHistory() { Name = cmd, PresenterType = typeof(ProjectManagementPagePresenter), Paths = new[] { new List<Guid>() { App.CurrentInstance.Instance.CurrentDataBase.Projects.First().ID } } });
+            App.CurrentInstance.Instance.UIRouter.RequestNavigation(new NavigationHistory() { Name = cmd, PresenterType = typeof(ProjectViewPresenter), Paths = new[] { new List<Guid>() { App.CurrentInstance.Instance.CurrentDataBase.Projects.First().ID } } });
         }
 
         public void NavigateTo(Type type, object obj)
